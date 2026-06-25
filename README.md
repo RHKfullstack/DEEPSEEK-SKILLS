@@ -83,41 +83,34 @@ deepseek-skills/
 ```
 
 
+
 ---
 
-## 🚀 Push to GitHub (First Time Setup)
+## 🚀 Getting Started
 
-From your terminal:
+### Clone the Repository
 
 ```bash
-# Navigate to the project directory
-cd deepseek-skills
-
-# Initialize git repository
-git init
-
-# Add all files
-git add README.md frontend-skills.md backend-skills.md
-
-# Create first commit
-git commit -m "feat: initial release - DeepSeek frontend & backend skills prompts"
-
-# Set main branch
-git branch -M main
-
-# Add remote origin
-git remote add origin https://github.com/RHKfullstack/DEEPSEEK-SKILLS.git
-
-# Push to GitHub
-git push -u origin main
+git clone https://github.com/RHKfullstack/DEEPSEEK-SKILLS.git
+cd DEEPSEEK-SKILLS
 ```
 
-### After Initial Push — Update the Repo
+### Quick Start
+
+1. Open the skill file you need:
+   - `frontend-skills.md` — for frontend tasks
+   - `backend-skills.md` — for backend tasks
+
+2. Copy the entire contents.
+
+3. Paste into your AI tool as a system prompt (Cursor, Windsurf, Cline, ChatGPT, Claude, etc.).
+
+4. Start coding with a Principal-level engineer guiding the output.
+
+### Stay Updated
 
 ```bash
-git add .
-git commit -m "your update message"
-git push
+git pull origin main
 ```
 
 ---

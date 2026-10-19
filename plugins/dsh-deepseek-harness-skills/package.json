@@ -1,0 +1,35 @@
+{
+  "name": "dsh-deepseek-harness-skills",
+  "version": "1.0.0",
+  "description": "DeepSeek Harness skills: sandbox-mode (offline+online, captcha, card payment, anti-block doctrine), plannable (scenario-driven implementation plans) and organizer (artifact sink, deletion discipline, backup retention).",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "prompts",
+    "references",
+    "skills",
+    "tools"
+  ],
+  "scripts": {
+    "harness:check": "node --check index.js",
+    "harness:test": "node tools/plugin-registration-test.mjs",
+    "organizer:verify": "node tools/verify-organizer.mjs",
+    "organizer:test": "node tools/organizer-test.mjs"
+  },
+  "dsh": {
+    "id": "dsh-deepseek-harness-skills",
+    "name": "DeepSeek Harness Skills (sandbox-mode + plannable + organizer)",
+    "version": "1.0.0",
+    "permissions": "system-prompt injection",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

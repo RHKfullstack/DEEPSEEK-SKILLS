@@ -1,0 +1,114 @@
+organizer engine test — node v24.15.0 on win32
+fixture:  C:\Users\admin\AppData\Local\Temp\organizer-test-1791775340497-yGG1ep\fixture
+outside:  C:\Users\admin\AppData\Local\Temp\organizer-test-1791775340497-yGG1ep\outside (junction target)
+state:    C:\Users\admin\AppData\Local\Temp\organizer-test-1791775340497-yGG1ep\state
+junction: created — containment and junction-swap tests ran
+trash:    fake trash CLI staged on PATH for the raise test
+long path: leaf 305 characters, created
+git:      fixture repository initialised with tracked files
+
+PASS A1 doctor --json exits 0 and prints the {schemaVersion, kind, data} envelope — node v24.15.0, state dir C:\Users\admin\AppData\Local\Temp\organizer-test-1791775340497-yGG1ep\state
+PASS A2 doctor finds git and reports no trash CLI on this host — trash=null, so S2 removal candidates are raised to S3
+PASS A3 doctor human output renders without --json — human rendering ok
+PASS B1 inventory --json exits 0 with the envelope and the resolved root — 87 artifacts, 15 protected, 1 refused
+PASS B2 git state is read for real: tracked and ignored are distinguished — 3 tracked / 8 ignored
+PASS B3 every protected item is reported by path with its reason — 10 protected paths, each with its reason
+PASS B4 nothing from a protected tree is ever enumerated as an item — no item reaches inside a protected tree
+PASS B5 all seven kinds are decided from evidence — test-artifact, scrape-raw, junk-named, build-output, backup, untracked-work, ignored-other
+PASS B6 scrape payloads are recognised by directory marker AND a content probe — _raw + parent-directory-marker:_raw+json-with-url+status+headers-keys+no-trash-tool
+PASS B7 NUL.css is classified from evidence with the reserved-device flag raised — S3 with evidence.reservedDeviceName=true
+PASS B8 a referenced junk file is not a removal candidate: evidence beats the name pattern — referencedBy=tracked-file.php
+PASS B9 build/test output becomes a directory item that covers its children — dist covers 2 children
+PASS B9b a build script naming its own output does not veto regenerable output — reference recorded, action kept
+PASS B10 untracked real work is report-only: the engine will not touch it, and offers a landing hint — untracked-work is S0 report-only with a landing hint
+PASS B11 the check artifact is recognised as a test artifact (an ignore rule is not a reference) — name-pattern:check-artifact, no-trash-tool
+PASS B12 keep-latest backup retention: one keep, one previous, the rest superseded — and nothing removed without restore evidence — keep=keep previous=previous supersede=supersede
+PASS B12b the plan states the per-family retention policy and that a move frees no disk space — 2 supersede proposal(s), 4114 B
+PASS B12c at most ONE copy per family claims retentionRole `previous` (audit V2-4) — 5 families (3 unverified), 3 fallback row(s)
+PASS B13 an ignored directory that is not recognised output needs an owner decision — frames/ is report-only
+PASS B14 root tool-configuration dot-directories are kept by policy and cover their subtree — kept by policy, one decision for the subtree
+PASS B15 a whole-directory action is refused when the subtree holds protected content — blocked by protected
+PASS B16 a junction is refused, never followed, and never becomes an item — outside-link refused with escapesRoot=true
+PASS B17 a path longer than MAX_PATH is enumerated without crashing — absolute path 383 characters
+PASS B18 every item carries id, absolute path, class, evidence, size and level — 87 items validated
+PASS B19 item ids are stable across runs for the same path — 87 ids reproduced
+PASS B20 inventory is read-only: nothing in the fixture changed — 91 files, digest unchanged
+PASS B21 a tracked file whose on-disk case differs is still protected (Windows paths are case-insensitive) — SCRATCH-CASE-TEST.TMP resolved to git's scratch-case-test.tmp
+PASS C1 plan --json exits 0 and writes a reviewable, re-readable plan file — p-ef093528ff, 58 items
+PASS C2 `minimal` plans exactly the litter this session recorded creating — session-created.tmp at S1
+PASS C3 `--scope session` and `--level minimal` agree on the same item set — 1 item in both
+PASS C4 levels are monotone: each planned set contains the previous one — planned counts 1 -> 25 -> 35 -> 37 -> 37
+PASS C5 an item below the requested level is reported as deferred, not silently dropped — scrape-raw: deferred at minimal, planned at standard (minLevel=standard)
+PASS C6 a junk-named untracked file with no session record is S2-raised, never S1 — junk=S3 (no-trash-tool), session=S1
+PASS C7 a real trash CLI on PATH removes the raise (doctor adjusts the plan) — S2 with a trash tool, S3 without
+PASS C8 an item over the quarantine cap is raised, and its action becomes an irreversible purge — purge above the cap, move below it
+PASS C9 an oversize backup is never purged: it is proposed for archive instead — archive, not purge — 300 days old but 4.0 KiB exceeds the quarantine cap of 1.0 KiB: archive off-line, then delete
+PASS C10 backups enter the plan only at `deep` — backups are a deep-level concern
+PASS C10b `plan --purge` upgrades a superseded backup to an irreversible purge, still confirmed per item — purge backups/db-2026-01-01.sql (S3, S3), default stays a move
+PASS C11 30 same-kind files in one directory collapse into one reviewable item — 1 item covering 30 files
+PASS C12 every planned item documents the equivalent shell command, and none is executed — 58 items documented, shellExecuted=false everywhere
+PASS C13 the plan carries the exact ids that will need --confirm — 21 S3 ids suggested in nextCommands.apply
+PASS C14 plan usage errors: an unknown level is 2, a missing root is 3 — 2 / 3 / 2
+PASS D1 apply refuses S2 items without --approve-s2 and changes nothing — refused: S2 needs --approve-s2
+PASS D2 --approve-s2 still refuses S3 items, naming the exact id to confirm — refusal: S3 needs --confirm it-ceb492f5f9
+PASS D3 --confirm for a DIFFERENT id never approves this one — a confirm for one id never approves another
+PASS D4 an unknown --only id is a usage error and nothing is applied — exit 2 before any action is attempted
+PASS D5 an S1 item applies with no approval and is journalled as restorable — journalled it-f41546de0b -> session-created.tmp
+PASS D6 drift: a same-size content change is caught by sha256, and only that item is skipped — exit 5 from a same-size content change
+PASS D7 drift and a refusal together are both reported, and drift wins the exit code — drift=1 refused=1
+PASS D8 re-applying the same plan does not invent targets: a vanished item is drift — a second apply is a no-op that reports drift
+PASS D9 a target that became a junction between plan and apply is refused — refused: target is now a symlink or junction (never followed)
+PASS D10 a read-only file is quarantined without crashing, and its bytes survive — renamed without a mode change (NTFS allows renaming a read-only file)
+PASS D11 apply refuses a target that git now tracks: protection is re-checked at apply time — refused: target is protected now: tracked by git (the repository owns this file)
+PASS D12 apply --plan with a missing file is exit 3 — 3 for a missing plan
+PASS E1 undo restores an S1 quarantine byte-for-byte — restored session-created.tmp
+PASS E2 a second undo reports already-undone instead of restoring twice — idempotent
+PASS E3 undo refuses to overwrite a destination that was recreated, and says so — exit 5, nothing overwritten
+PASS E4 undo honestly reports an irreversible purge as not restorable — exit 6 with an explicit not-restorable reason
+PASS E5 undo reports a quarantine missing from the sink as not restorable — a missing copy is reported, never silently 'restored'
+PASS E6 undo --journal with a missing file is exit 3 — 3 for a missing journal
+PASS F1 disposition exits 6 while in-scope items are unaccounted for — 54 items, 34 pending
+PASS F2 disposition at `minimal` accounts for everything the level does not reach — 73 deferred by level, 0 pending
+PASS F3 --set records an owner decision, persists it, and closes that item — pending 34 -> 33
+PASS F4 a `kept` decision suppresses planning at every level; `removed` replans it — kept suppresses, removed replans
+PASS F5 --set rejects unknown ids and unknown dispositions with exit 2 — 3 usage errors, no state written
+PASS F6 apply the whole standard plan, decide the rest, and disposition exits 0 — 31 applied (4 routed), 5 decided, 29 items left, all accounted
+PASS G1 a forged plan cannot move `.env`, key material or the sink manifest (audit F2) — 5 forged protection attacks refused
+PASS G2 a forged plan cannot smuggle in an action the engine does not know — unknown action "delete-everything" in the plan; refusing rather than guessing
+PASS G3 a forged plan cannot route a file to a destination outside the root — route destination is outside the containment root: ..\..\outside\escaped.test.js
+PASS G4 the doctrine's own `.work/` sink is never planned, at any level (audit F4) — .work protected, live/_raw/page.json still scrape-raw
+PASS G5 an empty directory is settled at `light` as S1, journalled so `undo` recreates it — settle S1, mkdir inverse, undo recreates it
+PASS G6 a directory that keeps or reports content is never settled, and `.gitkeep` is not empty — kept content blocks a settle; .gitkeep counts as an entry
+PASS G7 a directory emptied only by this plan's own moves is settled after them, deepest first — moved first, then settled
+PASS G8 test CONTENT in an unnamed file is detected and routed to the test tree — 3 unnamed test files detected and routed
+PASS G9 weak-only test signals are NOT reclassified: an ambiguous hit stays reported work — `const test = ...` was not treated as a test
+PASS G10 a tracked file is never reclassified as test-content (tracked wins) — tracked wins over the content probe
+PASS G11 applying a route moves the file inside the repository and `undo` puts it back — routed to C:\Users\admin\AppData\Local\Temp\organizer-test-1791775340497-yGG1ep\fixture\tests\src\g11-route-me.test.js and back
+PASS G12 content lengths reported as bytes are byte lengths, not UTF-16 code units — 146 bytes vs 78 UTF-16 units
+PASS G13 PowerShell diagnostic cmdlets never decide, and a real Pester test still does — diagnostic cmdlets report-only, Pester routes, ambiguity recorded everywhere
+PASS G14 a forged plan whose rel and path disagree cannot move anything (audit V2-1, HIGH) — 5 rel/path-disagreement attacks refused at exit 6, nothing moved
+PASS G15 a forged journal cannot move a protected file back (audit V2-1, undo arm) — 5 forged-journal restores refused, protected targets intact
+PASS G16 a non-canonical rel cannot reach ANY acting branch of apply (audit V3-1, CRITICAL) — 6 non-canonical rels refused across move/route/settle/purge
+PASS G17 the missing-path and purge shapes are refused too (audit V3-1) — 3 missing-path attacks refused
+PASS G18 a forged journal cannot import, displace or recreate protected content (audit V3-2/V3-3) — 7 forged journals refused across move (4) and route (3) arms
+PASS G19 an honest undo still restores, and a refused undo is exit 6 (audit V3-2/V3-3) — honest undo restored and exit 0; the emptied sink run directory was pruned
+PASS G20 a link planted inside the sink is refused as a restore source (audit V4-2) — a junction inside the sink was refused: restore source is a symlink or junction (never followed)
+PASS G24 a junction AT the sink-root position is never walked through (audit V5-2) — a junction at the sink root was not walked through; the outside tree is intact
+PASS G25 a junction ANCESTOR of the sink root is never walked through either (audit V6-1) — an ancestor junction was not walked through, and the honest prune still runs
+PASS G26 a nested repository behind an unreadable directory is refused, not assumed absent (audit V6-2) — an unreadable directory is an unproven absence: the plan is refused and the file survives
+PASS G21 a plan re-rooted at an ancestor is refused, so protection cannot be re-anchored (audit V4-3) — a plan rooted above the project is refused; the honest root is unaffected
+PASS G23 apply refuses a plan root that nests a repository past any depth, and fails closed without git (audit V4-3, V5-1, V5-4) — nesting refused at depth 7; the git guard and the search budget both fail closed
+PASS G22 the operand gate does not refuse everything: every arm still applies honestly (control) — honest move, route, settle, purge applied, undo restored — the gate refuses forgeries, not work
+PASS H1 the engine never asks for a shell — 3 spawnSync calls, all argument-array based with shell:false
+PASS H2 no shell deletion idiom exists in executable code — no shell deletion idiom in code
+PASS H3 the documented shell field is explicitly marked as not executed — documentation-only shell field
+PASS H4 the engine states its invariants in-source, including the incident class it prevents — I1..I7 documented in-source
+PASS H5 containment is decided by resolved absolute path, and links are refused — realpath + containment + link refusal
+PASS I1 every command prints the {schemaVersion, kind, data} envelope with --json — 4 commands validated
+PASS I2 the documented exit codes were all produced by real runs — observed 0, 2, 3, 5, 6
+PASS I3 usage errors: no command, an unknown command and an unknown option are all exit 2 — 2 / 2 / 2, help is 0
+PASS I4 the plan of a repository is stable: planning twice yields the same plan id — p-f2f72ff9dc reproduced
+
+PASSED: 101 assertion(s) passed, 0 skipped, 0 failed
+
+cleaned up C:\Users\admin\AppData\Local\Temp\organizer-test-1791775340497-yGG1ep

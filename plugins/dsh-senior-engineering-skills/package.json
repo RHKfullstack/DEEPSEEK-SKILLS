@@ -1,0 +1,32 @@
+{
+  "name": "dsh-senior-engineering-skills",
+  "version": "1.0.0",
+  "description": "DeepSeek Harness senior-level engineering skills: work audit, system hardening, code review, supply-chain audit, threat modelling, release gate, test adequacy, data-migration safety, architecture review, reliability review and performance audit.",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "prompts",
+    "skills",
+    "tools"
+  ],
+  "scripts": {
+    "harness:check": "node --check index.js",
+    "harness:test": "node tools/plugin-registration-test.mjs"
+  },
+  "dsh": {
+    "id": "dsh-senior-engineering-skills",
+    "name": "DeepSeek Harness Senior Engineering Skills (audit + hardening)",
+    "version": "1.0.0",
+    "permissions": "system-prompt injection",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

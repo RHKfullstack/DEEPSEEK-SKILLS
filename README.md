@@ -1,151 +1,67 @@
-# DeepSeek Skills — Professional AI System Prompts
+# DeepSeek Skills
 
-> **Turn DeepSeek into a Principal-level Software Engineer.**
+A working pack of [DeepSeek Harness](https://deepseek-harness.github.io/) skills: one design family that covers web, desktop, mobile, print, slides and social, and one engineering family that audits code, queues, security, migrations, performance and releases.
 
-Production-grade system prompts that transform DeepSeek into a senior/staff/principal engineer with deep expertise across frontend and backend engineering. Every prompt is meticulously crafted to enforce best practices, eliminate lazy patterns, and ensure output that is secure, performant, accessible, and maintainable.
+Every skill is a **claim-check procedure**, not an essay. Each phase ends in a named artifact, and a check that was not executed is labelled `PLANNED` or `UNAVAILABLE` — never `PASSED`.
 
----
-
-## Why?
-
-Default AI coding assistants often produce decent code but miss critical production concerns: accessibility, security edge cases, error states, N+1 queries, proper indexing, CSP headers, focus management, cache invalidation, and dozens of other details that separate tutorial code from production systems.
-
-These prompts encode that senior-level judgment directly into the model's system instructions.
-
----
-
-## Available Skill Prompts
-
-| Prompt | Role | Lines | Coverage |
-|--------|------|-------|----------|
-| [`frontend-skills.md`](./frontend-skills.md) | Principal Frontend Engineer | 447 | HTML5 semantics, CSS3 deep fundamentals, TypeScript strict, React 19 hooks, Next.js App Router, state management, performance (Core Web Vitals), accessibility (WCAG 2.2 AA), testing (unit to E2E), security (CSP, XSS, CSRF), PWA, i18n, design systems, form handling, real-time patterns, CI/CD, code quality |
-| [`backend-skills.md`](./backend-skills.md) | Principal Backend Engineer | 381 | PHP/Laravel 11+, Node.js/TypeScript (Express, Fastify, NestJS, Hono), Python (Django, FastAPI), Go, PostgreSQL/MySQL indexing, Redis, MongoDB, Elasticsearch, REST/GraphQL/gRPC API design, auth (JWT, OAuth2, Passkeys, RBAC/ABAC/ReBAC), architecture (Clean, CQRS, Event-Driven, Microservices), caching strategies, queue/job processing, OWASP Top 10, DevOps (Docker, CI/CD, Terraform), testing |
-
----
-
-## How to Use
-
-### Method 1: System Prompt in Your AI Tool
-
-Copy the full contents of `frontend-skills.md` or `backend-skills.md` into your AI coding assistant's system prompt, custom instructions, or rules file. This works with DeepSeek, Cursor, Windsurf, GitHub Copilot, and any tool that supports custom system-level instructions.
-
-### Method 2: Direct Prompt Injection
-
-Paste the skill prompt at the start of your conversation:
+## Structure
 
 ```
-[Paste the skill file content here]
+skills/                                   user-level skills (drop into ~/.dsh/skills/)
+├── creative-designer/                     universal design method + per-medium constraints
+├── ui-design/                             web visual craft: tokens, 8 states, screenshot loop
+├── senior-frontend-engineering/           React correctness, WCAG 2.2 AA, CWV, Playwright
+├── stack-php-mysql/                       Laravel/PHP + MySQL + Redis + Windows commands
+├── senior-app-security/                   authz/IDOR, mass assignment, XSS, CSRF, CSP
+└── senior-background-jobs/                queues, Horizon, retries, failed_jobs, cron
 
----
-
-[Your task here]
+plugins/                                  installable DSH plugin packages
+├── dsh-deepseek-harness-skills/           sandbox-mode, plannable, organizer (+ prompts, references, tools)
+└── dsh-senior-engineering-skills/         11 senior-* audit skills (+ prompts, tools)
 ```
 
-### Method 3: IDE Rules File
+## The design family
 
-Add the content to your IDE's rules file (e.g., `.cursorrules`, `.github/copilot-instructions.md`, or your editor's equivalent) for automatic application to every coding session within that project.
+| Skill | Covers |
+|---|---|
+| `creative-designer` | Medium-agnostic method, shared system, and constraint sets for desktop, mobile, print/PDF, slides and social. Any medium not listed is derived from four questions. |
+| `ui-design` | Web: tokens, spacing rhythm, the eight component states, the "AI look" rejection list, a pass/fail rubric, and the screenshot-critique loop. |
+| `senior-frontend-engineering` | React state ownership and rendering correctness, WCAG 2.2 AA, Core Web Vitals budgets, browser-level proof (Playwright, visual regression), client security and i18n. |
 
-### Method 4: Per-Project Reference
+## The engineering family
 
-Store the skill files in your project repository and reference them from your IDE rules:
+| Skill | Covers |
+|---|---|
+| `senior-code-review` | Correctness, failure behaviour, concurrency, security, tests, interface compatibility |
+| `senior-work-audit` | Claim → ground truth → execution → diff audit → verdict |
+| `senior-test-adequacy` | Revert-falsification, diff coverage, mutation survival, determinism |
+| `senior-data-migration-safety` | Expand/contract ordering, lock impact, backfill, restore drill |
+| `senior-performance-audit` | Baseline, USE, profiling, query plans, overload/soak, re-measurement |
+| `senior-reliability-review` | SLIs/SLOs, error budgets, alert quality, runbooks, postmortems |
+| `senior-release-gate` | Artifact identity, verification evidence, rollback, observability, go/no-go |
+| `senior-system-hardening` | Identity, secrets, network exposure, host/container baselines, drift |
+| `senior-supply-chain-audit` | Dependency graph, lockfile integrity, provenance, CI permissions |
+| `senior-threat-model` | DFD, trust boundaries, STRIDE/LINDDUN/LLM threats, ranked mitigations |
+| `senior-architecture-review` | Attribute trade-offs, ADRs, interface contracts, data ownership |
+| `senior-app-security` | Object-level authorization, mass assignment, validation, XSS, CSRF/CORS, abuse controls |
+| `senior-background-jobs` | Delivery semantics, idempotency, retries, failed_jobs, scheduler, worker ops |
 
-```
-Always apply the engineering standards from @skills/frontend-skills.md
-```
+## Stack bridge
 
----
+The engineering skills are stack-neutral, which is how they end up citing PostgreSQL and Kubernetes. `stack-php-mysql` supplies the executable substitute for a Laravel/PHP + MySQL + Redis + Windows project, so an evidence gate resolves to a real command instead of `UNAVAILABLE`. Each senior skill points to it.
 
-## What Makes These Different?
+## Requirements
 
-| Trait | Default AI Code | With These Prompts |
-|-------|----------------|-------------------|
-| **Error handling** | Often missing | Every state handled (loading, empty, error, edge cases) |
-| **Accessibility** | Usually ignored | WCAG 2.2 AA built-in, keyboard nav, screen reader tested |
-| **Security** | Minimal | CSP, XSS prevention, CSRF, auth patterns, OWASP coverage |
-| **Performance** | Not considered | Core Web Vitals, caching strategies, N+1 prevention, indexing |
-| **Type safety** | `any` creep | Strict TypeScript, branded types, zod validation, no `any` |
-| **Testing** | Rarely included | Test pyramid, MSW, RTL, Playwright, AAA pattern |
-| **Code quality** | Works but messy | Named conventions, SOLID, design patterns, anti-pattern awareness |
-| **Completeness** | TODOs and stubs | Full implementations, no placeholders, production-ready |
+- DeepSeek Harness **0.2.1-rc.1 or newer**
+- Node.js and pnpm only for installing the plugin packages
+- Optional: Playwright or the devtools MCP server for the screenshot-critique loop
 
----
+## Install
 
-## Project Structure
+See [INSTALL.md](INSTALL.md). Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.
 
-```
-deepseek-skills/
-├── README.md                  # This file
-├── frontend-skills.md         # Frontend engineering prompt (447 lines)
-└── backend-skills.md          # Backend engineering prompt (381 lines)
-```
+## Notes
 
-
-
----
-
-## 🚀 Getting Started
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/RHKfullstack/DEEPSEEK-SKILLS.git
-cd DEEPSEEK-SKILLS
-```
-
-### Quick Start
-
-1. Open the skill file you need:
-   - `frontend-skills.md` — for frontend tasks
-   - `backend-skills.md` — for backend tasks
-
-2. Copy the entire contents.
-
-3. Paste into your AI tool as a system prompt (Cursor, Windsurf, Cline, ChatGPT, Claude, etc.).
-
-4. Start coding with a Principal-level engineer guiding the output.
-
-### Stay Updated
-
-```bash
-git pull origin main
-```
-
----
-
-## Contributing
-
-These prompts are living documents. If you find gaps, anti-patterns that should be added, or have suggestions for improvement:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Open a pull request with a clear description
-
-Focus contributions on:
-- Missing production concerns
-- New framework versions and their best practices
-- Anti-patterns that should be explicitly called out
-- Better decision frameworks
-
----
-
-## Roadmap
-
-- [ ] `fullstack-skills.md` — Combined full-stack engineering prompt
-- [ ] `devops-skills.md` — DevOps & infrastructure prompt
-- [ ] `mobile-skills.md` — React Native / Flutter prompt
-- [ ] `system-design-skills.md` — System design & architecture prompt
-- [ ] `security-skills.md` — Dedicated application security prompt
-- [ ] `code-review-skills.md` — Code review & PR review prompt
-
----
-
-## License
-
-MIT — Use, modify, and distribute freely. Attribution appreciated but not required.
-
----
-
-<p align="center">
-  <b>Built with ❤️ for engineers who want AI to produce real production code.</b>
-</p>
+- Skills are loaded on demand by matching the catalog description against the task. The always-on set is declared by the plugin, not by this README.
+- These files are instructions for an agent. They do not add code to an application and they are not a dependency of one.
+- The pack was written and iterated against real work; the "Failure modes" sections are distilled from mistakes that actually happened during that work.

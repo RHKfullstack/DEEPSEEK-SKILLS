@@ -4,6 +4,28 @@ A working pack of [DeepSeek Harness](https://deepseek-harness.github.io/) skills
 
 Every skill is a **claim-check procedure**, not an essay. Each phase ends in a named artifact, and a check that was not executed is labelled `PLANNED` or `UNAVAILABLE` — never `PASSED`.
 
+## Proof
+
+Built with these skills in a separate session: a footwear storefront (React + Vite + Tailwind), screenshotted from a live dev server at `1440px` and `390px`. No retouching — these are direct `.screenshot()` output from the same run that produced the measurements below.
+
+![Storefront, desktop 1440x900](assets/proof/tread-desktop-1440.png)
+
+### Mobile, 390x844
+
+<img src="assets/proof/tread-mobile-390.png" width="390" alt="Storefront at 390px wide">
+
+### Measured in that run
+
+| Check | Result |
+|---|---|
+| Console | 3 messages, **0 errors, 0 warnings** |
+| Horizontal scroll at `390px` | none (`scrollWidth 375` against `innerWidth 390`) |
+| Tap targets | `44px` minimum on the visible controls |
+| Typography | Instrument Serif display, one accent (rust) on cream, ≤4 sizes above the fold |
+| States | filter chips, sort select, `NEW`/`LIMITED` badges, cart count |
+
+**What this does not prove.** A screenshot proves the *rendered frontend*. It does not prove the backend behind it — no API, database, or auth path was audited in that run. That claim needs `senior-app-security` + `senior-background-jobs` + `stack-php-mysql` against the actual code, with commands and output, not an image.
+
 ## Structure
 
 ```

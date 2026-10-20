@@ -8,6 +8,33 @@ on its own authority: the plan is automatic, the irreversible step is not.
 The rule underneath every other rule: the workspace the user opens tomorrow is part of the
 deliverable. A run that produced the right answer and left the tree worse is not finished.
 
+## Where you may work — the workspace boundary
+
+The session's working directory (the runtime context's `Current working directory`) is the only place
+you may create, change, move or delete anything. It is the project root for every rule below.
+
+- **Never write outside it.** Not a sibling project, another repository, `%TEMP%`, the home directory,
+  `%APPDATA%`, a drive root, or a path you reconstructed from memory. "For testing" is not an
+  exception — a scratch folder in someone else's tree is exactly the damage this rule prevents.
+- **Never `cd` out of it to work.** Reading an outside path is fine when the user named it; creating
+  or changing anything there is not.
+- **Only a path the user names in this conversation is authorised.** A path from an earlier session,
+  or one inferred from a file you read, is not.
+- **If the work seems to need an outside path, stop and ask** — name the path and the reason. Do not
+  improvise a location and mention it afterwards.
+
+Within the workspace the sink rule is absolute: a file that is not a deliverable the user named goes
+to `.work/<YYYY-MM-DD>-<slug>/` and nowhere else. There is no third location — not the repo root, not
+an `app/` subfolder, not a sibling of the sink.
+**A tool's default path is not an exception.** A capture tool with no explicit output argument writes
+into the process directory: a Playwright `page.screenshot()` with no `filename`, `curl -o` with a bare
+name, a logger with a relative path. Pass an output path under `.work/<run>/raw/` on every call. A
+screenshot sitting at the workspace root is a defect even though no human typed the path — the tool
+typed it.
+
+**Path audit before the final answer.** Every turn that created or modified a file lists those paths
+and marks each one `deliverable` (named by the user, where they said) or `sink` (under `.work/`). A
+path that is neither is fixed before anything is reported as done.
 ## Trigger table
 
 Fires on any row below. The action is immediate, in the same turn as the trigger — not deferred to

@@ -3,12 +3,50 @@
 `organizer` is PINNED: load it with the `skill` tool on **every** user turn, in the same batch as
 `sandbox-mode`, `plannable` and the six `senior-*` core skills.
 
-## Rule O1 — Agent-created artifacts go to the sink
+## Rule O0 — Work only where the session points
 
-Every file an agent creates that the user did not name as a deliverable goes to one per-run directory,
-never the repo root: `<project-root>/.work/<YYYY-MM-DD>-<slug>/`, with `raw/`, `tmp/`, `out/`, `logs/`,
-`quarantine/` and a `MANIFEST.md` inside it, and `.work/` in `.gitignore`. A file you created sitting
-anywhere else is a defect to fix in the same turn.
+The runtime context names a `Current working directory`. That directory is the workspace, it is the
+project root for every rule below, and it is the **only** place you may create, modify, move or delete
+anything.
+
+- **Never write outside it.** Not a sibling project, not another repository, not `%TEMP%`, not the home
+  directory, not `%APPDATA%`, not a drive root, not a path you reconstructed from memory. "Just for
+  testing" is not an exception: a scratch folder in someone else's tree is the exact damage this rule
+  prevents.
+- **Never `cd` out of it to work.** Reading a path outside is fine when the user named it; creating or
+  changing anything there is not.
+- **The only exception is a path the user named in this conversation.** "Put it in `C:\projects\foo`"
+  authorises `C:\projects\foo` for that task. Nothing else does — not a path in an earlier session, not
+  one you inferred from a file you read.
+- **If the work seems to need an outside path, stop and ask before writing.** Name the path and the
+  reason. Do not improvise a location and mention it afterwards.
+
+A command that only works from another directory (a global install into a tool profile, a script under
+someone else's project) is a signal that the task points outside the workspace. Report it and let the
+user decide; do not run it.
+
+## Rule O1 — The sink is the only home for anything that is not a deliverable
+
+Run this gate **before the first write of every task**, and answer the three questions in order:
+
+1. **What is the workspace root?** The `Current working directory` from the runtime context. Say it.
+2. **Is this file a deliverable the user named?** Then it goes exactly where they said and nowhere else.
+3. **If it is not a deliverable**, it goes to the sink:
+   `<workspace>/.work/<YYYY-MM-DD>-<slug>/` with `raw/`, `tmp/`, `out/`, `logs/`, `quarantine/` and a
+   `MANIFEST.md`, and `.work/` in `.gitignore`.
+
+**There is no third location.** A file you created that is neither a named deliverable nor under
+`.work/` is a defect, and it is fixed **in the same turn**, before anything is reported as done. Never
+create it in:
+
+- the repo root, or any directory of the application tree;
+- a sibling of the sink at the root — `tmp/`, `scratch/`, `test-output/`, `results/`, `backups/`;
+- the desktop, Downloads, `%TEMP%`, `%USERPROFILE%`, `%APPDATA%`, a drive root;
+- another project's working tree or another repository.
+**A tool's default path is not an exception.** Capture tools write to the process directory when no
+output path is given — a Playwright `page.screenshot()` with no `filename`, `curl -o out.bin`, a logger
+with a relative name. Pass an explicit path under `.work/<run>/raw/` on **every** call. A screenshot at
+the workspace root is a defect even though no human typed the path.
 
 Placement is decided by content, not name: a file whose content is test-like (a framework import, a
 `describe`/`it`/`test` block, an assertion helper, a `TestCase` subclass) is a test even when its
@@ -17,6 +55,18 @@ filename says nothing. It goes to the test tree the runner already collects
 the application tree and never reach the build output. Runner unknown, or the content ambiguous: the
 item is `unsure` — the classification class, one of the three in Rule O2 — and stays where it is.
 Per-framework signals are in `paths.md`.
+
+### The path audit before the final answer
+
+Any turn that created or modified a file ends with a path audit in the reply:
+
+1. List every path you created or modified this turn.
+2. Mark each one `deliverable` (named by the user, at the path they named) or `sink` (under `.work/`).
+3. If any path is neither, fix it before answering — move it to the sink or delete it under its safety
+   class — and say what you moved.
+
+A turn with an unclassified path is not finished. Do not rely on "I will clean up later"; the next turn
+has no memory of this one.
 
 ## Rule O2 — No deletion without a plan the user saw, and a confirmation for anything irreversible
 
@@ -74,3 +124,6 @@ bytes, and when bytes are the goal, offer the choices and let the owner pick.
 and capture work, where these conventions apply to the fixture rather than being used to refuse the
 work; `plannable` still governs implementation work larger than a single edit. Nothing here relaxes
 the file, approval or sandbox rules or authorizes touching a project the user has not pointed you at.
+
+Rule O0 binds even that work: a sandbox target is a fixture inside the workspace unless the user named
+another path.

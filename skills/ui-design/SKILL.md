@@ -98,6 +98,8 @@ Form rules: label above input (not placeholder-as-label), helper text below, err
 
 Report the UI as done only after step 5, and quote what the screenshots showed. "Looks good" without a screenshot is not a result.
 
+**Show the screenshot inline in the reply, not just its path.** A preview the user has to go find is not a preview: attach the image in the answer (markdown image or the image tool) and keep the path only as a caption. A report that names `.work/.../raw/shot.png` and never displays it has done the work and hidden the result.
+
 ## 7. Acceptance rubric
 
 - [ ] Every spacing/size/color value resolves to a token (§0, §2)

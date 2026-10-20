@@ -108,6 +108,8 @@ Every medium-specific rule above is a consequence of those four. A video title c
 
 Run this against the artifact itself — a render, a screenshot, a print proof, a slide in presentation mode. Never against your memory of building it.
 
+**Show the artifact inline in the reply, not just its path.** A preview the user has to go find is not a preview: attach the render, the exported page, or the slide image in the answer, and keep the path only as a caption. The critique is the work; the image is the evidence the user can check.
+
 - [ ] One focal point; hierarchy readable at a squint and at `30%` scale
 - [ ] Every size/space/colour value resolves to the system (§ universal)
 - [ ] ≤4 type sizes per screen/slide, ≤5 per print spread

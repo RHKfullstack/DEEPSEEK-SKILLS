@@ -65,8 +65,9 @@ EVIDENCE: `react-correctness.md` — lint output, disable-audit result, key grep
 3. Prove the states with Playwright route interception: `delay` → skeleton, `fulfill({status:500})` → error plus a retry that re-issues the request, `fulfill({json:{data:[]}})` → empty copy. Capture one screenshot per state.
 4. Reserve layout: `<img>` carries `width`/`height` or `aspect-ratio` (`git grep -nE '<img' src`), and the skeleton has the final `min-height`. Assert `layout-shift` entries via `PerformanceObserver` and cumulative CLS < 0.1 on the route.
 5. No blank flash on navigation: assert the route shows its loading state before data resolves, not an empty container.
+6. **No platform default on a product-owned surface.** Run `git grep -nE 'window\.(confirm|alert|prompt)\(|<select|type="date"|type="file"' <changed paths>`. Every hit is either replaced by the project's component or listed as a platform-owned surface with the reason it must stay native — a `confirm()` before a delete is a finding even when it works.
 
-EVIDENCE: `states-matrix.md` — surface×state table, three screenshots per surface, CLS number, retry test result.
+EVIDENCE: `states-matrix.md` — surface×state table, three screenshots per surface, CLS number, retry test result, native-control grep output with a verdict per hit.
 
 ## Phase 5 — Accessibility, WCAG 2.2 AA
 

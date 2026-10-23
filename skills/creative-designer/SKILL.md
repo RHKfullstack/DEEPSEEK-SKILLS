@@ -103,6 +103,7 @@ Every medium-specific rule above is a consequence of those four. A video title c
 - **Empty states:** explain what would be here, and offer one action.
 - **Loading:** skeleton for content, spinner only for actions under a second.
 - **Errors:** a human sentence, what to do next, and a retry. Never a raw code.
+- **Platform control vs product control:** use the platform's own dialog only where the platform owns the surface — the OS file picker in a desktop build, the action sheet on iOS. Never use a browser dialog (`confirm`, `alert`, `prompt`) for a surface the product owns: confirmation, feedback, selection, validation. It reads as a prototype in every medium.
 
 ## Critique rubric
 

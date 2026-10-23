@@ -71,6 +71,28 @@ Every interactive element and every data surface ships these or it is incomplete
 
 Form rules: label above input (not placeholder-as-label), helper text below, error replaces helper and is `aria-describedby`-linked, required is marked in the label not by `*` alone, and the submit button reflects pending state.
 
+## 4b. Never ship the platform default
+
+A browser control is not a design — it is the absence of one, and it is the fastest way for a finished page to read as a prototype.
+
+**The test:** does the platform own this surface, or does the product? The platform owns the OS file picker in a desktop build and the share sheet on mobile. The product owns confirmation, feedback, selection, validation, navigation, and every empty state. On a surface the product owns, the browser default is a defect.
+
+| Never ship | Ship instead |
+|---|---|
+| `window.confirm()` before a destructive action | the project's modal, naming the object, with a destructive-styled primary and cancel holding the default focus |
+| `window.alert()` / `window.prompt()` | an inline message or a toast; a form for input |
+| `<select>` with browser chrome | the project's listbox/combobox, or the styled select it already has |
+| unstyled `<input type="date">` / `type="file"` | the project's date picker / drop zone, with the chosen filename shown |
+| native validation bubbles as the only error UI | inline error text tied by `aria-describedby`; the bubble is a fallback, never the design |
+| `title=""` as a tooltip | the project's tooltip |
+| a library toast with its default theme | the project's toast: same radius, shadow, type, and placement |
+| unstyled `<dialog>` | the project's modal, with focus trap, Escape, and scroll lock |
+| default scrollbars inside a designed panel | a styled scrollbar, or no scroll container |
+
+**Before building any interactive surface, inventory the project's components** (`components/`, `ui/`, a design-system folder, or the framework's kit). If one exists, use it — a second modal in one project is a defect. If none exists, build it from the §2 tokens and add it to the shared set; never inline a one-off in one page.
+
+**The default is only correct when it is the platform's own convention** — the OS file picker in Electron, the action sheet on iOS. `confirm()` is Chromium's convention, not the user's, and it belongs to the browser rather than to your product.
+
 ## 5. The rejection list — any hit is a fail
 
 - Purple→blue (or any) gradient used as the default surface treatment.
@@ -87,6 +109,9 @@ Form rules: label above input (not placeholder-as-label), helper text below, err
 - Multiple competing CTA styles in one viewport.
 - Icon-only buttons with no `aria-label` and no tooltip.
 - Fake data that pretends to be real (`Lorem ipsum`, `John Doe`, `$1,234.56`) in a demo that is meant to look finished — use plausible, category-correct content.
+- A `confirm()`, `alert()`, or `prompt()` anywhere in the diff (§4b).
+- An unstyled native select, date picker, or file input inside a designed form.
+- Two different modals, or two toast styles, in one project.
 
 ## 6. The loop — mandatory, in this order
 

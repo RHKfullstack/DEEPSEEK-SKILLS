@@ -9,6 +9,20 @@ An engine template is a prototype with a title screen. RPG Maker's default proje
 
 A game is a system of decisions that produce a feeling over time. This skill forces those decisions to be made explicitly, written down, and made testable — the same standard the rest of the pack applies to code.
 
+## The family — who owns what
+
+| Skill | Owns |
+|---|---|
+| `game-design` (this) | the loop, pillars, systems, balance sheet, offline/online decision, slice |
+| `game-client-2d` | 2D input, animation, tilemaps, camera, pixel-perfect |
+| `game-client-3d` | draw calls, triangles, materials, LOD, physics layers |
+| `game-netcode` | the per-system authority table, prediction, reconciliation, lag compensation |
+| `game-backend` | accounts, inventory, currency, sharding, persistence |
+| `game-quality-gate` | the frame-time threshold and the measurement method |
+| `game-assets` | licensing, the credits record, the asset pipeline |
+
+Load this skill first, then the domain skill a phase names. When two could fire, this table decides.
+
 ## Phase 0 — The one-paragraph game
 
 Before any asset, scene or script, write these five sentences:

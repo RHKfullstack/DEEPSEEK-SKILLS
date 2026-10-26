@@ -13,7 +13,7 @@ A game backend is a web backend with two hostile constraints: **every client is 
 - **Sessions** are short-lived tokens, refreshed; the game client never holds a long-lived credential in a save file.
 - **Device and platform identity** (Steam, PSN, mobile) map to one account via a linking table, with an explicit unlink path.
 - **Recovery** is designed, not an afterthought: email plus a support path, no security questions.
-- Cross-link: `senior-app-security` Phase 2 for hashing, session flags and token expiry.
+- Cross-link: `senior-app-security` Phase 2 for hashing, session flags and token expiry. Those two skills are scoped to Laravel/PHP + React - on another stack, route their commands through `stack-index` and keep the bar rather than the tool names.
 
 **EVIDENCE: `backend/identity.md` — account/character split, session lifetime, linking table, recovery path.**
 

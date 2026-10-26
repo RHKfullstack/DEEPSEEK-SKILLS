@@ -1,6 +1,6 @@
 ---
 name: game-design
-description: Design a game as a system - core loop, progression, economy, balance numbers, online authority and content pipeline - for RPG, MMORPG, and 2D/3D titles. Use when designing or reviewing game mechanics, when building a game from an engine template, when balancing loot or progression, when adding multiplayer to a single-player design, or when the ask is "build a game" and the answer must not be the engine's default template. Start here: load this before any other game skill for the design decisions, then load the domain skill it names.
+description: Design a game as a system - core loop, progression, economy, balance numbers, online authority and content pipeline - for RPG, MMORPG, and 2D/3D titles. Use when designing or reviewing game mechanics, when building a game from an engine template, when balancing loot or progression, when adding multiplayer to a single-player design, or when the ask is "build a game" and the answer must not be the engine's default template. Start here - load this before any other game skill for the design decisions, then load the domain skill it names.
 ---
 
 # Game Design

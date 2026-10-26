@@ -52,6 +52,9 @@ for (const name of folderSkills) {
   }
   if (!fm.name) errors.push(`E2 ${name}: no name`);
   if (!fm.description) errors.push(`E2 ${name}: no description`);
+  // A colon followed by a space ends an unquoted YAML scalar early and the loader
+  // drops the skill entirely - this is how game-design vanished from the catalog.
+  if (fm.description && /:\s/.test(fm.description)) errors.push(`E2b ${name}: description contains a colon-space and breaks the YAML scalar`);
   if (fm.name && fm.name !== name) errors.push(`E2 ${name}: declares name "${fm.name}"`);
   if (fm.description && (fm.description.length < 60 || fm.description.length > 900)) {
     warnings.push(`W1 ${name}: description length ${fm.description.length}`);

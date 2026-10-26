@@ -1,6 +1,6 @@
 ---
 name: game-quality-gate
-description: Build the gate that fails a game build - frame-time percentiles, memory ceiling, build size, load time and a scripted playtest harness - and prove it blocks by feeding it a heavy scene. Use when a game has no CI, when "it runs fine on my machine" is the quality claim, before a release build, or when regressions in frame rate or memory keep reaching players.
+description: Build the gate that fails a game build - frame-time percentiles, memory ceiling, build size, load time and a scripted playtest harness - and prove it blocks by feeding it a heavy scene. Use when a game has no CI, when "it runs fine on my machine" is the quality claim, before a release build, or when regressions in frame rate or memory keep reaching players. Owns the frame-time threshold and the measurement method.
 ---
 
 # Game Quality Gate

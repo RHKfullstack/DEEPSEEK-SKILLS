@@ -110,6 +110,8 @@ The repository root is itself a bundle (`package.json` â†’ `dsh.bundle.patch` â†
 
 Copy `skills\*` into `~/.dsh/skills/`. The filesystem provider picks them up on the next turn, with no restart. Use this when you want the design and stack skills without the plugin machinery.
 
+That installs the nineteen folder skills only. Their cross-references to the eleven `senior-*` audits and the three core skills resolve **only when the plugin bundle is also installed** - the folder path is the design and stack half of the pack, not the whole of it.
+
 Full per-tool instructions, including Claude Code and the other agents, are in [INSTALL.md](INSTALL.md). Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.
 
 ## Notes

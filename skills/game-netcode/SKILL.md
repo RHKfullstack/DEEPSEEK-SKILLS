@@ -1,6 +1,6 @@
 ---
 name: game-netcode
-description: Design and review networked game code - server authority, tick rate, snapshot interpolation, client prediction and reconciliation, lag compensation, and desync recovery. Use when adding multiplayer to a game, when players report rubber-banding or "I hit them and it did not register", before an MMORPG or real-time PvP launch, and whenever the client is trusted with damage, position, loot or currency.
+description: Design and review networked game code - server authority, tick rate, snapshot interpolation, client prediction and reconciliation, lag compensation, and desync recovery. Use when adding multiplayer to a game, when players report rubber-banding or "I hit them and it did not register", before an MMORPG or real-time PvP launch, and whenever the client is trusted with damage, position, loot or currency. Owns the per-system authority table; load after game-design Phase 4.
 ---
 
 # Game Netcode
@@ -27,7 +27,7 @@ Anything the player can gain by lying must be server-owned. Anything that only a
 
 ## Phase 2 — Tick and interpolation
 
-- **Fixed simulation tick** (e.g. 20 Hz or 30 Hz), independent of render frame rate.
+- **Fixed simulation tick, independent of render frame rate: MMO and co-op run 20-30 Hz, competitive PvP 60-128 Hz - state the rate and what justifies it for this genre.
 - **Snapshot state** sent at the tick rate; the client **interpolates between two received snapshots** to render at 60+ fps.
 - **Buffer** one or two snapshots so a late packet does not stall the visual.
 - **Clock sync**: the client estimates server time and renders slightly in the past (interpolation delay), never in the future.
@@ -59,7 +59,7 @@ Anything the player can gain by lying must be server-owned. Anything that only a
 | Failure | The design's answer |
 |---|---|
 | Packet loss | interpolation buffer + prediction |
-| 300 ms ping | bounded rewind; the player still sees their own input immediately |
+| 300 ms ping | outside the 200 ms rewind bound: the shot validates against the server's later view, and the player still sees their input immediately |
 | Desync | server state wins; log the divergence with both snapshots |
 | Disconnect mid-trade | transaction rolls back; no partial state |
 | Reconnect | session token + state resync, not a fresh character |
@@ -105,4 +105,4 @@ Anything the player can gain by lying must be server-owned. Anything that only a
 - [Gaffer On Games — Snapshot Interpolation](https://gafferongames.com/post/snapshot_interpolation/) — rendering between snapshots.
 - [Gaffer On Games — Networked Physics in VR](https://gafferongames.com/post/networked_physics_in_virtual_reality/) — the modern version of the same loop.
 - [Godot high-level multiplayer](https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html) — the engine layer under this design.
-- [yojimbo](https://github.com/networkprotocol/yojimbo) — a reference reliable-UDP client/server library.
+- [yojimbo](https://github.com/mas-bandwidth/yojimbo) — a reference reliable-ordered plus unreliable-unordered UDP client/server library, aimed at roughly 100 players per instance.

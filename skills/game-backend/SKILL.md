@@ -1,6 +1,6 @@
 ---
 name: game-backend
-description: Build the server side of an online game - accounts and sessions, authoritative player state, inventory and currency without dupes, matchmaking and world sharding, persistence and save versioning, rate limits and audit. Use when building a game server, adding accounts or a shop, designing inventory or trading, sharding an MMO world, or reviewing a backend that will hold player value.
+description: Build the server side of an online game - accounts and sessions, authoritative player state, inventory and currency without dupes, matchmaking and world sharding, persistence and save versioning, rate limits and audit. Use when building a game server, adding accounts or a shop, designing inventory or trading, sharding an MMO world, or reviewing a backend that will hold player value. Owns accounts, inventory and persistence; load with game-netcode for online play.
 ---
 
 # Game Backend

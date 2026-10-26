@@ -1,6 +1,6 @@
 ---
 name: game-client-2d
-description: Build a 2D game client to a professional bar - sprite atlases, tilemaps, camera, input buffering, animation state machines, pixel-perfect rendering and the frame budget. Use when implementing 2D movement, animation, tilemaps, cameras, or UI in a game, and when a 2D prototype must become a shipped client rather than an engine demo.
+description: Build a 2D game client to a professional bar - sprite atlases, tilemaps, camera, input buffering, animation state machines, pixel-perfect rendering and the frame budget. Use when implementing 2D movement, animation, tilemaps, cameras, or UI in a game, and when a 2D prototype must become a shipped client rather than an engine demo. Load after game-design; the frame-time threshold is owned by game-quality-gate.
 ---
 
 # Game Client 2D
@@ -21,7 +21,7 @@ The engine's default player scene has none of them decided.
 
 State the target before the first sprite. A game with no budget tunes by vibes and ships stutter.
 
-**EVIDENCE: a measured frame time for the vertical slice, with the profiler capture.**
+The shipping threshold and its measurement method are owned by `game-quality-gate` Phase 1 - this table is the allocation of that budget, not a second threshold. EVIDENCE: a measured frame time for the vertical slice, with the profiler capture.
 
 ## Phase 2 — Input
 
@@ -75,7 +75,7 @@ States: `idle → run → jump → fall → land → hurt → die`, with **trans
 | One texture per sprite | a packed atlas with named regions |
 | Sub-pixel movement on pixel art | integer scaling, fixed internal resolution |
 | Tiles at whatever size the tileset came with | tile size and origin decided in Phase 0 |
-| Sound on every hit with no mix | an audio bus with ducking and a volume ceiling |
+| Sound on every hit with no mix | an audio bus with ducking and a volume ceiling (`game-assets` Phase 4) |
 
 ## Definition of done
 

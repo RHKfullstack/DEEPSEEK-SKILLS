@@ -1,6 +1,6 @@
 ---
 name: game-design
-description: Design a game as a system - core loop, progression, economy, balance numbers, online authority and content pipeline - for RPG, MMORPG, and 2D/3D titles. Use when designing or reviewing game mechanics, when building a game from an engine template, when balancing loot or progression, when adding multiplayer to a single-player design, or when the ask is "build a game" and the answer must not be the engine's default template.
+description: Design a game as a system - core loop, progression, economy, balance numbers, online authority and content pipeline - for RPG, MMORPG, and 2D/3D titles. Use when designing or reviewing game mechanics, when building a game from an engine template, when balancing loot or progression, when adding multiplayer to a single-player design, or when the ask is "build a game" and the answer must not be the engine's default template. Start here: load this before any other game skill for the design decisions, then load the domain skill it names.
 ---
 
 # Game Design
@@ -73,10 +73,12 @@ State the target, the current measured value, and the delta. "We will balance la
 | Who owns state | the client | **the server**; the client predicts and reconciles |
 | Tick / update rate | frame loop | fixed tick, stated (e.g. 20 Hz) with interpolation |
 | Latency budget | none | per action: input → prediction → server ack → correction |
-| Persistence | save file, versioned, migratable | database + session store; see `senior-database-design` |
+| Persistence | save file, versioned, migratable | player value in a database (`senior-database-design`), hot session state in a store (`game-backend` Phase 4) |
 | Anti-cheat boundary | trust the player | never trust the client for damage, loot, currency or position |
 | Content delivery | shipped build | patchable manifest + version negotiation |
 | Failure modes | corrupt save, crash | desync, rollback, dupe, disconnect mid-trade |
+
+The per-system split - who owns position, damage, loot, currency - is owned by `game-netcode` Phase 1; this phase decides only offline vs online.
 
 An MMORPG is not a single-player game with a lobby. The authority model changes every system above, and it is cheaper to decide in Phase 0 than to retrofit at launch.
 
@@ -93,6 +95,8 @@ Every asset carries a license and a source URL in `assets/CREDITS.md`:
 | Purchased / commissioned | keep the license file with the asset |
 | Engine-provided defaults | check the engine's license for redistribution |
 | **Leaked or ripped proprietary assets** | **never** — a rename does not change a derivative work |
+
+The full licence schema - attribution text, share-alike and OFL font rules - is owned by `game-assets` Phase 1. This table is the summary.
 
 **Clean-room rebuilds are the legitimate form of "rebuild":** study the mechanics, implement from scratch with original or licensed art — the way OpenRCT2 reimplements its original engine. That is reimplementation. Decompiled or disassembled source is not a legitimate model — it is derived from the original binary and carries the original rights — and leaked or decompiled code is never an asset.
 

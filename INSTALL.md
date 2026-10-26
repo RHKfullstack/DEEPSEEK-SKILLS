@@ -15,11 +15,24 @@ Result:
 ```
 ~/.dsh/skills/
 ├── creative-designer/SKILL.md
-├── ui-design/SKILL.md
-├── senior-frontend-engineering/SKILL.md
-├── stack-php-mysql/SKILL.md
+├── game-assets/SKILL.md
+├── game-backend/SKILL.md
+├── game-client-2d/SKILL.md
+├── game-client-3d/SKILL.md
+├── game-design/SKILL.md
+├── game-netcode/SKILL.md
+├── game-quality-gate/SKILL.md
+├── project-quality-chain/SKILL.md
 ├── senior-app-security/SKILL.md
-└── senior-background-jobs/SKILL.md
+├── senior-background-jobs/SKILL.md
+├── senior-database-design/SKILL.md
+├── senior-frontend-engineering/SKILL.md
+├── senior-production-defaults/SKILL.md
+├── senior-quality-gate/SKILL.md
+├── stack-index/SKILL.md
+├── stack-php-mysql/SKILL.md
+├── stack-python/SKILL.md
+└── ui-design/SKILL.md
 ```
 
 Each directory holds a `SKILL.md` with YAML frontmatter (`name`, `description`), then the body.

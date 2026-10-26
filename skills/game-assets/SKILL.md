@@ -1,6 +1,6 @@
 ---
 name: game-assets
-description: Run a game asset pipeline that ships legally and reproducibly - license records, source-to-import separation, naming, atlases, audio buses and loudness, fonts and localization. Use when adding art, audio or fonts to a game, when an asset pack arrives with unclear licensing, before a store build, or when the repo has no record of where an asset came from.
+description: Run a game asset pipeline that ships legally and reproducibly - license records, source-to-import separation, naming, atlases, audio buses and loudness, fonts and localization. Use when adding art, audio or fonts to a game, when an asset pack arrives with unclear licensing, before a store build, or when the repo has no record of where an asset came from. Owns licensing, the credits record and the asset pipeline.
 ---
 
 # Game Assets

@@ -1,6 +1,6 @@
 ---
 name: game-client-3d
-description: Build a 3D game client to a professional bar - draw-call and triangle budgets, unit and import scale, material and lighting strategy, LOD and culling, physics layers and the frame profile. Use when implementing 3D rendering, importing models, setting up lighting or shadows, debugging frame drops in 3D, or taking a 3D prototype toward a shippable build.
+description: Build a 3D game client to a professional bar - draw-call and triangle budgets, unit and import scale, material and lighting strategy, LOD and culling, physics layers and the frame profile. Use when implementing 3D rendering, importing models, setting up lighting or shadows, debugging frame drops in 3D, or taking a 3D prototype toward a shippable build. Load after game-design; the frame-time threshold is owned by game-quality-gate.
 ---
 
 # Game Client 3D
@@ -14,12 +14,12 @@ description: Build a 3D game client to a professional bar - draw-call and triang
 | Frame time | 16.6 ms (60 fps) | 33.3 ms (30 fps) |
 | Draw calls | ≤ 1,000–2,000 | ≤ 200–400 |
 | Triangles on screen | 1–3 M | 100–300 k |
-| Texture memory | 1–2 GB | 200–400 MB |
+| Texture memory | 1–2 GB VRAM | 200–400 MB on a mid-range phone; under 150 MB on a low-end device |
 | Real-time shadow-casting lights | 1–2 | 1, or baked |
 
 The numbers are a starting point to measure against, not a target to assume. Record the actual counts for the slice.
 
-**EVIDENCE: the renderer's draw-call, triangle and texture-memory counters for the slice, against the table.**
+The shipping threshold and its measurement method are owned by `game-quality-gate` Phase 1 - this table allocates that budget across draw calls, triangles, texture memory and shadows. EVIDENCE: the renderer's draw-call, triangle and texture-memory counters for the slice, against the table.
 
 ## Phase 2 — Units and import scale
 
@@ -93,7 +93,7 @@ The numbers are a starting point to measure against, not a target to assume. Rec
 ## Sources — verified live 2026-10-27
 
 - [Godot 3D tutorials](https://docs.godotengine.org/en/stable/tutorials/3d/) — meshes, materials, lighting.
-- [Godot transforms](https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html) — the scale/origin rules this skill enforces.
+- [Godot transforms](https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html) — transform basis and uniform scale; the import-scale and origin conventions are this skill's, not that page's.
 - [LearnOpenGL](https://learnopengl.com/) — what the engine is doing underneath.
 - [three.js documentation](https://threejs.org/docs/) — the web 3D equivalent; its budgets are the same order, but measure your own scene.
 - [RenderDoc](https://renderdoc.org/) — frame capture; the tool that answers "where did the frame go".

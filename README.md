@@ -112,7 +112,8 @@ Copy `skills\*` into `~/.dsh/skills/`. The filesystem provider picks them up on 
 
 That installs the twenty-four folder skills only. Their cross-references to the eleven `senior-*` audits and the three core skills resolve **only when the plugin bundle is also installed** - the folder path is the design and stack half of the pack, not the whole of it.
 
-Full per-tool instructions, including Claude Code and the other agents, are in [INSTALL.md](INSTALL.md). Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.
+Full per-tool instructions, including Claude Code and the other agents, are in [INSTALL.md](INSTALL.md).
+> **Do not install both this bundle and another pack that ships the same `senior-*` names into one DSH profile.** The 11 senior audits would register twice. This bundle already includes them. Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.
 
 ## Notes
 

@@ -16,8 +16,17 @@ import { fileURLToPath } from "node:url";
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const errors = [];
 const warnings = [];
+// A real YAML parser when the package is present. The lint checks below cannot see
+// other YAML breakage (unbalanced quotes, tab indentation, duplicate keys).
+let parseYaml = null;
+try {
+  parseYaml = (await import("yaml")).parse;
+} catch {
+  console.warn("W0 the yaml module is not installed - frontmatter syntax is lint-checked only");
+}
 
 const read = (p) => readFileSync(p, "utf8").replace(/^\uFEFF/, "");
+const readBytes = (p) => readFileSync(p);
 
 function frontmatter(text) {
   const m = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text);
@@ -43,8 +52,22 @@ for (const name of folderSkills) {
     errors.push(`E1 ${name}: no SKILL.md`);
     continue;
   }
+  const bytes = readBytes(file);
+  if (bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf) {
+    errors.push(`E1 ${name}: BOM at byte 0 - the loader cannot see the frontmatter`);
+  }
   const raw = read(file);
-  if (!raw.startsWith("---")) errors.push(`E1 ${name}: SKILL.md does not start with --- (BOM or missing frontmatter)`);
+  if (!raw.startsWith("---")) errors.push(`E1 ${name}: SKILL.md does not start with --- (missing frontmatter)`);
+  if (parseYaml) {
+    const block = /^---\r?\n([\s\S]*?)\r?\n---/.exec(raw);
+    if (block) {
+      try {
+        parseYaml(block[1]);
+      } catch (e) {
+        errors.push(`E2c ${name}: frontmatter is not valid YAML - ${String(e.message).split("\n")[0]}`);
+      }
+    }
+  }
   const fm = frontmatter(raw);
   if (!fm) {
     errors.push(`E2 ${name}: unparseable frontmatter`);

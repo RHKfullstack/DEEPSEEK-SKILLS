@@ -69,7 +69,7 @@ A test lab (GLI, eCOGRA, iTech Labs, Gaming Associates) will ask for the model, 
 - the exact RTP derivation or the simulation report with CI,
 - the win cap and how it is enforced,
 - the bet-level matrix and the RTP per level (many games change RTP per denomination — if yours does, prove each one),
-- the version of the engine the report describes.
+- the version of the engine the report describes, and the provenance of the source the lab is reviewing - who wrote it and under what rights. A rebranded third-party base cannot be certified: the lab tests the code it can trace.
 
 A report that cannot be reproduced from the committed model is not submittable.
 

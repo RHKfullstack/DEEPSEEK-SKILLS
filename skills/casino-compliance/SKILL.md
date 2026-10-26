@@ -21,8 +21,9 @@ Before a line of UI, write the matrix:
 | Player funds | segregated, trusted, or unprotected — stated in the terms |
 | Age | 18 or 21, and the proof required |
 | Bonus rules | caps, wagering, and whether a bonus is allowed at all in that market |
-| Reporting | what the regulator receives, and how often |
+| Software provenance | the licence application declares who supplies the software, and the test lab requires the source chain: who wrote it, under what rights, and which version is certified. A rebranded third-party base fails both - a leaked or decompiled codebase is not a supplier you can declare |
 | Advertising | what claims are lawful, and where affiliates may promote |
+| Open-source base | allowed only when its licence permits commercial use, its notices are kept, and the lab can review the whole build - most casino frameworks are not licensed for this, so check before adopting one |
 
 **A feature that is legal in one market and illegal in another must be gated by jurisdiction, server-side**, not by a UI toggle. Geolocation plus licence check on every session, and a market with no licence means no access — not a warning.
 

@@ -102,7 +102,7 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 - the eleven `senior-*` audits — with the senior policy section
 - the eight folder skills under `skills/`
 
-27 skills in one install. No sub-package paths, no second install.
+33 skills in one install. No sub-package paths, no second install.
 
 > **Fixed in 1.1.0.** Earlier commits failed with *"This package declares no bundle, so it cannot be managed as a plugin"* — the root had no `package.json`, so the installer had nothing to mount.
 

@@ -52,14 +52,15 @@ This is the phase that separates a gate from a decoration.
 1. Create a deliberately bad file on a scratch branch — the defect the rule exists for. For this pack: a swallowed catch, a `console.log`, an `any`, an unpaginated query.
 2. Run the gate. **It must fail, with a non-zero exit code and a message naming the file and rule.**
 3. Capture that output verbatim.
-4. Delete the bad file, re-run, confirm green.
+4. Remove the probe from the sink under organizer's S1/S2 class, re-run, confirm green.
 5. If the gate passed the bad file: the rule is not active, the path is excluded, or the severity is `warn`. Fix that before adding any other rule.
 
 ```bash
 # example: prove ESLint rejects a swallowed catch
-printf 'try { risky(); } catch (e) {}\n' > src/__gate_probe.ts
-npx eslint src/__gate_probe.ts; echo "exit=$?"     # expect non-zero
-rm src/__gate_probe.ts
+mkdir -p .work/<run>/tmp
+printf 'try { risky(); } catch (e) {}\n' > .work/<run>/tmp/__gate_probe.ts
+npx eslint .work/<run>/tmp/__gate_probe.ts; echo "exit=$?"     # expect non-zero
+# remove the probe from the sink under organizer S1/S2 - it never lives in the source tree
 ```
 
 **EVIDENCE: the failing output for the probe, and the green run after deleting it.**

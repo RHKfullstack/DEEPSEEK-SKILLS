@@ -5,7 +5,7 @@ description: Design and review networked game code - server authority, tick rate
 
 # Game Netcode
 
-The network is a **design constraint**, not a feature you add after the gameplay works. Every system that trusted the client has to be rebuilt the day it becomes authoritative — which is why this decision belongs in Phase 0 of `game-design`, not in month nine.
+The network is a **design constraint**, not a feature you add after the gameplay works. Every system that trusted the client has to be rebuilt the day it becomes authoritative — which is why this decision belongs in Phase 4 of `game-design` (Offline vs online — decide the authority), not in month nine.
 
 ## Phase 1 — Authority, per system
 

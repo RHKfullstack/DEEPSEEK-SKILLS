@@ -88,6 +88,8 @@ Rules for the block:
 | `senior-code-review` | reports findings, does not fix |
 | `senior-work-audit` | reports a verdict, does not fix |
 | `senior-release-gate` | go/no-go, does not fix |
+| `senior-background-jobs` | repairs, then the chain re-runs from step 2 |
+| `senior-reliability-review` | repairs, then the chain re-runs from step 2 |
 
 **Never let an audit fix its own findings and then re-approve them.** The fix returns to step 2, and the chain runs again from there.
 

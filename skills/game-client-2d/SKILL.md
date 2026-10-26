@@ -91,7 +91,7 @@ States: `idle → run → jump → fall → land → hurt → die`, with **trans
 2. **Unbuffered input** — the game drops one in five jumps and the player calls it "clunky".
 3. **Sprite collider** — collisions catch on decorative pixels.
 4. **Sub-pixel camera on pixel art** — shimmer on every edge, everywhere, forever.
-5. **Unpacked textures** — a draw call per sprite, and the frame budget gone at 200 entities.
+5. **Unpacked textures** — a draw call per sprite: 200 unbatched sprites can exhaust a mobile render budget, and on desktop it is pure waste.
 6. **Tile half-offset** — discovered at level 12, after 40 tilesets are authored.
 
 ## Sources — verified live 2026-10-27

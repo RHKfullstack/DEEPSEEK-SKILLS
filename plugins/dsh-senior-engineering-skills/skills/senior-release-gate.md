@@ -97,7 +97,7 @@ The gate is a set of checks that each produce an artifact. If a check produces n
 
 ## Phase 8 — Go/no-go and post-release verification
 
-1. Record each gate item as PASS, FAIL, or WAIVED WITH OWNER; any FAIL with no waiver is a no-go.
+1. Record each gate item as PASS, FAIL, or WAIVED WITH OWNER - except verification, data safety, rollback and artifact identity, which have no waiver path and are FAIL-only; any FAIL with no waiver is a no-go.
 2. Record the decision, the decider, and the timestamp.
 3. Run post-deploy verification: smoke test, health endpoint, key business transaction, and error-rate comparison against the pre-deploy baseline.
 4. Watch the defined observation window before declaring success; "deployed" is not "working".

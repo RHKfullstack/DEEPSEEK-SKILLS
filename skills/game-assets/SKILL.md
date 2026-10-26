@@ -26,6 +26,8 @@ Rules:
 - **Purchased/commissioned** keeps the license document next to the asset, not in an email inbox.
 - **No row, no ship.** An asset that cannot be traced is removed or replaced.
 - **Never** a ripped or leaked asset, regardless of modification. Renaming a file does not change a derivative work.
+- **CC-BY-SA / GPL — do not adapt.** Ship unmodified only with the licence and attribution kept with the asset, and get legal review for the distribution model; share-alike can reach your own game files.
+- **OFL fonts** — include the licence text; a modified font may not keep a Reserved Font Name.
 
 **EVIDENCE: `assets/CREDITS.md` with one row per asset, and the credits screen showing the CC-BY entries.**
 
@@ -61,7 +63,7 @@ assets/imported/audio/music/<name>.ogg
 ## Phase 4 — Audio
 
 - **Bus structure:** master → music / sfx / ui / voice, each with its own volume and a ducking rule (music ducks under voice).
-- **Loudness target**, stated: streaming/broadcast platforms normalise, so a loud master gets turned down and a quiet one stays quiet. Target a consistent integrated loudness across the soundtrack.
+- **Loudness target**, stated: streaming/broadcast platforms normalise, so a loud master is attenuated and a quiet one is raised with a limiter. Set the game's own integrated target and a true-peak ceiling (e.g. <= -1 dBTP), and measure one track. Spotify and YouTube normalise toward about -14 LUFS integrated; EBU R128 broadcast toward -23 LUFS.
 - **Loops** are authored to loop seamlessly, with the loop points recorded in the metadata.
 - **Format per target:** compressed for music, short and uncompressed for latency-critical sfx.
 - **Voice count limit** — 32 simultaneous sfx is a budget; the thirty-third is dropped by design, not by luck.

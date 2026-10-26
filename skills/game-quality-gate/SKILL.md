@@ -13,9 +13,9 @@ The same law as `senior-quality-gate`: **a gate that has never rejected anything
 
 | Metric | Threshold | Where measured |
 |---|---|---|
-| Frame time p50 | ≤ 16.6 ms (60 fps) | the busiest scene in the build |
-| Frame time p95 | ≤ 20 ms | same scene, 5-minute capture |
-| Frame time p99 | ≤ 33 ms | same scene, includes spikes |
+| Frame time p50 | ≤ 16.7 ms (60 fps) | the busiest scene in the build, vsync off |
+| Frame time p95 | ≤ 16.7 ms | same scene, 5-minute capture — 20 ms at p95 is 50 fps for 5% of frames |
+| Frame time p99 | ≤ 33.3 ms | same scene; one missed vsync, no more |
 | Load time to interactive | stated per platform | cold start, packaged build |
 | Peak memory | stated per platform | packaged build, not editor |
 | Build size | stated per platform | the artifact that ships |
@@ -92,4 +92,4 @@ Build a deliberately heavy scene — 10× the props, an unbaked light, a 4K text
 - [Godot performance](https://docs.godotengine.org/en/stable/tutorials/performance/) — the engine's own guidance on measuring.
 - [RenderDoc](https://renderdoc.org/) — frame capture and the draw-call breakdown.
 - [Nsight Graphics](https://developer.nvidia.com/nsight-graphics) — GPU-side profiling.
-- [Godot 2D](https://docs.godotengine.org/en/stable/tutorials/2d/) and [3D](https://docs.godotengine.org/en/stable/tutorials/3d/) — the budgets these thresholds come from.
+- [Godot 2D](https://docs.godotengine.org/en/stable/tutorials/2d/) and [3D](https://docs.godotengine.org/en/stable/tutorials/3d/) — implementation reference; the thresholds above are this skill's own targets, not values quoted from that page.

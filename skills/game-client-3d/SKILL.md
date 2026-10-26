@@ -36,7 +36,7 @@ The numbers are a starting point to measure against, not a target to assume. Rec
 - **Lighting strategy chosen**: baked for static, real-time for dynamic, or a hybrid with an explicit split. Not "add a light and see".
 - **Shadow budget**: one shadow-casting directional light maximum on mobile, cascades measured, and shadows off for anything the player cannot see.
 - **Fog and sky** are atmosphere, not a way to hide the far plane.
-- **Post-processing is a cost**, ordered and measured; a bloom pass at 4K is a frame.
+- **Post-processing is a cost**, ordered and measured; a 4K bloom pass can cost several milliseconds — measure it in the frame capture.
 
 **EVIDENCE: the material count, the lighting split (baked vs dynamic), and the shadow cascade settings with their frame cost.**
 
@@ -95,6 +95,6 @@ The numbers are a starting point to measure against, not a target to assume. Rec
 - [Godot 3D tutorials](https://docs.godotengine.org/en/stable/tutorials/3d/) — meshes, materials, lighting.
 - [Godot transforms](https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html) — the scale/origin rules this skill enforces.
 - [LearnOpenGL](https://learnopengl.com/) — what the engine is doing underneath.
-- [three.js documentation](https://threejs.org/docs/) — the web 3D equivalent, same budgets.
+- [three.js documentation](https://threejs.org/docs/) — the web 3D equivalent; its budgets are the same order, but measure your own scene.
 - [RenderDoc](https://renderdoc.org/) — frame capture; the tool that answers "where did the frame go".
 - [Nsight Graphics](https://developer.nvidia.com/nsight-graphics) — GPU profiling on NVIDIA.

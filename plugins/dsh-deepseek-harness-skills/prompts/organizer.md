@@ -336,7 +336,7 @@ row, list it under "protected, not planned" with the matching reason, and regene
 - Project contracts and entry points: `README*`, `LICENSE*`, `CHANGELOG*`, `CONTRIBUTING*`, `docs/**`, `package.json`, `composer.json`, `requirements.txt`, `go.mod`, `Cargo.toml`, lockfiles, `Dockerfile`, `.github/workflows/**`, `.gitlab-ci.yml`, migration directories.
 - Dependency and toolchain trees the package manager owns: `vendor/`, `node_modules/`, `.venv/`, `venv/`, `__pycache__/`, `.next/`, `dist/` and `build/` where a manifest declares them.
 - Retention trees and release state: `retain/**`, `preserve/**`, `archive/**`, release branches, tags.
-- The run sink `.work/` and every descendant of it, at every level — the engine re-checks this at apply time, so a plan row for the sink is a defect, not a judgement call.
+- The run sink `.work/` — MANIFEST.md, the journal, the transcript and `raw/` captures. A plan row for those is a defect. `tmp/` and `out/` of a finished run are S2-removable, exactly as the S2 example states.
 - The current run's `MANIFEST.md`, and the agent's own scratchpad and transcript.
 - Single copies: the last remaining copy in a backup family, and any item whose removal would leave a scope with no restore point.
 - Anything the user named in this conversation as wanted.

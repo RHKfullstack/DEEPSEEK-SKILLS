@@ -89,12 +89,12 @@ Every asset carries a license and a source URL in `assets/CREDITS.md`:
 | Source | Use |
 |---|---|
 | CC0 packs (Kenney, Quaternius, OpenGameArt CC0) | safe to ship, keep the record |
-| CC-BY | safe with attribution — put it in the game's credits screen |
+| CC-BY 4.0 | credit, licence name + link, changes noted — see `game-assets` Phase 1 |
 | Purchased / commissioned | keep the license file with the asset |
 | Engine-provided defaults | check the engine's license for redistribution |
 | **Leaked or ripped proprietary assets** | **never** — a rename does not change a derivative work |
 
-**Clean-room rebuilds are the legitimate form of "rebuild":** study the mechanics, implement from scratch with original or licensed art — the way OpenRCT2, OpenTTD and DevilutionX were built. That is reimplementation; copying the leaked source or assets is not.
+**Clean-room rebuilds are the legitimate form of "rebuild":** study the mechanics, implement from scratch with original or licensed art — the way OpenRCT2 reimplements its original engine. That is reimplementation. Decompiled or disassembled source is not a legitimate model — it is derived from the original binary and carries the original rights — and leaked or decompiled code is never an asset.
 
 **EVIDENCE: `assets/CREDITS.md` — asset, license, source URL, and what ships with it.**
 
@@ -151,7 +151,7 @@ Content scales a working loop. It never fixes a broken one.
 - [Game Developer (GDC) articles](https://www.gamedeveloper.com/) — postmortems and design analyses.
 - [Red Blob Games](https://www.redblobgames.com/) — interactive explanations of pathfinding, hex grids and procedural maps.
 - [Gaffer On Games](https://gafferongames.com/) — networked physics, snapshots, prediction and reconciliation.
-- [OpenGameArt](https://opengameart.org/) and [Kenney assets](https://kenney.nl/assets) — CC0 asset packs with clear licensing.
+- [Kenney assets](https://kenney.nl/assets) — CC0 asset packs. [OpenGameArt](https://opengameart.org/) — mixed licences: each asset states its own, so check the row (see `game-assets` Phase 1).
 - [OpenRCT2](https://github.com/OpenRCT2/OpenRCT2) — a clean-room reimplementation, as the model for a legitimate rebuild.
 
 **Rule:** verify a source before citing it. A dead link in a design doc is a finding, not a footnote.

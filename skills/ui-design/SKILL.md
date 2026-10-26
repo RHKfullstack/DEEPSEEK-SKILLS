@@ -116,7 +116,7 @@ A browser control is not a design — it is the absence of one, and it is the fa
 ## 6. The loop — mandatory, in this order
 
 1. **Build** against the tokens.
-2. **Screenshot** at `1440×900` (desktop) and `390×844` (mobile). Use the Playwright or devtools MCP tools when available; otherwise the project's own screenshot script.
+2. **Screenshot** at `1440×900` (desktop) and `390×844` (mobile). Save each capture to `.work/<run>/raw/<surface>-1440.png` - never the process directory (organizer Rule O1). Use the Playwright or devtools MCP tools when available; otherwise the project's own screenshot script.
 3. **Critique with the image attached** — walk §7 line by line against the actual screenshot, and §5 against the actual code. Do not critique from memory of what you wrote.
 4. **Fix**, smallest diff first.
 5. **Re-screenshot.** Stop when the rubric has zero failures.

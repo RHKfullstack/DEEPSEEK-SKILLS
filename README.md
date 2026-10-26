@@ -100,7 +100,7 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 
 - `sandbox-mode`, `plannable`, `organizer` — with their policy sections and `references/`
 - the eleven `senior-*` audits — with the senior policy section
-- the eight folder skills under `skills/`
+- the nineteen folder skills under `skills/`
 
 33 skills in one install. No sub-package paths, no second install.
 

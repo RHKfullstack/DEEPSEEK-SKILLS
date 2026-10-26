@@ -26,8 +26,17 @@ Rules:
 - **Purchased/commissioned** keeps the license document next to the asset, not in an email inbox.
 - **No row, no ship.** An asset that cannot be traced is removed or replaced.
 - **Never** a ripped or leaked asset, regardless of modification. Renaming a file does not change a derivative work.
+- **A public repository is not a licence.** Visibility grants nothing: the right to use comes from a LICENSE file naming the copyright holder, not from the code being readable. A repo with no LICENSE, a single commit with no author, or a "dump" in the description is a leak - the uploader had nothing to grant, so you received nothing. Treat it as unusable for anything that ships.
 - **CC-BY-SA / GPL — do not adapt.** Ship unmodified only with the licence and attribution kept with the asset, and get legal review for the distribution model; share-alike can reach your own game files.
 - **OFL fonts** — include the licence text; a modified font may not keep a Reserved Font Name.
+
+**Before adopting any third-party code or asset from a public repository, run this check:**
+
+1. **Is there a LICENSE file** at the root? Read it, not the README. No file means no grant, regardless of what the description claims.
+2. **Who is the copyright holder** in that file, and are they plausibly the author?
+3. **Is there history?** A real project has commits, issues, releases and an author with other work. A single import commit with a blank author is a dump.
+4. **Does the licence permit the distribution you need** - commercial use, closed source, game distribution, gambling (most do not).
+5. **Does the project still exist?** A deleted original with surviving forks is a leak.
 
 **EVIDENCE: `assets/CREDITS.md` with one row per asset, and the credits screen showing the CC-BY entries.**
 

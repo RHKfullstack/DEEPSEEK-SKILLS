@@ -29,15 +29,22 @@ Built with these skills in a separate session: a footwear storefront (React + Vi
 ## Structure
 
 ```
-skills/                                   user-level skills (drop into ~/.dsh/skills/)
+dsh-deepseek-skills/                      installable DSH bundle — this repository root
+├── package.json                          dsh.bundle.patch -> cordis.patch.yml
+├── cordis.patch.yml                      inserts this package into the profile
+├── index.js                              composes the two plugins and the folder skills
+│
+skills/                                   folder skills, registered by index.js
 ├── creative-designer/                     universal design method + per-medium constraints
 ├── ui-design/                             web visual craft: tokens, 8 states, screenshot loop
 ├── senior-frontend-engineering/           React correctness, WCAG 2.2 AA, CWV, Playwright
+├── stack-index/                           any language -> its executable command set
+├── stack-python/                          Python command set with a verification log
 ├── stack-php-mysql/                       Laravel/PHP + MySQL + Redis + Windows commands
 ├── senior-app-security/                   authz/IDOR, mass assignment, XSS, CSRF, CSP
 └── senior-background-jobs/                queues, Horizon, retries, failed_jobs, cron
 
-plugins/                                  installable DSH plugin packages
+plugins/                                  the two original plugin packages
 ├── dsh-deepseek-harness-skills/           sandbox-mode, plannable, organizer (+ prompts, references, tools)
 └── dsh-senior-engineering-skills/         11 senior-* audit skills (+ prompts, tools)
 ```
@@ -80,7 +87,29 @@ The engineering skills are stack-neutral, which is how they end up citing Postgr
 
 ## Install
 
-See [INSTALL.md](INSTALL.md). Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.
+### As a DSH plugin — one step
+
+Point the DSH plugin installer at the repository URL:
+
+```
+https://github.com/RHKfullstack/DEEPSEEK-SKILLS.git
+```
+
+The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` → `cordis.patch.yml`), and `index.js` composes:
+
+- `sandbox-mode`, `plannable`, `organizer` — with their policy sections and `references/`
+- the eleven `senior-*` audits — with the senior policy section
+- the eight folder skills under `skills/`
+
+22 skills in one install. No sub-package paths, no second install.
+
+> **Fixed in 1.1.0.** Earlier commits failed with *"This package declares no bundle, so it cannot be managed as a plugin"* — the root had no `package.json`, so the installer had nothing to mount.
+
+### As folder skills only
+
+Copy `skills\*` into `~/.dsh/skills/`. The filesystem provider picks them up on the next turn, with no restart. Use this when you want the design and stack skills without the plugin machinery.
+
+Full per-tool instructions, including Claude Code and the other agents, are in [INSTALL.md](INSTALL.md). Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.
 
 ## Notes
 

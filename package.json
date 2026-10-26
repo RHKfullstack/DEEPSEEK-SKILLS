@@ -1,0 +1,30 @@
+{
+  "name": "dsh-deepseek-skills",
+  "version": "1.1.0",
+  "description": "DeepSeek Harness skills bundle: sandbox-mode, plannable, organizer, the eleven senior-* engineering audits, and the design and stack skills. One installable package, no sub-package wiring.",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "skills",
+    "plugins"
+  ],
+  "scripts": {
+    "check": "node --check index.js"
+  },
+  "dsh": {
+    "id": "dsh-deepseek-skills",
+    "name": "DeepSeek Skills (design + senior engineering + workspace)",
+    "version": "1.1.0",
+    "permissions": "system-prompt injection",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

@@ -42,7 +42,8 @@ skills/                                   folder skills, registered by index.js
 ├── stack-python/                          Python command set with a verification log
 ├── stack-php-mysql/                       Laravel/PHP + MySQL + Redis + Windows commands
 ├── senior-app-security/                   authz/IDOR, mass assignment, XSS, CSRF, CSP
-└── senior-background-jobs/                queues, Horizon, retries, failed_jobs, cron
+├── senior-background-jobs/                queues, Horizon, retries, failed_jobs, cron
+└── senior-production-defaults/            never ship the scaffold: build-time defaults
 
 plugins/                                  the two original plugin packages
 ├── dsh-deepseek-harness-skills/           sandbox-mode, plannable, organizer (+ prompts, references, tools)
@@ -101,7 +102,7 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 - the eleven `senior-*` audits — with the senior policy section
 - the eight folder skills under `skills/`
 
-22 skills in one install. No sub-package paths, no second install.
+23 skills in one install. No sub-package paths, no second install.
 
 > **Fixed in 1.1.0.** Earlier commits failed with *"This package declares no bundle, so it cannot be managed as a plugin"* — the root had no `package.json`, so the installer had nothing to mount.
 

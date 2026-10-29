@@ -31,6 +31,8 @@ There is no category with "no preview". If nothing can be run, the preview is th
 
 Cross-reference: `organizer` for where the preview directory goes; `senior-production-defaults` for what the preview code must already respect.
 
+   For a layout or flow change, the wireframe comes **before** the preview - see `diagram-and-wireframe` Phase 4.
+
 **EVIDENCE: the preview directory or branch, and the command that starts it.**
 
 ## Phase 2 — Serve it, and give the URL

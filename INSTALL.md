@@ -20,6 +20,7 @@ Result:
 ├── casino-wallet-ledger/SKILL.md
 ├── client-code-intake/SKILL.md
 ├── creative-designer/SKILL.md
+├── diagram-and-wireframe/SKILL.md
 ├── game-assets/SKILL.md
 ├── game-backend/SKILL.md
 ├── game-client-2d/SKILL.md
@@ -69,7 +70,7 @@ Then confirm both appear in the profile's `package.json` `dsh.profile.bundles` l
 
 ## Verifying the whole install
 
-1. Catalog size: 26 user skills + 11 plugin skills + 3 core skills (`sandbox-mode`, `plannable`, `organizer`) = 40, plus the harness's own bundled skills.
+1. Catalog size: 27 user skills + 11 plugin skills + 3 core skills (`sandbox-mode`, `plannable`, `organizer`) = 41, plus the harness's own bundled skills.
 2. `senior-code-review` must contain the line beginning `> **Stack:**` — that is the bridge to `stack-php-mysql`.
 3. Ask for a code review on a Laravel change. Expected automatic loads: `senior-code-review` + `stack-php-mysql`, plus `senior-app-security` when the change touches auth or input.
 

@@ -122,6 +122,7 @@ A browser control is not a design — it is the absence of one, and it is the fa
 5. **Re-screenshot.** Stop when the rubric has zero failures.
 
 Report the UI as done only after step 5, and quote what the screenshots showed. "Looks good" without a screenshot is not a result.
+A screenshot is not a preview. Serve the page on `127.0.0.1`, give the owner the URL, and get an explicit approval before any production edit — `live-preview-gate`.
 
 **Show the screenshot inline in the reply, not just its path.** A preview the user has to go find is not a preview: attach the image in the answer (markdown image or the image tool) and keep the path only as a caption. A report that names `.work/.../raw/shot.png` and never displays it has done the work and hidden the result.
 

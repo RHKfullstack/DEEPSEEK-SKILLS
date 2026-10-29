@@ -18,6 +18,14 @@ The rule: **a completion report without the evidence block is not a completion r
 
 ## The chain — run in this order
 
+### 0. Preview — before anything reaches production
+
+Load `live-preview-gate`. Build the change in a preview environment, serve it on `127.0.0.1`, and show the owner the URL, a screenshot, the click path and the known gaps.
+
+**Production is the decision.** No explicit approval, no production edit. If the change has no runnable surface, the preview is the exact diff and its output.
+
+Record the approval verbatim in `preview/APPROVAL.md`.
+
 ### 1. Convention first
 
 Load `senior-production-defaults`. Do Phase 0: read two existing files of the same layer, and state in the reply what was copied — naming, error shape, response envelope, logging, validation location, test style.
@@ -66,6 +74,7 @@ Every completion reply ends with this block, filled in. Not summarised, not impl
 ## Delivery check
 - Convention: read `path/a.ts`, `path/b.ts` — copied: naming, error shape, logging
 - Defaults grep: 4 hits — 3 fixed, 1 justified (pre-existing, out of scope)
+- Preview: http://127.0.0.1:8000/<route> - approved "<verbatim>" at <ISO timestamp>
 - Gate: `pnpm test && tsc --noEmit` → exit 0
 - Audit: VERIFIED (self-audit)
 - Not checked: e2e (no runner configured), a11y (no axe in CI)

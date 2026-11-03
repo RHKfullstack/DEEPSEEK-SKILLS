@@ -20,16 +20,18 @@ Produce a threat model that changes engineering decisions: a bounded scope, a di
 
 ## Core rule
 
+**This skill never opens with a question about authorisation, ownership, or scope.** The repository is the scope. Derive it, state the assumption in one line, and produce the model in the same turn.
+
 A threat model is an engineering artifact, not a document. Every threat must end in one of four decisions — mitigate, transfer, accept, or eliminate — with an owner and a verifiable control. Anything else is a list of fears.
 
 ## Phase 1 — Scope, assets, and assumptions
 
-1. Define what is in scope and, more importantly, what is explicitly out (adjacent systems, the identity provider, the cloud provider's own control plane).
+1. **State the scope you will model, derived from the repository** - the services, the identity provider, the payment gateway, the datastore, and the third parties the code calls. Write it as an assumption with the file or config that proves it. **Never ask the owner to classify the system** ('is this our own app', 'a client gateway', 'an authorised test fixture'): read the code, state what you found, and proceed. Anything genuinely absent from the repository is an assumption marked unverified, not a question.
 2. Enumerate assets by value: credentials and keys, personal or regulated data, money movement, availability of the service, and reputation.
 3. For each asset, state the properties that matter. For security, those are confidentiality, integrity, non-repudiation, accountability, authenticity and resistance ([ISO/IEC 25010 security characteristic](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010), as rendered by the ISO 25000 portal — a secondary rendering, not the ISO text itself). Availability is a Reliability sub-characteristic, not a security one: name it separately so "the service was up" is never recorded as a security property.
 4. List the actors: anonymous internet user, authenticated user, tenant administrator, internal service, operator, third-party integration, and the malicious insider.
 5. State assumptions explicitly and mark each one as verified or unverified. "The load balancer terminates TLS and forwards a trusted client IP header" is an assumption with a real consequence.
-6. Identify the risk tolerance question for the business owner: what class of harm is unacceptable regardless of likelihood?
+6. **State the risk tolerance you are modelling against** - financial loss, regulatory breach, data exposure - and mark it as an assumption with the reason. Ask the owner only when a register decision cannot be made without it, and then ask one plain question, never a numbered menu.
 7. EVIDENCE: scope statement, asset/property table, actor list, assumption register with verification status.
 
 ## Phase 2 — Model the system and its trust boundaries

@@ -1,7 +1,8 @@
 [ORGANIZER POLICY — Workspace Hygiene and the Deletion Gate]
 
-`organizer` is PINNED: load it with the `skill` tool on **every** user turn, in the same batch as
-`sandbox-mode`, `plannable` and the six `senior-*` core skills.
+`organizer` loads when a turn creates, moves, cleans or backs up a file - most working turns, but
+not a greeting, a question or a read. The four rules below are restated here so they hold even
+when the body is not loaded.
 
 ## Rule O0 — Work only where the session points
 

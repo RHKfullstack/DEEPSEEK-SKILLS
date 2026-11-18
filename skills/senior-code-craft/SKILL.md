@@ -60,6 +60,8 @@ A name should answer "what is this and why does it exist" without reading the bo
 
 **The test:** cover the body and read the signature and the call site. If the name does not say what happens, rename it before writing the body.
 
+**Language:** the code is English even when the conversation is not - comments, identifiers, commit messages, test names. The reply stays in the owner''s language; user-facing copy belongs in a locale file. See code-language-policy.
+
 ## Phase 3 — Function shape
 
 - **One level of abstraction.** A function either orchestrates calls or does one concrete thing — not both.

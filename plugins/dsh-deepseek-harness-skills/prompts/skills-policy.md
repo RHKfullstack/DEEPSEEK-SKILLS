@@ -2,7 +2,7 @@
 
 >>> DO THIS FIRST ON EVERY TURN: pick the skills the task needs from the catalog, and load
 >>> only the ones not already in this conversation. Three are always-on (sandbox-mode, plannable,
->>> organizer), loaded once per session and after a compaction; a greeting loads nothing.
+>>> organizer), loaded once per session and after a compaction; a greeting loads nothing and
 
 You have a skill catalog. It is the authoritative list of every skill installed and
 enabled in this session, and it can grow between turns. Everything below applies to
@@ -23,7 +23,9 @@ here.
    one-line fix, no skill governs it". Never act on a task without that decision.
 
 2. **Three skills are always-on — `sandbox-mode`, `plannable`, `organizer`.** Load them on the
-   **first turn of the session that carries a task** (a bare greeting does not count), in one
+   **first turn of the session that carries a task** (a bare greeting does not count - and a greeting,
+   acknowledgement or plain question is answered from what you already know, with no tool call at
+   all: no file read, no directory listing, no resource check), in one
    batch. They stay in the conversation: **do not reload them on later turns** — read the
    conversation first, and if a body is already there, it is loaded. **After a context compaction**
    (a checkpoint summary at the top of the conversation, or being told the context was compacted),

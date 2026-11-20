@@ -60,6 +60,23 @@ Rules:
 4. `.work/` is in `.gitignore`. Verify with `git check-ignore -q .work`; if it exits non-zero,
    append `.work/` to `.gitignore`.
 
+### Before a new run, read the newest one
+
+The sink is a record, not a scratch pad: the newest run already carries the project's most recent
+convention, its open items and its evidence. Before creating a run directory:
+
+```bash
+ls -1t .work | head -5
+# PowerShell: Get-ChildItem .work -Directory | Sort-Object LastWriteTime -Descending | Select-Object -First 5
+```
+
+1. Read the newest run's `MANIFEST.md` - it lists what was produced and what was left open.
+2. If it has `MASTER_PLAN.md` or `PLAN_STATE.md`, read the pending parts: the new task may be the
+   **continuation** of that plan rather than a new run.
+3. Reuse the convention you find - naming, folder layout, evidence format - instead of inventing a
+   second one.
+4. Only then open `<YYYY-MM-DD>-<slug>/`, and say in one line which earlier run you checked and why
+   this one is new.
 ## 2. Naming
 
 Taken from the platform-safe, sortable naming rules in

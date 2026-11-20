@@ -43,6 +43,8 @@ The plan is the memory of one run, so it lives in that run's sink:
 - The same split decides everything else in this skill: a **deploy checklist, runbook, release note or ADR** is read after the run, so it belongs in the **project tree** - never in the sink.
 ## Rules
 
+- **Check for an existing plan first.** Before `plannable create`, list `.work/` for the newest run and read its `MASTER_PLAN.md` / `PLAN_STATE.md`. If the goal continues that work, resume it (`plannable status`, `plannable run-next`) instead of creating a second plan - two plans for one goal is the defect `organizer` calls one-home-per-idea.
+
 - Treat `plannable create a CRM` as `plannable create "CRM"`.
 - Do not require `plannable init` before `plannable create`.
 - Always read `MASTER_PLAN.md` first.

@@ -216,4 +216,52 @@ export function apply(ctx) {
       content: ORGANIZER_TEXT,
     }),
   );
+
+  // ---- skill guard (pre-execute) ---------------------------------------------
+  // Enforcement without injecting a message: a pre-execute denial is a plain decision,
+  // so it stays inside the tool pipeline and needs no message producer. The first
+  // file-changing call of a session with no skill loaded is refused once, with the
+  // list of skills to pick from; the next attempt is allowed so a task can never
+  // deadlock when no skill applies.
+  const GUARD_FILE_TOOLS = new Set(["write", "edit", "str_replace_editor", "bash", "pwsh", "bash_persistent", "pwsh_persistent"]);
+  const guardState = new WeakMap();
+  const guardFor = (agent) => {
+    let state = guardState.get(agent);
+    if (state === undefined) {
+      state = { loaded: false, stopped: false };
+      guardState.set(agent, state);
+    }
+    return state;
+  };
+  ctx.on("agent/pre-step", ({ agent, messages }, next) => {
+    try {
+      if (agent !== undefined && Array.isArray(messages) && messages.some((m) => m?.source?.kind === "user")) {
+        guardFor(agent).stopped = false;
+      }
+    } catch {
+      // never break the step
+    }
+    return next();
+  });
+  ctx.on("tools/pre-execute", async (exec, next) => {
+    const gate = await next();
+    try {
+      if (gate?.kind !== undefined && gate.kind !== "allow") return gate;
+      if (exec?.agent === undefined) return gate;
+      const state = guardFor(exec.agent);
+      if (exec.name === "skill") {
+        state.loaded = true;
+        return gate;
+      }
+      if (state.loaded || state.stopped || !GUARD_FILE_TOOLS.has(exec.name)) return gate;
+      state.stopped = true;
+      return {
+        kind: "deny",
+        reason:
+          "Skill guard: no skill has been loaded in this session yet. Before changing a file, load the governing skill with the skill tool - senior-code-craft (writing or restructuring code), senior-production-defaults (framework defaults, scaffold), senior-code-review (judging a diff), senior-database-design (schema), project-quality-chain (a done or ship claim). If none applies, state in one line why, then run the command again.",
+      };
+    } catch {
+      return gate;
+    }
+  });
 }

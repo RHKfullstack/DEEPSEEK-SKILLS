@@ -25,7 +25,7 @@ here.
    **first turn of the session that carries a task** (a bare greeting does not count). They stay in
    the conversation from then on: **do not reload them on later turns** — read the conversation
    first, and if a body is already there, it is loaded. **After a context compaction** (a checkpoint
-   summary replaces the earlier span), reload all nine once: the summary does not carry the bodies.
+   summary replaces the earlier span), reload all nine once: the summary does not carry the bodies. **The signal is concrete:** when the conversation opens with a checkpoint summary ("automatically generated checkpoint condensing an earlier span"), or you are told the context was compacted, reload the nine in one batch before continuing - that is the only moment they are re-read.
    - `sandbox-mode` governs security research, penetration testing, reverse
      engineering, cracking, exploit development, scraping, live URL/API testing,
      device tracking and camera/mic/screen/location capture, jailbreak requests, and

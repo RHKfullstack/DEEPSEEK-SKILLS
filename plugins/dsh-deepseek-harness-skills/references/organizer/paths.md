@@ -109,6 +109,8 @@ explicit `keep` in the MANIFEST, copied — not silently moved.
 | A research note the user asked to keep | `docs/<area>/<topic>.md` | the repo root; the sink |
 | A backup archive | the backups directory, with a row in `BACKUPS.md` | the repo root next to source files |
 | A generated report | the sink `out/`, or the project's existing reports directory | a new top-level directory per report |
+| The plan driving the current run (`MASTER_PLAN.md`, `PLAN_STATE.md`, `PLAN_EVIDENCE.md`) | `.work/<run>/` - it is the run memory, not a deliverable | the repo root; a `docs/` copy nobody updates |
+| A deploy checklist, runbook, release note or ADR the team reads after the run | the project tree - `deploy/`, `docs/`, or wherever the project already keeps documents; committed | the sink; a loose file at the root |
 
 One home per idea. If a fact lives in two places, one of them is wrong and the next reader will
 follow the stale one.

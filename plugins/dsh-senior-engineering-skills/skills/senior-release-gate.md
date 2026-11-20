@@ -103,7 +103,7 @@ The gate is a set of checks that each produce an artifact. If a check produces n
 4. Watch the defined observation window before declaring success; "deployed" is not "working".
 5. Confirm the canary or first slice held for the full window before full rollout.
 6. Close the release with a record of what changed, what was observed, and any follow-up work.
-7. EVIDENCE: signed gate checklist, post-deploy verification transcript, observation-window metrics, follow-up item list.
+7. EVIDENCE: signed gate checklist at `deploy/CHECKLIST-<version>.md` - a committed deliverable, never the sink (organizer §4) - plus the post-deploy verification transcript, observation-window metrics and follow-up item list.
 
 ## Gate decision vocabulary
 

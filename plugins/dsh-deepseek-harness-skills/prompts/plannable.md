@@ -19,6 +19,22 @@ plannable doctor [--json]      # diagnose plan state
 plannable repair               # regenerate PLAN_STATE.md
 ```
 
+## Where the plan files live
+
+The plan is the memory of one run, so it lives in that run's sink:
+
+```
+.work/<YYYY-MM-DD>-<slug>/
+├── MASTER_PLAN.md
+├── PLAN_STATE.md
+├── PLAN_EVIDENCE.md
+└── parts/
+```
+
+- **Never** put `MASTER_PLAN.md` at the project root. It is the run's memory, not a deliverable, and a root-level plan file is exactly the clutter `organizer` forbids.
+- Run `plannable create` from the sink, or move the three files there immediately after it.
+- **Exception:** a plan the owner asks to keep (a roadmap, a client-facing plan) is a durable document - it goes to `docs/plans/<goal>.md`, committed.
+- The same split decides everything else in this skill: a **deploy checklist, runbook, release note or ADR** is read after the run, so it belongs in the **project tree** - never in the sink.
 ## Rules
 
 - Treat `plannable create a CRM` as `plannable create "CRM"`.

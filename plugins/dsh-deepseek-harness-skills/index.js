@@ -223,7 +223,7 @@ export function apply(ctx) {
   // file-changing call of a session with no skill loaded is refused once, with the
   // list of skills to pick from; the next attempt is allowed so a task can never
   // deadlock when no skill applies.
-  const GUARD_FILE_TOOLS = new Set(["write", "edit", "str_replace_editor", "bash", "pwsh", "bash_persistent", "pwsh_persistent"]);
+  const GUARD_FILE_TOOLS = new Set(["write", "edit", "str_replace_editor"]);
   const guardState = new WeakMap();
   const guardFor = (agent) => {
     let state = guardState.get(agent);

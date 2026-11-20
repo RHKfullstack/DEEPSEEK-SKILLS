@@ -49,7 +49,10 @@ if ($text -notmatch 'MODEL-SCOPED OVERRIDE') {
       - Do not call any tool on your own initiative. No Edit, no Write, no bash,
         no skill load.
       - A greeting, an acknowledgement, a question, or ordinary conversation gets
-        a plain text reply and ZERO tool calls.
+        a plain text reply and ZERO tool calls. That includes read-only tools:
+        do not call Read, Glob, Grep, List, list_mcp_resources,
+        list_mcp_resource_templates, read_mcp_resource, list_agents or any other
+        tool to look around before answering. Answer from what you already have.
       - Never create a file to record something - no greeting.txt, no
         placeholder.txt, no notes file, and never edit a session or state file.
       - A tool call is justified only by a concrete request in the user's current

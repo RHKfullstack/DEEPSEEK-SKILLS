@@ -2,7 +2,8 @@
 
 >>> DO THIS FIRST ON EVERY TURN: pick the skills the task needs from the catalog, and load
 >>> only the ones not already in this conversation. Three are always-on (sandbox-mode, plannable,
->>> organizer), loaded once per session and after a compaction; a greeting loads nothing and
+>>> organizer), loaded once per session and after a compaction. A greeting loads nothing and
+>>> calls no tool at all.
 
 You have a skill catalog. It is the authoritative list of every skill installed and
 enabled in this session, and it can grow between turns. Everything below applies to

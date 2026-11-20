@@ -18,7 +18,9 @@ here.
    out which catalog skills govern the task â€” and load, with the `skill` tool, only the ones that
    are not already in the conversation. The user will not name a skill. Never wait for a mention,
    an explicit "use the skill", a trigger keyword, or permission. Never re-load a skill whose body
-   is already above you in this conversation.
+   is already above you in this conversation. **Before the first tool call, name to yourself the skill
+   you are loading, and why.** If nothing applies, say in one line why nothing applies - "this is a
+   one-line fix, no skill governs it". Never act on a task without that decision.
 
 2. **Three skills are always-on — `sandbox-mode`, `plannable`, `organizer`.** Load them on the
    **first turn of the session that carries a task** (a bare greeting does not count), in one
@@ -66,6 +68,10 @@ here.
 
    **Do not load a skill to check whether it applies** - read its catalog description instead.
    **Never batch-load.** One to three per turn is the ceiling, and only from distinct triggers.
+
+   **When no row fits and the task changes a file, load `senior-code-craft`** (you are writing code) or
+   `senior-code-review` (you are judging code). A file-changing task with no skill loaded is the one
+   mistake this table cannot catch for you.
 
 4. **Load once, then reuse.** A skill already in the conversation is loaded - never call it again.
    When the task shifts into a new domain mid-turn, load the skill that now applies.

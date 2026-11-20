@@ -72,6 +72,7 @@ Every completion reply ends with this block, filled in. Not summarised, not impl
 
 ```md
 ## Delivery check
+- Skills: the skills loaded for this turn, and the one line that made each apply
 - Convention: read `path/a.ts`, `path/b.ts` — copied: naming, error shape, logging
 - Defaults grep: 4 hits — 3 fixed, 1 justified (pre-existing, out of scope)
 - Preview: http://127.0.0.1:8000/<route> - approved "<verbatim>" at <ISO timestamp>

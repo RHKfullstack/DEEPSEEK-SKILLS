@@ -2,14 +2,13 @@
 
 This plugin adds eleven skills to the catalog. They are split by cost, deliberately:
 
-- **Six core skills are always-on**, exactly like `sandbox-mode` and `plannable`: they are part of
-  the nine loaded **once per session** on the first turn that carries a task, and **not re-loaded
-  on later turns**. After a context compaction, reload them once with the rest of the nine.
-- **Five deeper skills load on trigger**: load each one on the turn its trigger fires, once.
+- **Nothing here is always-on.** All eleven are trigger-loaded: load the one Rule E1 names for the
+  turn, and only that one. The rest stay in the catalog as the bar to measure against.
+- A greeting, a question or a read loads none of them.
 
 ## Rule E1 — Which skill governs the turn
 
-The six core skills are already loaded: `senior-work-audit`, `senior-system-hardening`,
+The six core are the audit bar. Load the one that governs: `senior-work-audit`, `senior-system-hardening`,
 `senior-code-review`, `senior-supply-chain-audit`, `senior-threat-model`,
 `senior-release-gate`. This table says which one GOVERNS the answer; a loaded skill that does
 not govern still applies as background.
@@ -43,7 +42,7 @@ The five deeper skills load on trigger, so call `skill` for each one whose trigg
 
 More than one may govern the same turn; when two disagree, the more specific one wins. A
 one-line question about a single file may be governed by none of them — answer it directly,
-but the six core stay loaded for the turn either way.
+but the governing skill still has to be loaded for anything that changes a file.
 
 ## Rule E2 — Findings carry evidence, or they are not findings
 

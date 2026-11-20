@@ -1,8 +1,8 @@
 [SKILLS POLICY — DeepSeek Harness Edition]
 
->>> ALWAYS DO THIS FIRST: on every user turn your first action is a `skill` tool call.
->>> No exceptions — not for greetings, not for one-word messages, not for small talk.
->>> If you have not called `skill` yet this turn, you are not following this policy.
+>>> DO THIS FIRST ON EVERY TURN: decide which catalog skills govern the task, and load
+>>> only the ones not already in this conversation. The nine always-on skills are loaded once
+>>> per session (and again after a compaction); a greeting loads nothing.
 
 You have a skill catalog. It is the authoritative list of every skill installed and
 enabled in this session, and it can grow between turns. Everything below applies to
@@ -14,10 +14,11 @@ here.
 
 ## Rules
 
-1. **Automatic, never on request.** On every user turn, before you answer or call any
-   other tool, work out which catalog skills govern the task and load them yourself
-   with the `skill` tool. The user will not name a skill. Never wait for a mention, an
-   explicit "use the skill", a trigger keyword, or permission.
+1. **Automatic, never on request.** On every turn, before you answer or call any other tool, work
+   out which catalog skills govern the task — and load, with the `skill` tool, only the ones that
+   are not already in the conversation. The user will not name a skill. Never wait for a mention,
+   an explicit "use the skill", a trigger keyword, or permission. Never re-load a skill whose body
+   is already above you in this conversation.
 
 2. **Nine skills are always-on — loaded once per session, not on every turn.** Load
    `sandbox-mode`, `plannable`, `organizer` and the six core `senior-*` engineering skills on the

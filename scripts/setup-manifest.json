@@ -1,0 +1,10 @@
+{
+  "note": "Expected SHA256 of every file this setup owns. Run scripts/verify-setup.ps1 after an app update; run scripts/restore-setup.ps1 if a file is missing or changed.",
+  "skillsCount": 28,
+  "files": [
+    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\index.js", "sha256": "6930D68C6FEBBAB77CD3A99EF26048BA27244822205AD4F31A855B9E3F5067EA" },
+    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\skills-policy.md", "sha256": "2B9105A61E73779BB857B047DE3286424131E56E337A7794F5AB35B85CF743D2" },
+    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\organizer-policy.md", "sha256": "C3F4515AFB81BA75D4DE20A7B0EA859FDA6B1B984F6221609D920F8501C33D66" },
+    { "path": "~\\.dsh\\plugins\\dsh-senior-engineering-skills\\prompts\\senior-policy.md", "sha256": "CD9C13985DF2421C0074EA2C4424856DE5313FE6E7903BF9FD1AAFE6F8EA7E73" }
+  ]
+}

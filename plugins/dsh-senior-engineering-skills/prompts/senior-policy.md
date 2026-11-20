@@ -2,11 +2,10 @@
 
 This plugin adds eleven skills to the catalog. They are split by cost, deliberately:
 
-- **Six core skills are always-on**, exactly like `sandbox-mode` and `plannable`: load all
-  six on every user turn, in the same batch as those two, including greetings and one-line
-  messages.
-- **Five deeper skills load on trigger**: load each one on the turn its trigger fires, in the
-  same batch as the always-on loads. They are not carried every turn.
+- **Six core skills are always-on**, exactly like `sandbox-mode` and `plannable`: they are part of
+  the nine loaded **once per session** on the first turn that carries a task, and **not re-loaded
+  on later turns**. After a context compaction, reload them once with the rest of the nine.
+- **Five deeper skills load on trigger**: load each one on the turn its trigger fires, once.
 
 ## Rule E1 — Which skill governs the turn
 

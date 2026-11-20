@@ -1,7 +1,8 @@
 [ORGANIZER POLICY — Workspace Hygiene and the Deletion Gate]
 
-`organizer` is PINNED: load it with the `skill` tool on **every** user turn, in the same batch as
-`sandbox-mode`, `plannable` and the six `senior-*` core skills.
+`organizer` is one of the nine pinned skills: load it **once per session** with the rest of the nine
+(on the first turn that carries a task, and again after a context compaction), not on every turn.
+The four rules below are restated here so they hold even when the body is not in the context.
 
 ## Rule O0 — Work only where the session points
 

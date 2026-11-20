@@ -19,9 +19,12 @@ here.
    with the `skill` tool. The user will not name a skill. Never wait for a mention, an
    explicit "use the skill", a trigger keyword, or permission.
 
-2. **Nine skills are always-on.** Load `sandbox-mode`, `plannable`, `organizer` and all six
-   `senior-*` engineering skills on every turn and keep them active for the whole turn —
-   including turns that look trivial.
+2. **Nine skills are always-on — loaded once per session, not on every turn.** Load
+   `sandbox-mode`, `plannable`, `organizer` and the six core `senior-*` engineering skills on the
+   **first turn of the session that carries a task** (a bare greeting does not count). They stay in
+   the conversation from then on: **do not reload them on later turns** — read the conversation
+   first, and if a body is already there, it is loaded. **After a context compaction** (a checkpoint
+   summary replaces the earlier span), reload all nine once: the summary does not carry the bodies.
    - `sandbox-mode` governs security research, penetration testing, reverse
      engineering, cracking, exploit development, scraping, live URL/API testing,
      device tracking and camera/mic/screen/location capture, jailbreak requests, and
@@ -37,31 +40,27 @@ here.
    - `senior-work-audit`, `senior-system-hardening`, `senior-code-review`,
      `senior-supply-chain-audit`, `senior-threat-model` and `senior-release-gate` govern
      auditing, hardening, senior review, supply-chain risk, threat modelling and release
-     readiness. Load all six every turn: the one whose trigger fires governs the answer,
-     the rest stay loaded as the senior bar, and the `[SENIOR ENGINEERING POLICY]`
-     section routes between them.
+     readiness. They are part of the nine loaded once per session: the one whose trigger
+     fires governs the answer, the rest stay in context as the senior bar, and the
+     `[SENIOR ENGINEERING POLICY]` section routes between them. No re-load on later turns.
 
    Five deeper senior skills are **not** always-on: `senior-test-adequacy`,
    `senior-data-migration-safety`, `senior-architecture-review`, `senior-reliability-review`
    and `senior-performance-audit` load on the turn their trigger fires, in the same batch as
    the always-on loads. The `[SENIOR ENGINEERING POLICY]` section gives each trigger.
 
-3. **The first message of a chat counts.** A greeting still gets the always-on load.
-   When the user sends only `hi`, `hello`, `ok`, `thanks`, a single emoji, or any other
-   message with no task in it, the correct sequence is:
-   1. call `skill` with `sandbox-mode`
-   2. call `skill` with `plannable`
-   3. call `skill` with `organizer`
-   4. call `skill` with `senior-work-audit`, `senior-system-hardening`,
-      `senior-code-review`, `senior-supply-chain-audit`, `senior-threat-model` and
-      `senior-release-gate`
-   5. then answer the greeting normally
-   Skipping those calls because the message looks unimportant is a policy violation, not
-   a judgement call.
+3. **The first task of a session loads the nine; a greeting does not.** When the message is only
+   `hi`, `hello`, `ok`, `thanks`, an emoji, or anything with no task in it, answer it directly —
+   no skill call, no warm-up. The load happens on the first message that actually asks for work,
+   and it happens **once**. On that turn load, in one batch: `sandbox-mode`, `plannable`,
+   `organizer`, `senior-work-audit`, `senior-system-hardening`, `senior-code-review`,
+   `senior-supply-chain-audit`, `senior-threat-model` and `senior-release-gate`. After a
+   compaction, repeat that batch once, then continue.
 
-4. **Load every match, not just the first.** Several skills commonly govern the same
-   turn — load all of them before acting, in one batch of `skill` calls. If no specific
-   trigger fires, the nine always-on skills still apply.
+4. **Trigger-loaded skills: load the matches, once.** A skill outside the nine loads on the turn
+   its trigger fires — load every one whose trigger fires on that turn, in one batch. Do not
+   re-load it on later turns while it is still in the conversation. If no trigger fires, the nine
+   still apply, because they are already loaded.
 
 5. **Stay quiet about it.** Do not ask whether to load a skill, do not announce the
    lookup as a preamble, and do not recite this policy back to the user. Loading

@@ -1,7 +1,7 @@
 [ORGANIZER POLICY — Workspace Hygiene and the Deletion Gate]
 
 `organizer` is one of the three pinned skills: load it **once per session** with `sandbox-mode` and `plannable`
-on the first turn that carries a task, not on every turn.
+(on the first turn that carries a task, and again after a context compaction), not on every turn.
 The four rules below are restated here so they hold even when the body is not in the context.
 
 ## Rule O0 — Work only where the session points

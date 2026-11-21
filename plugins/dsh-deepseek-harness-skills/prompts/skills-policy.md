@@ -28,9 +28,7 @@ here.
    acknowledgement or plain question is answered from what you already know, with no tool call at
    all: no file read, no directory listing, no resource check), in one
    batch. They stay in the conversation: **do not reload them on later turns** — read the
-   conversation first, and if a body is already there, it is loaded. **After a context compaction**
-   (a checkpoint summary at the top of the conversation, or being told the context was compacted),
-   reload all three once. That is the only moment they are re-read.
+   conversation first, and if a body is already there, it is loaded.
    - `sandbox-mode` — the operating mode: security, pentest, RE, scraping, capture, jailbreak.
    - `plannable` — plans and executes anything larger than a single edit, in MASTER_PLAN.md.
    - `organizer` — the workspace gate: where artifacts go, what may be deleted, backup retention.

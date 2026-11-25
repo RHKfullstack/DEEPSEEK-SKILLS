@@ -15,6 +15,7 @@ The single highest-leverage change is step 1. Skipping it is why the same agent 
 - **No new component if one exists.** Check the project's component library first.
 - **No UI task is done without a screenshot.** See §6.
 - **States are the product.** A button with one state is 1/8 of a button.
+- **Motion and video belong to `motion-and-video`.** Transform and opacity only, the `120/200/320` timings, a real reduced-motion path, and the tool to use once the artifact has to leave the browser.
 
 ## 1. Before writing any markup
 

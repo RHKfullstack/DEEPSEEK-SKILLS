@@ -69,6 +69,8 @@ Then run **the boundary case that matters** — the empty input, the 300-charact
 & ffmpeg -y -i sample.png -vf "scale=-2:108" out.png; "exit=$LASTEXITCODE"
 ```
 
+- **`npx --yes <pkg>` is an install, not a probe.** It downloads and caches the package, so say so when you report - you changed the machine. And if the package ships no `bin`, the command fails with "could not determine executable to run": use `npm exec --yes --package=<pkg> -- <bin>` instead, and check the version it printed before believing anything else.
+
 **EVIDENCE: invocation, exit code, and output for both the real input and the boundary case.**
 
 ## Rule V4 — Comparing two things needs a measure, not an adjective

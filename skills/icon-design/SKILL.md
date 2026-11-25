@@ -42,7 +42,7 @@ Rules: **no freehand bezier chains** unless the shape cannot be made from the si
 
 ## Phase 2 — Named layers, decided before motion
 
-The set that animates well is designed for it: **each icon is built from 2–5 named parts**, not one merged path.
+The set that animates well is designed for it: **each icon is built from 4–8 named parts that describe the object anatomy**, not one merged path - and one part carries more weight than the rest, because that is what the eye reads first.
 
 ```
 bell        → body, clapper
@@ -101,8 +101,8 @@ Not every model can produce clean vector output, and none of them should guess. 
 | Emit clean SVG paths | hand-author on the grid (§1), one icon at a time, checking each |
 | Can emit primitives but curves come out wrong | use only `rect rx`, `circle`, `line`, `polyline` and `M…A…` arcs; no freehand beziers |
 | Cannot draw a usable vector at all | **use a licensed library** — Lucide, Tabler, Phosphor, Heroicons, Iconoir — one family only, and record which and why in the hand-off |
-| The product already ships its own set | use it and its own package (for Jiggicons, `npx jiggicons add`, see the project's own skill) — never redraw it |
-| Cannot see the result | render it: `rsvg-convert`, ImageMagick, or open the SVG in a browser and screenshot at 16/24/48 |
+| The product already ships its own set | use it and its own package - for Jiggicons, `npx jiggicons add` covers the 80 free icons and the rest need `npx jiggicons login` first; never redraw the set, and never ship its art as a set of your own |
+| Cannot see the result | render it in a browser - Chrome or Edge headless, or Playwright - at 16/24/48. **Do not reach for `rsvg-convert`, ImageMagick or `librsvg`: none is installed here** (checked 2026-11-25). Pillow composes PNGs but cannot rasterise SVG |
 
 **The rule that overrides all of them: never ship an icon you have not seen rendered at 16px.** An icon is judged at the size it is used, and 16px is where a bad grid shows up.
 
@@ -116,6 +116,7 @@ Run this on the set, not on one icon, and count the failures:
 - [ ] One stroke width across the set (±0.25 tolerance)
 - [ ] One corner radius family
 - [ ] Optical centres align when the icons sit in a row
+- [ ] **Optical size matches the family** - a set can match pen weight exactly and still be the wrong size (one audit measured a 1.506px pen at a 0.80x optical height). Compare the ink bounding box, not the viewBox
 - [ ] Legible at 16px — the test, not a wish
 - [ ] Reads in `currentColor` on both light and dark surfaces
 - [ ] No icon is visually heavier than its neighbours at the same size

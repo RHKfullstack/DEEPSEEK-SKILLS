@@ -27,7 +27,7 @@ Decide this before writing anything. Building a CSS animation when the owner ask
 ## Phase 1 — UI transitions that do not jank
 
 - **Animate `transform` and `opacity` only.** Width, height, `top`, `left`, `margin` force layout on every frame; that is the difference between smooth and "laggy on a real phone".
-- **Durations:** `120ms` micro (hover, press, focus), `200ms` standard (expand, open), `320ms` enter/exit (modal, drawer, route). Nothing over `400ms` unless it is a deliberate scene change.
+- **Durations:** `120ms` micro (hover, press, focus), `200ms` standard (expand, open), `320ms` enter/exit (modal, drawer, route). Nothing over `400ms` unless it is a deliberate scene change. When the duration has to be computed rather than picked: clamp it to `200–1200ms` with `560ms` as the default, and set the exit to `min(240ms, 0.4 × duration)` - a spring that settles into that envelope reads as physical rather than decorative (the envelope this workspace solved for before, at a 1/480s integration step).
 - **Easing:** ease-out entering (`cubic-bezier(0, 0, .2, 1)`), ease-in leaving (`cubic-bezier(.4, 0, 1, 1)`). Linear reads as mechanical.
 - **Exit is faster than enter** — leaving should not feel like waiting.
 - **One moving element per view.** Three simultaneous animations mean nothing is emphasised.
@@ -53,7 +53,7 @@ Verified on this machine 2026-11-25. **A tool that is not on this list is not av
 | record a UI interaction | Playwright video / screencast, or `ffmpeg -f gdigrab` | Playwright MCP is available |
 | SVG → PNG without a browser | — | **absent**: no ImageMagick, no Inkscape, no `rsvg-convert`, no `cairosvg` |
 | SVG optimise | — | **absent**: no `svgo` (use `npx --yes svgo` only if the owner allows a download) |
-| programmatic video in React | — | **absent**: no Remotion installed; do not propose it as if it were ready |
+| programmatic video in React | — | **absent as a package**: no `remotion` in any `node_modules` here. `npx --yes remotion` cannot work (the package ships no `bin`); the CLI is reachable only as `npm exec --yes --package=@remotion/cli -- remotion --version`, and a render additionally needs its own Chrome Headless Shell download - so do not propose it as ready |
 
 **The Windows trap:** `convert` on this machine is the `convert.exe` that ships in `System32` — Windows' own NTFS volume-conversion tool, not ImageMagick. Running it on a PNG does nothing useful and can be destructive. Check `Get-Command` before believing a tutorial.
 
@@ -63,7 +63,7 @@ Verified on this machine 2026-11-25. **A tool that is not on this list is not av
 
 ## Phase 3 — The ffmpeg recipes
 
-Copy these; they are the ones that come up. Quote the real invocation in the report, not a paraphrase.
+Copy these; they are the ones that come up. Quote the real invocation in the report, not a paraphrase. This ffmpeg has already produced a real H.264 clip on this machine (1440x900 at 12fps, muxer tag `Lavc62.28.100 libx264`), so the pipeline is proven here, not assumed.
 
 ```powershell
 # probe first, always: duration, fps, size, codecs

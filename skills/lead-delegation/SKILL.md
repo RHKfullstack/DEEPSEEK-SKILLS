@@ -82,8 +82,10 @@ result.
 
 ## Rule L4 — The Lead audits; it does not trust
 
-**"The worker says it passed" is a claim, not a result.** The audit is the Lead's own pass over the final
-state, and it is not optional:
+**"The worker says it passed" is a claim, not a result.** Every artifact is audited by someone who did not
+write it — and because the Lead is the only writer of the integration commit, that commit is audited by a
+worker or a second reviewer, never by the Lead alone. The Lead may re-run the gate itself, but re-running a
+check it already wrote is verification, not audit.
 
 1. **Read the diff**, not the summary. `git diff --stat` first for blast radius, then the actual hunks.
 2. **Run the gate yourself** and quote its real output.
@@ -91,10 +93,12 @@ state, and it is not optional:
 4. **Look for the quiet damage**: a deleted file nobody mentioned, a widened scope, a test weakened to
    pass, an encoding change, a stale count in a document.
 
-The bar for the audit itself is `senior-work-audit`; this rule only fixes **who** runs it: someone who did
-not write the code. The author's "I checked it" is never the audit — including when the author is the Lead.
+The bar for the audit itself is `senior-work-audit`, and the scale policy's Rule S7 already fixes **who**
+runs it on LARGE work: a teammate that did not write the code, normally named `auditor`. This rule adds the
+part S7 leaves implicit — **the Lead's own commits are in scope too**, so "the Lead checked the Lead's own
+work" is the one audit that is never accepted.
 
-**EVIDENCE: the diff you read, the command you ran, and its output — not the worker's paraphrase of it.**
+**EVIDENCE: the diff that was read, the command that was run, and its output — not the author's paraphrase of it.**
 
 ## Rule L5 — Report from evidence, and report the disagreement
 
@@ -170,5 +174,5 @@ The reason for the split is attention, so the return path matters as much as the
 ## Sources — verified live 2026-11-25
 
 - [Anthropic — Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) — the attention budget, context rot, and sub-agent architectures where each worker's deep work stays in the worker while the Lead holds a distilled result.
-- [Anthropic — How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) — the orchestrator/worker split, the "one paragraph back" return shape, and the failure modes of vague delegation.
+- [Anthropic — How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) — the orchestrator/worker split, and the failure modes of vague delegation ("without detailed task descriptions, agents duplicate work, leave gaps").
 - This pack's own scale policy, `prompts/scale-policy.md` in `dsh-deepseek-harness-skills` — the rules that decide when a job escalates to a team; this skill assumes they fired.

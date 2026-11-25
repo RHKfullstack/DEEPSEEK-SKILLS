@@ -40,7 +40,7 @@ Case 3 is the one that fails quietly: nothing errors, the entry simply is not th
 | PowerShell 5.1 | `[System.IO.File]::WriteAllText($p, $text, [System.Text.UTF8Encoding]::new($false))` | `Out-File -Encoding utf8` writes UTF-8 **with** BOM; `>` and `Out-File` default to **UTF-16LE**; `Set-Content` on a **new** file falls back to the ANSI code page |
 | PowerShell 7 | `Set-Content -Encoding utf8NoBOM` | `-Encoding utf8` means no BOM here — the opposite of 5.1 |
 | Node | `fs.writeFileSync(p, text, "utf8")` | `"binary"` / `latin1` on a path that is not ASCII |
-| Python | `open(p, "w", encoding="utf-8", newline="\n")` | `open(p, "w")` uses the **locale** encoding — cp1252 on a Windows default |
+| Python | `open(p, "w", encoding="utf-8", newline="\n")` | `open(p, "w")` uses the **locale** encoding — cp1252 on a Windows default before Python 3.15, where PEP 686 makes UTF-8 the default |
 | PHP | `file_put_contents($p, $s)`, `mb_*` for lengths | `utf8_encode()` is not a fix; it assumes latin1 |
 | MySQL | `utf8mb4` on the column, table **and** connection | `utf8` in MySQL is a 3-byte subset: no emoji, no 4-byte character |
 | HTTP / HTML | `Content-Type: text/html; charset=utf-8`, `<meta charset="utf-8">` | a header without a charset lets the browser guess |
@@ -96,7 +96,7 @@ There are two repair methods. One is safe and one silently damages the file you 
 | Method | When | What it does |
 |---|---|---|
 | **Targeted replacement** of the exact sequence | always, when you know each broken character's intended value | `â€”` → `—`; touches only what you named |
-| **Whole-file cp1252 round-trip** (decode as cp1252 bytes, re-decode as UTF-8) | **never** on a file that may mix correct and corrupted characters | repairs the mojibake **and** destroys every character that was already correct |
+| **Whole-file cp1252 round-trip** (encode the text as cp1252, then decode those bytes as UTF-8) | **never** on a file that may mix correct and corrupted characters | repairs the mojibake **and** destroys every character that was already correct |
 
 Why the round trip is a trap: a correct `—` is `E2 80 94`. Encoding that character to cp1252 gives the
 single byte `0x97`; decoding `0x97` as UTF-8 is invalid and yields U+FFFD — a **compliant-looking** `?`
@@ -188,7 +188,7 @@ Kept because a rule with a scar behind it is followed, and a rule without one is
 - Every file written by the run has no BOM (`EF BB BF` absent) and is strict UTF-8.
 - The byte scan over the changed tree reports zero `c3a2`, `c383`, `efbfbd` and zero BOMs.
 - Any repair was targeted, with a before and after count for the character being repaired.
-- The project's validator passes, and the byte check is part of it, not a one-off shell command.
+- The project's gate runs it on every push — as its own step or inside the validator — never as a one-off shell command someone remembers.
 - The report states what was corrupted, for how long, and which commits the corruption reached.
 
 ## Failure modes
@@ -215,7 +215,7 @@ Kept because a rule with a scar behind it is followed, and a rule without one is
 ## Sources — verified live 2026-11-25
 
 - [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) — the label-to-encoding mapping that decides what a decoder guesses, which is the root of case 1.
-- [Unicode Standard Annex #15 — Normalization](https://www.unicode.org/reports/tr15/) — why a character that survives a byte round trip is not the same character; the basis for "recount after repair".
+- [Unicode — UTF-8, a transformation format of ISO 10646 (RFC 3629)](https://www.rfc-editor.org/rfc/rfc3629) — the byte structure `E2 80 94` / `E2 86 92` that makes the mojibake signatures in Phase 2 decodable, and why a lone `0x97` is not a character.
 - [Microsoft — about_Character_Encoding](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_character_encoding) — the documented difference between PowerShell 5.1 and 7 `-Encoding utf8`, and why `Out-File` defaults bite.
 - [Python — `open()` and the `encoding` argument](https://docs.python.org/3/library/functions.html#open) — the locale default that produces cp1252 output on Windows.
 - [gitattributes](https://git-scm.com/docs/gitattributes) — `text=auto` and `eol`, and how a CRLF/LF mix makes every hash comparison report drift that does not exist.

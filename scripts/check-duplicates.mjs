@@ -155,6 +155,69 @@ for (const root of ROOTS) {
   );
 }
 
+// The plugin half of the catalog. A folder skill colliding with a plugin-registered skill would make the
+// catalog ambiguous in exactly the way this script exists to prevent, and the folder scan above cannot
+// see those files: they are `.md` prompt bodies with no frontmatter, named by their filename.
+const pluginEntries = [];
+const pluginsDir = join(ROOT, "plugins");
+if (existsSync(pluginsDir)) {
+  for (const plugin of readdirSync(pluginsDir, { withFileTypes: true })) {
+    if (!plugin.isDirectory()) continue;
+    for (const area of ["skills", "prompts"]) {
+      const areaDir = join(pluginsDir, plugin.name, area);
+      if (!existsSync(areaDir)) continue;
+      for (const file of readdirSync(areaDir)) {
+        if (!file.endsWith(".md")) continue;
+        const full = join(areaDir, file);
+        if (!statSync(full).isFile()) continue;
+        pluginEntries.push({
+          name: file.replace(/\.md$/, ""),
+          label: `${plugin.name}/${area}/${file}`,
+          body: readFileSync(full, "utf8").replace(/^\uFEFF/, ""),
+        });
+      }
+    }
+  }
+}
+
+if (pluginEntries.length > 0) {
+  console.log(`checked ${pluginEntries.length} plugin-registered skill bodies under plugins/`);
+  const byPluginName = new Map();
+  const byPluginBody = new Map();
+  for (const entry of pluginEntries) {
+    const nameKey = entry.name.toLowerCase();
+    if (byPluginName.has(nameKey)) {
+      problems.push(`DUPLICATE PLUGIN NAME "${entry.name}": ${byPluginName.get(nameKey)} and ${entry.label}`);
+    } else {
+      byPluginName.set(nameKey, entry.label);
+    }
+    const bodyKey = asciiFold(entry.body).replace(/\s+/g, " ").trim();
+    if (byPluginBody.has(bodyKey)) {
+      problems.push(`IDENTICAL PLUGIN BODY ${byPluginBody.get(bodyKey)} == ${entry.label}`);
+    } else {
+      byPluginBody.set(bodyKey, entry.label);
+    }
+  }
+
+  // A folder skill and a plugin skill that share a body are the same skill shipped twice.
+  for (const root of ROOTS) {
+    const skillsDir = resolve(root);
+    if (!existsSync(skillsDir)) continue;
+    for (const entry of readdirSync(skillsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const file = join(skillsDir, entry.name, "SKILL.md");
+      if (!existsSync(file)) continue;
+      const folderBody = asciiFold(parse(readFileSync(file, "utf8")).body).replace(/\s+/g, " ").trim();
+      for (const pluginEntry of pluginEntries) {
+        const pluginBody = asciiFold(pluginEntry.body).replace(/\s+/g, " ").trim();
+        if (folderBody === pluginBody) {
+          problems.push(`FOLDER/PLUGIN DUPLICATE skills/${entry.name} == ${pluginEntry.label}`);
+        }
+      }
+    }
+  }
+}
+
 if (problems.length > 0) {
   console.error(`FAIL - ${problems.length} problem(s)`);
   for (const problem of problems) console.error(`  ${problem}`);

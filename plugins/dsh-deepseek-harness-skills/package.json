@@ -14,7 +14,6 @@
     "cordis.patch.yml",
     "prompts",
     "references",
-    "skills",
     "tools"
   ],
   "scripts": {

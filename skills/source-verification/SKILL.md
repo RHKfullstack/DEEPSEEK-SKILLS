@@ -87,6 +87,27 @@ Then run **the boundary case that matters** — the empty input, the 300-charact
 
 A comparison without a number is a preference. Say "preference" when that is what it is.
 
+The command behind each row:
+
+```powershell
+# page speed: the trace, not an impression
+npx --yes lighthouse "$url" --preset=perf --output=json --output-path=./lh.json
+
+# is a package maintained: dates, not a feeling
+npm view <pkg> time.modified time.created
+# GitHub: pushed_at, open_issues_count, archived
+# https://api.github.com/repos/<owner>/<repo>
+
+# is the API I am reading current: the installed version against the registry
+npm ls <pkg> --depth=0; npm view <pkg> version
+
+# is the output correct: a hash or a byte diff against known-good
+Get-FileHash .\out.bin -Algorithm SHA256
+fc /b .\out.bin .\expected.bin    # or: cmp -l on a POSIX shell
+```
+
+An icon-set comparison is the worked case, and it needs a normaliser rather than an opinion: reduce both `d` attributes to the same command casing and spacing, compare the command vector and the stroke width, and report the distance **plus** the optical bounding box. The earlier audit of this pack is why: it measured an exact `1.506px` pen against the reference and still found the set `0.80x` its optical height. Matching ink weight with the wrong size is a measurable failure, not a judgement call.
+
 **EVIDENCE: the measure, the two values, and the command that produced them.**
 
 ## Rule V5 — The record

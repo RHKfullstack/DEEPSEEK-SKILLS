@@ -26,6 +26,8 @@ Decide this before writing anything. Building a CSS animation when the owner ask
 
 ## Phase 1 — UI transitions that do not jank
 
+The three base timings live in one place — `creative-designer`'s universal system (`120/200/320`). This skill applies them to a running UI and adds the computed envelope for spring motion; it does not redefine the scale.
+
 - **Animate `transform` and `opacity` only.** Width, height, `top`, `left`, `margin` force layout on every frame; that is the difference between smooth and "laggy on a real phone".
 - **Durations:** `120ms` micro (hover, press, focus), `200ms` standard (expand, open), `320ms` enter/exit (modal, drawer, route). Nothing over `400ms` unless it is a deliberate scene change. When the duration has to be computed rather than picked: clamp it to `200–1200ms` with `560ms` as the default, and set the exit to `min(240ms, 0.4 × duration)` - a spring that settles into that envelope reads as physical rather than decorative (the envelope this workspace solved for before, at a 1/480s integration step).
 - **Easing:** ease-out entering (`cubic-bezier(0, 0, .2, 1)`), ease-in leaving (`cubic-bezier(.4, 0, 1, 1)`). Linear reads as mechanical.
@@ -81,8 +83,10 @@ ffmpeg -y -i a.mp4 -i b.mp4 -filter_complex "[0][1]xfade=transition=fade:duratio
 # scale to 1080p, keep aspect, even numbers
 ffmpeg -y -i "$in" -vf "scale=-2:1080" -c:v libx264 -crf 20 "$out.mp4"
 
-# a caption that fades in at 1s and out at 4s
-ffmpeg -y -i "$in" -vf "drawtext=text='Sample':fontsize=48:fontcolor=white:x=(w-text_w)/2:y=h-140:alpha='if(lt(t,1),0,if(lt(t,4),1,0))'" "$out.mp4"
+# a caption that fades in at 1s and out at 4s.
+# fontfile is NOT optional here: this Windows build has no fontconfig default, and drawtext without it
+# crashes ffmpeg with an access violation (0xC0000005) instead of failing. Escape the drive colon.
+ffmpeg -y -i "$in" -vf "drawtext=fontfile='<drive>\:/Windows/Fonts/arial.ttf':text='Sample':fontsize=48:fontcolor=white:x=(w-text_w)/2:y=h-140:alpha='if(lt(t,1),0,if(lt(t,4),1,0))'" "$out.mp4"
 
 # high-quality GIF: palette first, then map it (the two-pass is not optional)
 ffmpeg -y -i "$in" -vf "fps=15,scale=640:-1:flags=lanczos,palettegen" palette.png
@@ -134,7 +138,7 @@ A video that exists is not a video that works:
 |---|---|
 | "Here is how you would make a video" with no file | produce the file, or label it UNAVAILABLE with the exact command |
 | Proposing ImageMagick, Inkscape, Remotion or svgo here | they are not installed — use the browser + ffmpeg + Pillow |
-| Running `convert` on an image on Windows | that is the disk tool; use `magick`, which is absent, or Pillow |
+| Running `convert` on an image on Windows | that is the disk tool; use Pillow for raster work, or a headless browser for SVG |
 | Animating `height`, `width` or `left` | `transform` and `opacity` only |
 | A 600ms bouncy transition on every hover | 120ms micro, 200ms standard, 320ms enter |
 | The same animation on everything | one moving element per view, and it means something |

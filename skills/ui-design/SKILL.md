@@ -29,19 +29,19 @@ The single highest-leverage change is step 1. Skipping it is why the same agent 
 
 **The default this pack keeps producing: a white card, a 1px neutral border, a 16px radius, repeated for every object on the screen.** It is the default because it needs no decision — any model can emit `border: 1px solid #e5e7eb; border-radius: 16px`. It is also why a finished build reads as a prototype: when every surface is outlined the same way, nothing on the page carries more weight than anything else.
 
-So the surface language is **decided once, written down, and applied to every container**:
+So the surface language is **decided once, written down, and applied to every container**. On the web this section owns that decision; every other medium takes the same choice from `creative-designer`, which defers here rather than restating it:
 
 | Direction | The container is | What it needs | Fails when |
 |---|---|---|---|
 | **Tinted surfaces** | a surface colour step, no border, no shadow | a 3-step tinted neutral ramp | the ramp is too subtle to see |
-| **Elevation** | a shadow only, no border | tinted shadows, 2 levels maximum | the shadow sits on a bordered card |
+| **Elevation** | a shadow only, no border | tinted shadows, using only the two lower elevation tokens | the shadow sits on a bordered card |
 | **Hairline on tint** | a 1px border in a *tinted* neutral, on a tinted background | a border token that is not `#e5e7eb` | it is the same border on white |
 | **Borderless structure** | no container at all — spacing and type do the grouping | real hierarchy and generous rhythm | the grouping becomes unreadable |
 | **Editorial split** | an asymmetric background change, or one accent panel per view | layout confidence | it becomes decoration without meaning |
 
 - **Exactly one direction per project.** Two surface languages on one screen is the "outlined *and* shadowed" mess that reads as assembled rather than designed.
 - **The direction is written down before the first component** — one line in the plan or the file header: `surface language: tinted, --surface-1/2/3, no border on content containers`.
-- **If a container needs a border to be understood, the hierarchy has failed**, not the container.
+- **If a container needs a border to be understood as hierarchy, the hierarchy has failed** — a hairline used as the chosen surface treatment is fine; a border added to rescue an unclear grouping is not.
 
 ### The signature decision
 

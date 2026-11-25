@@ -1,7 +1,7 @@
 {
   "name": "dsh-deepseek-skills",
   "version": "1.2.0",
-  "description": "DeepSeek Harness skills bundle: sandbox-mode, plannable, organizer, the eleven senior-* engineering audits, context-handoff, and the design and stack skills. One installable package, no sub-package wiring.",
+  "description": "DeepSeek Harness skills bundle: sandbox-mode, plannable, organizer, the eleven senior-* engineering audits, context-handoff, lead-delegation, encoding-hygiene, and the design and stack skills. One installable package, no sub-package wiring.",
   "type": "module",
   "main": "./index.js",
   "exports": {
@@ -16,7 +16,12 @@
     "plugins"
   ],
   "scripts": {
-    "check": "node --check index.js"
+    "check": "node --check index.js",
+    "validate": "node scripts/validate-skills.mjs",
+    "duplicates": "node scripts/check-duplicates.mjs"
+  },
+  "devDependencies": {
+    "yaml": "^2.5.0"
   },
   "dsh": {
     "id": "dsh-deepseek-skills",

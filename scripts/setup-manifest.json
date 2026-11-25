@@ -1,6 +1,6 @@
 {
   "note": "Expected SHA256 of every file this setup owns, hashed over the text with line endings normalised so a CRLF and an LF checkout of the same file agree. Run scripts/verify-setup.ps1 after an app update; run scripts/restore-setup.ps1 if a file is missing or changed.",
-  "skillsCount": 29,
+  "skillsCount": 31,
   "files": [
     { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\index.js", "sha256": "7119FAC0B6AEC5CE5BBAF485B1C695F95FA62A6FBF169D72D97BAE436E95C3C5" },
     { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\handoff-policy.md", "sha256": "25D6A6E6ADC5A9BA0DF660B70AFA6C3AF8C25FF0C5A96D772D7514117A0E0BF8" },
@@ -9,7 +9,7 @@
     { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\plannable.md", "sha256": "27A2DEB5BA58389B887439BDFA047D6FC46370FB08CFB331323C496443A7D865" },
     { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\sandbox-mode.md", "sha256": "D8E19478CCA69C5AF76B7947BE767270B553FD7694E521D1456425AA74CA916A" },
     { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\scale-policy.md", "sha256": "3E0D97FA48B37D2250619BC6A31AF3953BACFFFD2FF4C682A8BFC7E97BA1A14F" },
-    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\skills-policy.md", "sha256": "AD7B0C278E76EA7828C2279A58A3C1F22FC077DA8D38C8319B1E5DB895AC920E" },
+    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\skills-policy.md", "sha256": "FFF4D926F4967733432A8CA4B0BA51AFBC95ECADC012308210CE7E209D252DD4" },
     { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\team-policy-override.md", "sha256": "B3773A89A4D4B454185CE3BB4C43774B0C31D5779178626A587409C041CFC1D9" },
     { "path": "~\\.dsh\\plugins\\dsh-senior-engineering-skills\\index.js", "sha256": "92E6B4F653A623B3F126DA6B2B5E40ED3EF6566FA3FD56E12E9081C9D08E88AF" },
     { "path": "~\\.dsh\\plugins\\dsh-senior-engineering-skills\\prompts\\senior-policy.md", "sha256": "CD9C13985DF2421C0074EA2C4424856DE5313FE6E7903BF9FD1AAFE6F8EA7E73" }

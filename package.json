@@ -18,7 +18,8 @@
   "scripts": {
     "check": "node --check index.js",
     "validate": "node scripts/validate-skills.mjs",
-    "duplicates": "node scripts/check-duplicates.mjs"
+    "duplicates": "node scripts/check-duplicates.mjs",
+    "encoding": "node scripts/check-encoding.mjs"
   },
   "devDependencies": {
     "yaml": "^2.5.0"

@@ -5,6 +5,11 @@ description: Write, detect and repair text without corrupting it - UTF-8 with no
 
 # Encoding Hygiene
 
+<!-- deliberate-mojibake-examples -->
+
+This file knowingly contains corrupted characters, because it has to show them. See "the exemption" in
+Phase 4: the marker line above is what tells the gate to skip exactly this file, and nothing else.
+
 **Mojibake is silent corruption, not a cosmetic bug.** The file opens, the tests pass, the feature works —
 and every em dash, quotation mark, arrow and accented letter in it is wrong. Nothing throws. The corrupted
 text then goes into a commit, gets read by a model, and becomes part of the next author's source of truth.
@@ -125,6 +130,27 @@ and it must **fail**, not warn:
   adapter output, manifests, and workflow YAML, because those are the ones nobody reads.
 
 **EVIDENCE: the gate command, and a deliberately corrupted file that makes it fail.**
+
+### The exemption, and why it is a marker and not a path
+
+A file that exists to document the corruption has to contain it — this one does, on purpose. A gate that
+cannot express that will either fail forever on the one file that explains it, or get switched off.
+
+So the exemption is **a line inside the file**:
+
+```html
+<!-- deliberate-mojibake-examples -->
+```
+
+and the gate skips the file that carries it. Three rules make that safe:
+
+- **The marker is visible in the file**, in a diff, in review. A path-based exclusion (`!docs/**`) is
+  invisible, and it silently covers every future corruption under that path.
+- **The marker exempts one file, never a directory.**
+- **The exemption is counted and reported** by name, so nobody can add markers until the check means
+  nothing.
+
+**EVIDENCE: the gate output lists the exempt files by name.**
 
 ## The incident record this skill was written from
 

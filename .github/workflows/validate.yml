@@ -26,3 +26,5 @@ jobs:
         run: node scripts/validate-skills.mjs
       - name: Reject a duplicate or overlapping skill
         run: node scripts/check-duplicates.mjs
+      - name: Reject encoding damage
+        run: node scripts/check-encoding.mjs

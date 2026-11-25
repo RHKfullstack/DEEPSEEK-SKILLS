@@ -1,9 +1,16 @@
 name: validate
 
+# First-party actions only. If you want immutable CI, pin each `uses:` to a full commit SHA; a
+# mutable tag can be repointed by the action's maintainer. Restored after a bad merge glued two
+# `run:` lines into one and left an empty `- name:` step, which made this file invalid YAML - so
+# the validator never ran and a wrong skill count could reach main unnoticed.
 on:
   push:
     branches: [main]
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   validate:
@@ -14,6 +21,6 @@ jobs:
         with:
           node-version: "20"
       - name: Install the YAML parser the validator uses
-        run: npm install --no-save yaml@2      - name: Validate the pack
-      - name: Install the YAML parser the validator uses
-        run: npm install --no-save yaml@2        run: node scripts/validate-skills.mjs
+        run: npm install --no-save yaml@2
+      - name: Validate the pack
+        run: node scripts/validate-skills.mjs

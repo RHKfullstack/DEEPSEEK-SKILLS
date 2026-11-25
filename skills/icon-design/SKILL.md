@@ -23,6 +23,27 @@ Non-negotiables, because every later inconsistency traces back to these:
 
 **EVIDENCE: the grid, the stroke, and one icon's coordinates, written down before the second icon exists.**
 
+## Phase 0b — A missing tool is a task, not a wall
+
+If the job needs a renderer and the machine has none, **install it and prove the version** before planning around it. A skill that stops at "the tool is not installed" has handed the work back to the owner; a skill that installs the tool, prints its version and then uses it has done the job.
+
+| What you need | Install | Verify |
+|---|---|---|
+| ImageMagick - raster ops, SVG via delegates, contact sheets | `winget install --id ImageMagick.ImageMagick --accept-package-agreements --accept-source-agreements` | `magick -version` |
+| Inkscape - SVG to PNG, `--export-type=png` | `winget install --id Inkscape.Inkscape --accept-package-agreements --accept-source-agreements` | `inkscape --version` |
+| svgo - SVG optimisation | `npm install -g svgo` | `svgo --version` |
+| Pillow - raster compose, thumbnails, pixel checks | `python -m pip install --user pillow` | `python -c "import PIL; print(PIL.__version__)"` |
+| A rasteriser with no first-class Windows package | do not invent an install command: use Inkscape's `--export-type=png` or `magick` instead | - |
+
+Rules that keep this honest:
+
+- **Verify with the version command and quote it.** "Installed" without `magick -version` output is a claim.
+- **Install the smallest thing that does the job.** One rasteriser is enough; three is 600 MB of disk for no new capability.
+- **Say what you installed**, in the report, so the next session knows the machine changed.
+- **If the install needs elevation and is refused, that is the answer** - report it with the exact command, and label the step `UNAVAILABLE` rather than pretending the tool exists.
+
+**EVIDENCE: the install command, its exit code, and the version it printed.**
+
 ## Phase 1 — One geometry, repeated
 
 Every icon in a family is built from the same six primitives. Drawing with them — instead of freehand curves — is what makes a set look designed, and it is also the path that a model with weak vector output can actually follow:
@@ -101,7 +122,7 @@ Not every model can produce clean vector output, and none of them should guess. 
 | Emit clean SVG paths | hand-author on the grid (§1), one icon at a time, checking each |
 | Can emit primitives but curves come out wrong | use only `rect rx`, `circle`, `line`, `polyline` and `M…A…` arcs; no freehand beziers |
 | Cannot draw a usable vector at all | **use a licensed library** — Lucide, Tabler, Phosphor, Heroicons, Iconoir — one family only, and record which and why in the hand-off |
-| The product already ships its own set | use it and its own package - for Jiggicons, `npx jiggicons add` covers the 80 free icons and the rest need `npx jiggicons login` first; never redraw the set, and never ship its art as a set of your own |
+| The product already ships its own set | use it and its own package or CLI, respecting its licence and its free/paid split; never redraw the set, and never re-ship its art as a set of your own |
 | Cannot see the result | render it in a browser - Chrome or Edge headless, or Playwright - at 16/24/48. **Do not reach for `rsvg-convert`, ImageMagick or `librsvg`: none is installed here** (checked 2026-11-25). Pillow composes PNGs but cannot rasterise SVG |
 
 **The rule that overrides all of them: never ship an icon you have not seen rendered at 16px.** An icon is judged at the size it is used, and 16px is where a bad grid shows up.
@@ -172,7 +193,6 @@ Run this on the set, not on one icon, and count the failures:
 
 ## Sources — verified live 2026-11-25
 
-- [Jiggicons](https://jiggicons.com/) — the reference implementation this method is generalised from: 24px grid, four treatments from one drawing, named layers so each piece moves on its own, motion and spatial audio authored per icon, `prefers-reduced-motion` supported. Match the *method*, not the drawings; the set is licensed.
 - [Lucide — icon design guidelines](https://lucide.dev/guide/design/icon-design-guide) — 24px grid, 2px stroke default, rounding rules, and the optical-centre practice.
 - [Material Symbols — design guidelines](https://m3.material.io/styles/icons/designing-icons) — grid, keyline shapes, and the four-variable axis approach (weight, fill, grade, optical size) that a treatment system mirrors.
 - [Apple Human Interface Guidelines — SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) — optical size behaviour and why a small size is a redraw rather than a scale.

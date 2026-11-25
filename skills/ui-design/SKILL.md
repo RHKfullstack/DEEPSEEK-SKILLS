@@ -61,22 +61,22 @@ Cover the logo. **Could this screen be any product?** If yes, there is no direct
 
 **EVIDENCE: the one-line surface language and the one signature decision, both written before the first component.**
 
-### A reference read, so the bar is concrete
+### Reading any reference
 
-This is a read of a real page that clears the bar — `https://jiggicons.com` at `1440×900`. Study the *decisions*, not the brand:
+A reference is read the same way every time: list what it does that a default build would not. Eight things are worth looking at, and a reference that answers none of them is not a reference.
 
-| What it does | Why it clears the bar |
+| Look for | The question to answer |
 |---|---|
-| One ~600px measure inside a 1440 viewport, huge empty margins | the page has one thing to say per line; nothing competes for width |
-| **No cards at all.** Content sits on the page | the outline-card default is absent, so hierarchy has to come from type and space |
-| Surface language: flat white page + one black bar + one warm-grey band + one soft pill | five surface steps, no borders, and each band means something |
-| Exactly **one heavy element** — the black CTA with the price inside it | one primary action, and a product-specific move (price in the button) rather than a generic "Get started" |
-| The product is the **first** visual: an icon strip, before any prose | show the thing before describing it |
-| One type family, ~3 sizes; hierarchy from weight and space, not size | a squint still separates lead, body and meta |
-| The only borders are structural (row rules inside the sampler grid) | a border that carries information, not decoration |
-| Social proof as one live line with a green dot, not a wall of quotes | confidence without a component |
+| The measure | one reading column, or lines that run the full width? |
+| Surfaces | is anything outlined, and does every container share one treatment? |
+| Weight | how many things are heavy, and does that match what matters? |
+| The first visual | does the product appear before the prose, or after it? |
+| Type | how many sizes, and does the hierarchy survive a squint? |
+| Bands | how many background steps, and does each one mean something? |
+| The signature | the one thing a competitor would not accidentally copy |
+| Restraint | what is deliberately absent - cards, shadows, icons, colour? |
 
-Run the same read on any reference before copying anything: list what it does that a default build would not. If the list is empty, the reference is not a reference.
+Write the answers down before building anything. "Match the rhythm, not the brand" only becomes actionable once you can name the rhythm in those eight rows. No site is the reference here: the rows are.
 
 ## 2. Tokens — the actual values
 

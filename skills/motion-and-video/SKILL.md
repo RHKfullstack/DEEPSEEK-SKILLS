@@ -53,8 +53,8 @@ Verified on this machine 2026-11-25. **A tool that is not on this list is not av
 | raster compose, text on an image, image diff | Pillow | **present, 12.3.0** (`python -c "import PIL"`) |
 | in-page UI animation | CSS / WAAPI | the browser |
 | record a UI interaction | Playwright video / screencast, or `ffmpeg -f gdigrab` | Playwright MCP is available |
-| SVG → PNG without a browser | — | **absent**: no ImageMagick, no Inkscape, no `rsvg-convert`, no `cairosvg` |
-| SVG optimise | — | **absent**: no `svgo` (use `npx --yes svgo` only if the owner allows a download) |
+| SVG → PNG without a browser | ImageMagick or Inkscape | **absent at the time of writing** - install with `winget install ImageMagick.ImageMagick` or `Inkscape.Inkscape` (Phase 2b), then verify |
+| SVG optimise | svgo | **absent at the time of writing** - `npm install -g svgo` (Phase 2b); `npx --yes svgo` also works and is a download, so say so |
 | programmatic video in React | — | **absent as a package**: no `remotion` in any `node_modules` here. `npx --yes remotion` cannot work (the package ships no `bin`); the CLI is reachable only as `npm exec --yes --package=@remotion/cli -- remotion --version`, and a render additionally needs its own Chrome Headless Shell download - so do not propose it as ready |
 
 **The Windows trap:** `convert` on this machine is the `convert.exe` that ships in `System32` — Windows' own NTFS volume-conversion tool, not ImageMagick. Running it on a PNG does nothing useful and can be destructive. Check `Get-Command` before believing a tutorial.
@@ -62,6 +62,23 @@ Verified on this machine 2026-11-25. **A tool that is not on this list is not av
 **Translating a tutorial that assumes ImageMagick or Inkscape:** render SVG with a headless browser instead (Playwright: open the SVG, screenshot), and do the rest with `ffmpeg` and Pillow.
 
 **EVIDENCE: `Get-Command <tool>` for every tool the plan uses, showing the real path.**
+
+## Phase 2b — Install what the job needs
+
+The tool table above describes this machine at the time it was written, not the limit of what is possible. When a job needs a tool that is missing, **install it, verify it, then use it** - and say so in the report, because the machine has changed.
+
+| Tool | Install | Verify |
+|---|---|---|
+| ImageMagick (`magick`) | `winget install --id ImageMagick.ImageMagick --accept-package-agreements --accept-source-agreements` | `magick -version` |
+| Inkscape - SVG to PNG without a browser | `winget install --id Inkscape.Inkscape --accept-package-agreements --accept-source-agreements` | `inkscape --version` |
+| svgo | `npm install -g svgo` | `svgo --version` |
+| ffmpeg, if even that is missing | `winget install --id Gyan.FFmpeg --accept-package-agreements --accept-source-agreements` | `ffmpeg -version` |
+
+- **One install, verified, beats three proposed.** Do not list alternatives you did not install.
+- **A refused install is a result**: quote the error, label the step `UNAVAILABLE`, and give the command the owner can run.
+- **Never claim a tool from memory** - the version command is the only proof that it is there.
+
+**EVIDENCE: the install command, its exit code, and the version output.**
 
 ## Phase 3 — The ffmpeg recipes
 

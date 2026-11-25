@@ -6,6 +6,7 @@ const PLANNABLE_URL = new URL("./prompts/plannable.md", import.meta.url);
 const ORGANIZER_URL = new URL("./prompts/organizer.md", import.meta.url);
 const ORGANIZER_POLICY_URL = new URL("./prompts/organizer-policy.md", import.meta.url);
 const SKILLS_POLICY_URL = new URL("./prompts/skills-policy.md", import.meta.url);
+const HANDOFF_POLICY_URL = new URL("./prompts/handoff-policy.md", import.meta.url);
 const SCALE_POLICY_URL = new URL("./prompts/scale-policy.md", import.meta.url);
 const TEAM_POLICY_OVERRIDE_URL = new URL("./prompts/team-policy-override.md", import.meta.url);
 
@@ -32,6 +33,7 @@ const PLANNABLE_TEXT = escape(readFileSync(PLANNABLE_URL, "utf8"));
 const ORGANIZER_TEXT = escape(readFileSync(ORGANIZER_URL, "utf8"));
 const ORGANIZER_POLICY_TEXT = escape(readFileSync(ORGANIZER_POLICY_URL, "utf8"));
 const SKILLS_POLICY_TEXT = escape(readFileSync(SKILLS_POLICY_URL, "utf8"));
+const HANDOFF_POLICY_TEXT = escape(readFileSync(HANDOFF_POLICY_URL, "utf8"));
 const SCALE_POLICY_TEXT = escape(readFileSync(SCALE_POLICY_URL, "utf8"));
 
 // The harness renders a section whose `text` is a function on every assembly
@@ -104,6 +106,9 @@ export function apply(ctx) {
   // `deepseek-harness:organizer-policy` states the always-on workspace-hygiene rules: created
   // artifacts go to the sink, nothing is deleted without a plan the user saw, the protected set
   // is never planned, and every backup gets a named disposition.
+  // `deepseek-harness:handoff-policy` states the always-on checkpoint rule: `HANDOFF.md` is kept
+  // current as the work advances, no context percentage is invented, and a resumed session reads
+  // the file and verifies the state instead of re-planning.
   // Section names stay plugin-owned and never reuse a harness name, because a duplicate name in
   // one layer throws during assembly.
   const scalePolicyOrder = resolveScalePolicyOrder(ctx.systemPrompt);
@@ -123,6 +128,19 @@ export function apply(ctx) {
       // about workspace hygiene before the task-level policies.
       order: 170,
       text: liveText(ORGANIZER_POLICY_URL, ORGANIZER_POLICY_TEXT),
+    }),
+  );
+
+  // `deepseek-harness:handoff-policy` is the always-on checkpoint rule: keep `HANDOFF.md`
+  // current while the work advances, never fabricate a context percentage, and resume from the
+  // file instead of re-planning. Order 165 places it between the skills policy (150) and the
+  // organizer policy (170), because it governs the same end-of-task moment the organizer does:
+  // the organizer decides where an artifact goes, this decides what the next session needs.
+  ctx.effect(() =>
+    ctx.systemPrompt.section({
+      name: "deepseek-harness:handoff-policy",
+      order: 165,
+      text: liveText(HANDOFF_POLICY_URL, HANDOFF_POLICY_TEXT),
     }),
   );
   ctx.effect(() =>

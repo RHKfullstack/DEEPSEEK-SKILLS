@@ -20,6 +20,7 @@ Result:
 ├── casino-wallet-ledger/SKILL.md
 ├── client-code-intake/SKILL.md
 ├── code-language-policy/SKILL.md
+├── context-handoff/SKILL.md
 ├── creative-designer/SKILL.md
 ├── diagram-and-wireframe/SKILL.md
 ├── game-assets/SKILL.md
@@ -71,9 +72,23 @@ Then confirm both appear in the profile's `package.json` `dsh.profile.bundles` l
 
 ## Verifying the whole install
 
-1. Catalog size: 28 user skills + 11 plugin skills + 3 core skills (`sandbox-mode`, `plannable`, `organizer`) = 42, plus the harness's own bundled skills.
+1. Catalog size: 29 user skills + 11 plugin skills + 3 core skills (`sandbox-mode`, `plannable`, `organizer`) = 43, plus the harness's own bundled skills.
 2. `senior-code-review` must contain the line beginning `> **Stack:**` — that is the bridge to `stack-php-mysql`.
 3. Ask for a code review on a Laravel change. Expected automatic loads: `senior-code-review` + `stack-php-mysql`, plus `senior-app-security` when the change touches auth or input.
+4. Ask the model to state the context-handoff rule without loading anything. Expected answer: `HANDOFF.md` is kept current as the work advances, no context percentage is invented, and a resumed session verifies the state before continuing — that is `deepseek-harness:handoff-policy` reaching the system prompt. If the answer is "I have no such rule", the plugin did not restart.
+
+## The four always-on policy sections
+
+The harness plugin injects four compact policy sections into the system prompt. They restate a rule that must hold even when the matching skill body is not loaded:
+
+| Section | Owns |
+|---|---|
+| `deepseek-harness:skills-policy` | Which skills to load on a turn, and when |
+| `deepseek-harness:handoff-policy` | The checkpoint rule: `HANDOFF.md` kept current, no invented percentage, resume from the file |
+| `deepseek-harness:organizer-policy` | The artifact sink, the deletion gate, the protected set |
+| `deepseek-harness:scale-policy` | SMALL / LARGE / HEAVY work and when delegation engages |
+
+The senior-engineering plugin adds its own section for the audit bar.
 
 ## Uninstall
 

@@ -43,7 +43,8 @@ skills/                                   folder skills, registered by index.js
 ├── stack-php-mysql/                       Laravel/PHP + MySQL + Redis + Windows commands
 ├── senior-app-security/                   authz/IDOR, mass assignment, XSS, CSRF, CSP
 ├── senior-background-jobs/                queues, Horizon, retries, failed_jobs, cron
-└── senior-production-defaults/            never ship the scaffold: build-time defaults
+├── senior-production-defaults/            never ship the scaffold: build-time defaults
+└── context-handoff/                       the rolling HANDOFF.md checkpoint and the resume protocol
 
 plugins/                                  the two original plugin packages
 ├── dsh-deepseek-harness-skills/           sandbox-mode, plannable, organizer (+ prompts, references, tools)
@@ -80,6 +81,14 @@ plugins/                                  the two original plugin packages
 
 The engineering skills are stack-neutral, which is how they end up citing PostgreSQL and Kubernetes. `stack-php-mysql` supplies the executable substitute for a Laravel/PHP + MySQL + Redis + Windows project, so an evidence gate resolves to a real command instead of `UNAVAILABLE`. Each senior skill points to it.
 
+## Staying resumable
+
+| Skill | Covers |
+|---|---|
+| `context-handoff` | The rolling checkpoint: `HANDOFF.md` refreshed as the work advances, the eleven sections a new session needs, the 50% rule, and the resume protocol that continues from the file instead of re-planning. |
+
+Four always-on policy sections ship with the plugin, and the newest is `deepseek-harness:handoff-policy` — the checkpoint rules that hold even when the skill body has not been loaded. The split is deliberate: `organizer` decides **where** the file lives, `plannable` owns the parts and the evidence, `project-quality-chain` owns the completion claim, and `context-handoff` owns **only** the transfer document.
+
 ## Requirements
 
 - DeepSeek Harness **0.2.1-rc.1 or newer**
@@ -100,9 +109,9 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 
 - `sandbox-mode`, `plannable`, `organizer` — with their policy sections and `references/`
 - the eleven `senior-*` audits — with the senior policy section
-- the twenty-eight folder skills under `skills/`
+- the twenty-nine folder skills under `skills/` — including `context-handoff`
 
-42 skills in one install. No sub-package paths, no second install.
+43 skills in one install, plus the four always-on policy sections (`skill-loading`, `senior`, `handoff`, `workspace-hygiene`). No sub-package paths, no second install.
 
 > **Fixed in 1.1.0.** Earlier commits failed with *"This package declares no bundle, so it cannot be managed as a plugin"* — the root had no `package.json`, so the installer had nothing to mount.
 
@@ -110,7 +119,7 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 
 Copy `skills\*` into `~/.dsh/skills/`. The filesystem provider picks them up on the next turn, with no restart. Use this when you want the design and stack skills without the plugin machinery.
 
-That installs the twenty-eight folder skills only. Their cross-references to the eleven `senior-*` audits and the three core skills resolve **only when the plugin bundle is also installed** - the folder path is the design and stack half of the pack, not the whole of it.
+That installs the twenty-nine folder skills only. Their cross-references to the eleven `senior-*` audits and the three core skills resolve **only when the plugin bundle is also installed** - the folder path is the design and stack half of the pack, not the whole of it. The always-on handoff policy is injected by the plugin, so the folder-only install gets the `context-handoff` skill body without it.
 
 Full per-tool instructions, including Claude Code and the other agents, are in [INSTALL.md](INSTALL.md).
 > **Do not install both this bundle and another pack that ships the same `senior-*` names into one DSH profile.** The 11 senior audits would register twice. This bundle already includes them. Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.

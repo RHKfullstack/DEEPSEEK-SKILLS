@@ -91,11 +91,12 @@ check("exactly three skills are registered", () => {
   return names.join(", ");
 });
 
-check("exactly three prompt sections are registered", () => {
+check("exactly four prompt sections are registered", () => {
   const names = live.state.sections.map((section) => section.name).sort();
   assert(
     JSON.stringify(names) ===
       JSON.stringify([
+        "deepseek-harness:handoff-policy",
         "deepseek-harness:organizer-policy",
         "deepseek-harness:scale-policy",
         "deepseek-harness:skills-policy",
@@ -168,13 +169,23 @@ check("whenToUse pins the skill as always-on", () => {
 
 check("the skills policy pins organizer as always-on", () => {
   const policy = read("../prompts/skills-policy.md");
-  assert(/Nine skills are always-on/.test(policy), "the always-on count was not updated");
+  // `e99a3d5` cut the always-on set from nine to three; this assertion kept asserting the
+  // old design until 2026-11-25. The shipped policy is the authority: it is the text the
+  // model receives, so the test follows it rather than the other way round.
+  assert(/Three skills are always-on/.test(policy), "the always-on count was not updated");
   assert(/`organizer`/.test(policy), "organizer is not named in the always-on rule");
+  // `b98ae53` replaced the old "call `skill` with `organizer`" greeting sequence with the
+  // opposite rule: a greeting calls no tool at all, and the pin is the first turn that carries
+  // a task. This assertion follows the shipped policy.
   assert(
-    /call `skill` with `organizer`/.test(policy),
-    "the greeting sequence does not load organizer",
+    /first turn of the session that carries a task/.test(policy),
+    "the policy does not state when the always-on trio is loaded",
   );
-  return "nine always-on, organizer named and sequenced";
+  assert(
+    /A greeting loads nothing/.test(policy),
+    "the greeting rule no longer matches the shipped policy",
+  );
+  return "three always-on, organizer named, loaded on the first task turn";
 });
 
 check("the four bundled reference modules exist and resolve against the base", () => {

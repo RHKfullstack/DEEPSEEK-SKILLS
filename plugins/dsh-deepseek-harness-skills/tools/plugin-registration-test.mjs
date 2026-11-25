@@ -126,8 +126,8 @@ const scalePolicyText = () => {
   return section.text();
 };
 
-check("registers exactly three prompt sections", () => {
-  assert.equal(live.state.sections.length, 3);
+check("registers exactly four prompt sections", () => {
+  assert.equal(live.state.sections.length, 4);
 });
 check("registers exactly three skills", () => {
   assert.deepEqual(
@@ -136,9 +136,16 @@ check("registers exactly three skills", () => {
   );
 });
 check("registers exactly one system-prompt/assemble listener, prepended", () => {
-  assert.equal(live.state.listeners.length, 1, "expected exactly one listener registration");
-  const [listener] = live.state.listeners;
-  assert.equal(listener.event, "system-prompt/assemble");
+  // The plugin registers three `ctx.on` handlers in total (assemble, agent/pre-step,
+  // tools/pre-execute for the skill guard), so the assertion is about the assemble listener
+  // specifically, not about the whole listener list.
+  const assemble = live.state.listeners.filter((entry) => entry.event === "system-prompt/assemble");
+  assert.equal(
+    assemble.length,
+    1,
+    `expected one system-prompt/assemble listener, found ${assemble.length} of ${live.state.listeners.length}`,
+  );
+  const [listener] = assemble;
   assert.equal(listener.options?.prepend, true, "the rewrite must run last, so it must be prepended");
   assert.equal(typeof listener.listener, "function");
 });
@@ -235,26 +242,18 @@ check("scale policy keeps the SMALL single-agent floor next to Rule S7", () => {
   assert.match(text, /## Rule S2 — SMALL stays single-agent/);
   assert.match(text, /Rule S2 still holds: a SMALL job\s+engages none of this/i);
 });
-check("skills policy names the nine always-on skills", () => {
+check("skills policy names the three always-on skills", () => {
   const text = skillsPolicyText();
-  assert.match(text, /Nine skills are always-on/);
-  for (const name of [
-    "sandbox-mode",
-    "plannable",
-    "organizer",
-    "senior-work-audit",
-    "senior-system-hardening",
-    "senior-code-review",
-    "senior-supply-chain-audit",
-    "senior-threat-model",
-    "senior-release-gate",
-  ]) {
+  // The always-on set was cut from nine to three in `e99a3d5`; the routing table below carries
+  // the senior audits instead, so only the three core skills are asserted here.
+  assert.match(text, /Three skills are always-on/);
+  for (const name of ["sandbox-mode", "plannable", "organizer"]) {
     assert.ok(text.includes(`\`${name}\``), `the always-on list omits ${name}`);
   }
 });
-check("skills policy routes the five deeper senior skills to on-trigger loading", () => {
+check("skills policy routes the five deeper senior skills through the trigger table", () => {
   const text = skillsPolicyText();
-  assert.match(text, /deeper senior skills are \*\*not\*\* always-on/);
+  assert.match(text, /Every other skill is trigger-loaded/);
   for (const name of [
     "senior-test-adequacy",
     "senior-data-migration-safety",

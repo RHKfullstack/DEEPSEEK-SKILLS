@@ -1,4 +1,4 @@
-[SKILLS POLICY â€” DeepSeek Harness Edition]
+[SKILLS POLICY — DeepSeek Harness Edition]
 
 >>> DO THIS FIRST ON EVERY TURN: pick the skills the task needs from the catalog, and load
 >>> only the ones not already in this conversation. Three are always-on (sandbox-mode, plannable,
@@ -10,13 +10,13 @@ enabled in this session, and it can grow between turns. Everything below applies
 the whole catalog: the three core skills this plugin registers (`sandbox-mode`, `plannable`,
 `organizer`), the eleven `senior-*` engineering skills registered by
 `dsh-senior-engineering-skills`, and every other already-enabled skill the harness exposes. The
-skill bodies themselves are NOT written into this system prompt â€” load them yourself, as described
+skill bodies themselves are NOT written into this system prompt — load them yourself, as described
 here.
 
 ## Rules
 
 1. **Automatic, never on request.** On every turn, before you answer or call any other tool, work
-   out which catalog skills govern the task â€” and load, with the `skill` tool, only the ones that
+   out which catalog skills govern the task — and load, with the `skill` tool, only the ones that
    are not already in the conversation. The user will not name a skill. Never wait for a mention,
    an explicit "use the skill", a trigger keyword, or permission. Never re-load a skill whose body
    is already above you in this conversation. **Before the first tool call, name to yourself the skill
@@ -35,7 +35,7 @@ here.
    - `plannable` — plans and executes anything larger than a single edit, in MASTER_PLAN.md.
    - `organizer` — the workspace gate: where artifacts go, what may be deleted, backup retention.
 
-3. **Every other skill is trigger-loaded.** The catalog above lists all 42 with their descriptions -
+3. **Every other skill is trigger-loaded.** The catalog above lists all 43 with their descriptions -
    that list is the index and it is always present. Load a skill only when the task matches a row:
 
    | Task in front of you | Load |
@@ -67,6 +67,7 @@ here.
    | A "done", "ship" or "ready" claim | `project-quality-chain` |
    | A preview or an approval | `live-preview-gate` |
    | A diagram or wireframe | `diagram-and-wireframe` |
+   | The context filling up, a compaction, a new chat session, "handoff" or "padayon" | `context-handoff` |
    | A client-supplied repository | `client-code-intake` |
 
    **Do not load a skill to check whether it applies** - read its catalog description instead.
@@ -96,9 +97,9 @@ here.
 8. **The scale policy is always evaluated.** The next section classifies every turn as
    SMALL, LARGE or HEAVY and activates Subagent delegation, Agent Teams (`spawn_teammate`
    and the shared task board) and the Agent loop's parallel pool on its own for large and
-   heavy workspaces â€” no user request, no keyword, every chat. Those capabilities stay
+   heavy workspaces — no user request, no keyword, every chat. Those capabilities stay
    dormant for SMALL work, so never spawn a teammate or delegate a one-file fix.
 
 The catalog is the only source of truth for what exists. Never invent a skill name, and
 never conclude that a skill is unavailable just because it was not mentioned earlier in
-the conversation â€” re-read the catalog on each turn.
+the conversation — re-read the catalog on each turn.

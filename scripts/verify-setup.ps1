@@ -8,6 +8,22 @@ $fail = 0
 
 Write-Host "DSH skill setup check" -ForegroundColor Cyan
 
+# Hash the text, not the bytes on disk. The manifest states "this is the content this setup
+# owns"; a CRLF checkout and an LF checkout of the same file are the same content, and hashing
+# raw bytes reports drift that does not exist. Normalising the line endings keeps the check
+# meaningful whichever way the file reached the machine.
+function Get-NormalizedHash {
+    param([string]$Path)
+    $text = ([System.IO.File]::ReadAllText($Path)) -replace "`r`n", "`n"
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($text)
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        return (($sha.ComputeHash($bytes) | ForEach-Object { $_.ToString("X2") }) -join "")
+    } finally {
+        $sha.Dispose()
+    }
+}
+
 foreach ($entry in $manifest.files) {
     $live = $entry.path -replace '^~', $env:USERPROFILE
     if (-not (Test-Path $live)) {
@@ -15,7 +31,7 @@ foreach ($entry in $manifest.files) {
         $fail++
         continue
     }
-    $hash = (Get-FileHash $live -Algorithm SHA256).Hash
+    $hash = Get-NormalizedHash $live
     if ($hash -ne $entry.sha256) {
         Write-Host ("  CHANGED  " + $entry.path) -ForegroundColor Yellow
         $fail++

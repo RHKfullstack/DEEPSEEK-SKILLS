@@ -1,10 +1,11 @@
 {
-  "note": "Expected SHA256 of every file this setup owns. Run scripts/verify-setup.ps1 after an app update; run scripts/restore-setup.ps1 if a file is missing or changed.",
-  "skillsCount": 28,
+  "note": "Expected SHA256 of every file this setup owns, hashed over the text with line endings normalised so a CRLF and an LF checkout of the same file agree. Run scripts/verify-setup.ps1 after an app update; run scripts/restore-setup.ps1 if a file is missing or changed.",
+  "skillsCount": 29,
   "files": [
-    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\index.js", "sha256": "6930D68C6FEBBAB77CD3A99EF26048BA27244822205AD4F31A855B9E3F5067EA" },
-    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\skills-policy.md", "sha256": "2B9105A61E73779BB857B047DE3286424131E56E337A7794F5AB35B85CF743D2" },
+    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\index.js", "sha256": "7119FAC0B6AEC5CE5BBAF485B1C695F95FA62A6FBF169D72D97BAE436E95C3C5" },
+    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\skills-policy.md", "sha256": "AD7B0C278E76EA7828C2279A58A3C1F22FC077DA8D38C8319B1E5DB895AC920E" },
     { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\organizer-policy.md", "sha256": "C3F4515AFB81BA75D4DE20A7B0EA859FDA6B1B984F6221609D920F8501C33D66" },
+    { "path": "~\\.dsh\\plugins\\dsh-deepseek-harness-skills\\prompts\\handoff-policy.md", "sha256": "2B3013B5950C1AE7888E4245EFD3F30FA58361723A9AD4DF1F36CC8630D4D01A" },
     { "path": "~\\.dsh\\plugins\\dsh-senior-engineering-skills\\prompts\\senior-policy.md", "sha256": "CD9C13985DF2421C0074EA2C4424856DE5313FE6E7903BF9FD1AAFE6F8EA7E73" }
   ]
 }

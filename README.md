@@ -85,7 +85,7 @@ The engineering skills are stack-neutral, which is how they end up citing Postgr
 
 | Skill | Covers |
 |---|---|
-| `context-handoff` | The rolling checkpoint: `HANDOFF.md` refreshed as the work advances, the eleven sections a new session needs, the 50% rule, and the resume protocol that continues from the file instead of re-planning. |
+| `context-handoff` | The rolling checkpoint: `HANDOFF.md` refreshed as the work advances, the eleven sections a new session needs, the resume protocol that continues from the file instead of re-planning, and the rule that a finished job gets its content **replaced**, not updated. No context percentage anywhere — the trigger is an event, so a 128k window and a 1M window follow the same rule. |
 
 Four always-on policy sections ship with the plugin, and the newest is `deepseek-harness:handoff-policy` — the checkpoint rules that hold even when the skill body has not been loaded. The split is deliberate: `organizer` decides **where** the file lives, `plannable` owns the parts and the evidence, `project-quality-chain` owns the completion claim, and `context-handoff` owns **only** the transfer document.
 
@@ -111,7 +111,7 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 - the eleven `senior-*` audits — with the senior policy section
 - the twenty-nine folder skills under `skills/` — including `context-handoff`
 
-43 skills in one install, plus the four always-on policy sections (`skill-loading`, `senior`, `handoff`, `workspace-hygiene`). No sub-package paths, no second install.
+43 skills in one install. The harness plugin injects four policy sections (`skills-policy` at 150, `handoff-policy` at 165, `organizer-policy` at 170, `scale-policy` before the Agent Teams section) and the senior plugin injects its own senior-engineering policy at 160 — five sections in total across the two plugins. No sub-package paths, no second install.
 
 > **Fixed in 1.1.0.** Earlier commits failed with *"This package declares no bundle, so it cannot be managed as a plugin"* — the root had no `package.json`, so the installer had nothing to mount.
 

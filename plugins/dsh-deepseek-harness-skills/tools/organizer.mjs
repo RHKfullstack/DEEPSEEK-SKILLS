@@ -503,7 +503,7 @@ const nowIso = () => new Date().toISOString();
 const sha256Hex = (value) => createHash("sha256").update(value).digest("hex");
 
 const truncate = (value, length) =>
-  typeof value === "string" && value.length > length ? `${value.slice(0, length - 1)}â€¦` : value;
+  typeof value === "string" && value.length > length ? `${value.slice(0, length - 1)}…` : value;
 
 const bytesHuman = (value) => {
   if (!Number.isFinite(value)) return "?";
@@ -4496,7 +4496,7 @@ const printHuman = (kind, data, error) => {
     const shown = rows.slice(0, LIST_CAP);
     const lines = shown.map(render);
     if (rows.length > shown.length) {
-      lines.push(`    â€¦ and ${rows.length - shown.length} more (use --json for the complete list)`);
+      lines.push(`    … and ${rows.length - shown.length} more (use --json for the complete list)`);
     }
     return lines;
   };
@@ -4543,7 +4543,7 @@ const printHuman = (kind, data, error) => {
     out.push("");
     out.push(
       ...listing(data.items, (item) => {
-        const name = item.rel.length > 70 ? `â€¦${item.rel.slice(-69)}` : item.rel;
+        const name = item.rel.length > 70 ? `…${item.rel.slice(-69)}` : item.rel;
         const lines = [
           `  ${item.planned ? "PLAN" : "defer"} ${item.safety} ${item.action.padEnd(6)} ${item.kind.padEnd(14)} ${String(item.size).padStart(10)}  ${name}`,
           `        ${item.reason}`,

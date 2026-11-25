@@ -1,6 +1,6 @@
 [HANDOFF POLICY — the checkpoint that survives the context window]
 
-`context-handoff` is the skill that owns the transfer document. These four rules are restated here so they
+`context-handoff` is the skill that owns the transfer document. These five rules are restated here so they
 hold even when its body is not in the context. The point of them is one sentence: **a session that runs out
 of room must leave behind everything a fresh session needs, and it must leave it before it runs out.**
 
@@ -12,24 +12,26 @@ A handoff written when the window is already full is a memorial, not a transfer.
 - a plan part completed (`plannable complete`) — refresh the rolling checkpoint;
 - before a long operation: a build, a full test suite, a migration, a deploy;
 - before a turn that must end mid-task;
-- when the owner says handoff, "padayon sa new chat", "new session", or pastes a handoff back in.
+- when the owner says handoff, "padayon sa new chat", "new session", or pastes a handoff back in;
+- **when the work it describes is finished** — then the file is replaced, not updated (Rule H5).
 
 The rolling checkpoint is the whole mechanism: refresh it as you go, and any stop — planned, abrupt, or a
-compaction — is already resumable. **You are not writing the handoff at the threshold; you are keeping it
-current so the threshold never catches you unprepared.**
+compaction — is already resumable. You are not waiting for a warning: you are keeping the file current so
+no warning is needed.
 
-## Rule H2 — The trigger is observable; the percentage is not
+## Rule H2 — The trigger is an event; the percentage does not exist
 
-Do NOT claim a context percentage you did not measure. In this build no tool reports remaining tokens, so
-"we are at 70%" is a fabricated measurement and it is worse than no estimate: it changes behaviour on a
-number that does not exist.
+There is **no context threshold in this rule** — no 50%, no 80%. A model cannot measure its own window, the
+owner's window may be 128k, 262k or a million tokens, and a percentage rule is wrong on most machines and
+fires at the wrong moment on the rest.
 
-- **Observed triggers:** the owner's words; a compaction notice; a transcript that is visibly long (many
-  large file reads and tool dumps); a long task several steps past its last checkpoint.
-- **A usage figure, when one exists,** is quoted with its source. A measured number beats an estimate, and
-  both beat silence.
-- **When the owner says 50%,** that is the threshold: finalize the handoff now and print the paste block,
-  rather than starting another piece of work.
+- **Never quote a context percentage**, not to justify writing the checkpoint and not to justify skipping it.
+  "We are at 70%" is a fabricated measurement.
+- **Event triggers, all observable:** the owner's words; a compaction notice or a summary of the
+  conversation; a plan part completed; a long operation about to start; a turn ending mid-task; the work
+  finishing.
+- **Scale has nothing to do with it.** The same rule runs on a 128k window and on a million-token one; a
+  small window simply reaches a compaction sooner, and the rolling checkpoint already covers that.
 
 ## Rule H3 — The file is paste-ready, or it is not a handoff
 
@@ -40,8 +42,8 @@ A handoff is read by a session that shares none of this conversation. So:
 - the next actions are ordered, each with the exact command to run;
 - a verify section whose expected output is written down — that section is what catches a stale handoff;
 - no secret value anywhere: a masked identifier only, because the owner can locate the secret themselves;
-- one file per handoff, rewritten in place with a new timestamp. Appending to stale "Done" rows makes the
-  file lie about the state.
+- one live file per handoff, rewritten in place with a new timestamp. Appending to stale "Done" rows makes
+  the file lie about the state.
 
 Where it lives: `.work/<run>/HANDOFF.md` under the sink by default, exactly where the owner said if they
 named a path. Never the repository root and never `NOTES.md` beside the source.
@@ -56,6 +58,22 @@ continue at its first next action, in order.
   for and usually reaches different ones.
 - **Do not redo what the file marks verified** unless verification failed or the tree changed.
 - **A mismatch is information** — report the delta before editing anything.
+
+## Rule H5 — At the end of the work, the content is deleted, not updated
+
+A finished job does not get an updated handoff; it gets a replaced one. The file describes the work that is
+open **now**, so when that work closes:
+
+1. **Open the file, delete its content, write the new handoff.** Do not append and do not "update in place" —
+   yesterday's Done rows above today's next actions is how a handoff starts to lie.
+2. **Nothing carries over by default.** The previous task survives only as a decision in section 7 if it
+   still constrains the next job, or as a verify command in section 10 if the state it left must still hold.
+3. **If nothing follows,** remove the file inside `organizer`'s S1 rules and say where it went — a closed
+   task must not leave a stale document behind.
+4. **One live file.** A superseded handoff is an ISO-dated archive recorded as `keep` in the manifest, never
+   a second `HANDOFF-final.md` sitting beside the real one.
+5. **Say it in the reply:** "the handoff at `<path>` was cleared and replaced with the handoff for
+   `<next task>`" — the owner must know the old content is gone before they paste anything.
 
 ## Precedence and overlap
 

@@ -19,7 +19,7 @@ import { dirname, extname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
-const MARKER = "deliberate-mojibake-examples";
+const MARKER = /^[ \t]*<!--[ \t]*deliberate-mojibake-examples[ \t]*-->[ \t]*$/m;
 const TEXT_EXTENSIONS = new Set([".md", ".js", ".mjs", ".cjs", ".json", ".yml", ".yaml", ".ps1", ".txt", ".php", ".py"]);
 const SKIP_DIRECTORIES = new Set([".git", "node_modules", ".github/workflows/node_modules"]);
 
@@ -73,7 +73,10 @@ for (const file of files) {
   const text = bytes.toString("utf8");
   const rel = relative(ROOT, file);
 
-  if (text.includes(MARKER)) {
+  // The marker must stand on a line of its own. A prose mention of it, like the sentence in this
+  // script's own header, does not exempt a file - otherwise a file could exempt itself by describing
+  // the rule instead of following it.
+  if (MARKER.test(text)) {
     exempt.push(rel);
     continue;
   }

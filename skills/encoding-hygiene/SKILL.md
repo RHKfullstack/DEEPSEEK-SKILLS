@@ -119,8 +119,7 @@ The repair procedure:
 
 ## Phase 4 — Make it a gate, or it comes back
 
-A repair without a gate is a delay. The check belongs in the same validator that already runs on push,
-and it must **fail**, not warn:
+A repair without a gate is a delay. The check belongs in the project's gate — a step that runs on every push, as its own step or inside the validator — and it must **fail**, not warn:
 
 - no `c3a2` / `c383` / `efbfbd` in any tracked text file;
 - no `EF BB BF` at byte 0 and no `FF FE` / `FE FF`;

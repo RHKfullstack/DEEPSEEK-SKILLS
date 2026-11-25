@@ -199,6 +199,20 @@ if (pluginEntries.length > 0) {
     }
   }
 
+  // A folder skill and a plugin skill that share a name are the same job listed twice, whatever their
+  // bodies say - so the name comparison is unconditional, not a by-product of the body comparison.
+  for (const root of ROOTS) {
+    const skillsDir = resolve(root);
+    if (!existsSync(skillsDir)) continue;
+    for (const entry of readdirSync(skillsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const clash = byPluginName.get(entry.name.toLowerCase());
+      if (clash) {
+        problems.push(`FOLDER/PLUGIN NAME COLLISION skills/${entry.name} == ${clash}`);
+      }
+    }
+  }
+
   // A folder skill and a plugin skill that share a body are the same skill shipped twice.
   for (const root of ROOTS) {
     const skillsDir = resolve(root);

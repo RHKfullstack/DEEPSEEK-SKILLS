@@ -82,10 +82,14 @@ result.
 
 ## Rule L4 — The Lead audits; it does not trust
 
-**"The worker says it passed" is a claim, not a result.** Every artifact is audited by someone who did not
-write it — and because the Lead is the only writer of the integration commit, that commit is audited by a
-worker or a second reviewer, never by the Lead alone. The Lead may re-run the gate itself, but re-running a
-check it already wrote is verification, not audit.
+**"The worker says it passed" is a claim, not a result.** On a LARGE or HEAVY job every artifact is audited
+by someone who did not write it — and because the Lead is the only writer of the integration commit, that
+commit is audited by a worker or a second reviewer, never by the Lead alone. The Lead may re-run the gate
+itself, but re-running a check it already wrote is verification, not audit.
+
+SMALL work stays single-agent, as scale-policy Rule S2 requires: there the author audits its own change and
+says so. The rule below is about who audits a delegated job, not a licence to spawn an auditor for a one-line
+edit.
 
 1. **Read the diff**, not the summary. `git diff --stat` first for blast radius, then the actual hunks.
 2. **Run the gate yourself** and quote its real output.
@@ -135,6 +139,7 @@ The reason for the split is attention, so the return path matters as much as the
 | A vague brief ("clean up the module") | six fields, or no delegation |
 | Two workers on overlapping paths | one workstream each, or serialise |
 | Trusting the worker's summary | read the diff and run the gate |
+| Auditing the Lead's own integration commit | a worker or second reviewer audits it; the Lead does not sign off its own work |
 | The Lead re-implements what the worker wrote | integrate, do not rewrite |
 | Pasting a full log into the Lead | return a distilled result and the evidence line |
 | Reporting a worker's claim as your own check | quote the command you ran |
@@ -146,8 +151,8 @@ The reason for the split is attention, so the return path matters as much as the
 - The work was split into workstreams, each with a worker, a written scope and a gate.
 - Every brief carried goal, constraints, write scope, acceptance, verify command and report format.
 - No two writers shared a path.
-- The Lead read the final diff and ran the gate itself; the output is quoted.
-- The report says which parts passed, which were not checked, and who produced each one.
+- The Lead read the final diff; the audit of everything the Lead wrote was performed by someone else; both sets of output are quoted.
+- The report says which parts passed, which were not checked, and who produced and who audited each one.
 - The Lead's context holds the decisions and the evidence, not the dumps.
 
 ## Failure modes

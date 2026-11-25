@@ -63,9 +63,27 @@ Verified on this machine 2026-11-25. **A tool that is not on this list is not av
 
 **EVIDENCE: `Get-Command <tool>` for every tool the plan uses, showing the real path.**
 
-## Phase 2b — Install what the job needs
+## Phase 2b — Detect first, install only what is missing
 
-The tool table above describes this machine at the time it was written, not the limit of what is possible. When a job needs a tool that is missing, **install it, verify it, then use it** - and say so in the report, because the machine has changed.
+### First: detect what the machine already has
+
+**Never install before you look.** One pass answers it, and the version it prints is both the detection and the proof:
+
+```powershell
+foreach ($t in @('magick','inkscape','svgo','ffmpeg','ffprobe')) {
+  $c = Get-Command $t -ErrorAction SilentlyContinue
+  if ($c) { "PRESENT $t -> $($c.Source)"; & $t --version 2>&1 | Select-Object -First 1 }
+  else    { "MISSING $t" }
+}
+python -c "import PIL; print('PRESENT Pillow', PIL.__version__)" 2>$null
+if ($LASTEXITCODE -ne 0) { "MISSING Pillow" }
+```
+
+- **Present means done - use it.** Reinstalling a working tool wastes the owner's time, can overwrite their configured build (a winget install is not always the version they pinned), and changes a machine that did not need changing.
+- **Install only the MISSING lines from that output**, then re-run the same command to prove the install landed.
+- **Put the found/missing list in the report.** The next session should not have to rescan the machine, and the owner can see that nothing was installed twice.
+
+The tool table above describes this machine **at the time it was written**, not the limit of what is possible. When a job needs a tool that is missing, **install it, verify it, then use it** - and say so in the report, because the machine has changed.
 
 | Tool | Install | Verify |
 |---|---|---|
@@ -74,6 +92,7 @@ The tool table above describes this machine at the time it was written, not the 
 | svgo | `npm install -g svgo` | `svgo --version` |
 | ffmpeg, if even that is missing | `winget install --id Gyan.FFmpeg --accept-package-agreements --accept-source-agreements` | `ffmpeg -version` |
 
+- **Check before you install.** Run the detection pass first; a present tool is used as it is, never reinstalled.
 - **One install, verified, beats three proposed.** Do not list alternatives you did not install.
 - **A refused install is a result**: quote the error, label the step `UNAVAILABLE`, and give the command the owner can run.
 - **Never claim a tool from memory** - the version command is the only proof that it is there.

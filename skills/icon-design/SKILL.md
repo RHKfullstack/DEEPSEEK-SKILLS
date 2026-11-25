@@ -23,7 +23,25 @@ Non-negotiables, because every later inconsistency traces back to these:
 
 **EVIDENCE: the grid, the stroke, and one icon's coordinates, written down before the second icon exists.**
 
-## Phase 0b — A missing tool is a task, not a wall
+## Phase 0b — Detect first, install only what is missing
+
+### First: detect what the machine already has
+
+**Never install before you look.** One pass answers it, and the version it prints is both the detection and the proof:
+
+```powershell
+foreach ($t in @('magick','inkscape','svgo','ffmpeg','ffprobe')) {
+  $c = Get-Command $t -ErrorAction SilentlyContinue
+  if ($c) { "PRESENT $t -> $($c.Source)"; & $t --version 2>&1 | Select-Object -First 1 }
+  else    { "MISSING $t" }
+}
+python -c "import PIL; print('PRESENT Pillow', PIL.__version__)" 2>$null
+if ($LASTEXITCODE -ne 0) { "MISSING Pillow" }
+```
+
+- **Present means done - use it.** Reinstalling a working tool wastes the owner's time, can overwrite their configured build (a winget install is not always the version they pinned), and changes a machine that did not need changing.
+- **Install only the MISSING lines from that output**, then re-run the same command to prove the install landed.
+- **Put the found/missing list in the report.** The next session should not have to rescan the machine, and the owner can see that nothing was installed twice.
 
 If the job needs a renderer and the machine has none, **install it and prove the version** before planning around it. A skill that stops at "the tool is not installed" has handed the work back to the owner; a skill that installs the tool, prints its version and then uses it has done the job.
 
@@ -38,6 +56,7 @@ If the job needs a renderer and the machine has none, **install it and prove the
 Rules that keep this honest:
 
 - **Verify with the version command and quote it.** "Installed" without `magick -version` output is a claim.
+- **Check before you install.** A present tool is used as it is; reinstalling it is a change the owner did not ask for.
 - **Install the smallest thing that does the job.** One rasteriser is enough; three is 600 MB of disk for no new capability.
 - **Say what you installed**, in the report, so the next session knows the machine changed.
 - **If the install needs elevation and is refused, that is the answer** - report it with the exact command, and label the step `UNAVAILABLE` rather than pretending the tool exists.

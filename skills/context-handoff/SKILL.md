@@ -41,7 +41,7 @@ A handoff written into the sink is at risk the moment the sink is cleaned: if th
 
 Paste-ready means: a new session reads this file and nothing else. Every reference is resolved here — no "as discussed", no "see above", no file name without its path.
 
-```md
+````md
 # HANDOFF — <project> — <YYYY-MM-DD HH:MM>
 
 ## 1. Session identity
@@ -92,7 +92,7 @@ Paste this into the new session:
 > Read `<path>/HANDOFF.md` first. It is a handoff, not a summary: run its section 10
 > commands, compare the result with section 3, then continue at section 5 in order.
 > Do not re-plan from scratch and do not redo section 9.
-```
+````
 
 Section 10 is the one that catches a stale handoff — it is the difference between a document that claims a state and a check that proves it.
 

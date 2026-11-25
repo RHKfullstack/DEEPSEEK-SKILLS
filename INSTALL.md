@@ -24,6 +24,7 @@ Result:
 ├── creative-designer/SKILL.md
 ├── diagram-and-wireframe/SKILL.md
 ├── encoding-hygiene/SKILL.md
+├── icon-design/SKILL.md
 ├── game-assets/SKILL.md
 ├── game-backend/SKILL.md
 ├── game-client-2d/SKILL.md
@@ -32,6 +33,7 @@ Result:
 ├── game-netcode/SKILL.md
 ├── game-quality-gate/SKILL.md
 ├── lead-delegation/SKILL.md
+├── motion-and-video/SKILL.md
 ├── live-preview-gate/SKILL.md
 ├── project-quality-chain/SKILL.md
 ├── senior-app-security/SKILL.md
@@ -41,6 +43,7 @@ Result:
 ├── senior-frontend-engineering/SKILL.md
 ├── senior-production-defaults/SKILL.md
 ├── senior-quality-gate/SKILL.md
+├── source-verification/SKILL.md
 ├── stack-index/SKILL.md
 ├── stack-php-mysql/SKILL.md
 ├── stack-python/SKILL.md
@@ -74,7 +77,7 @@ Then confirm both appear in the profile's `package.json` `dsh.profile.bundles` l
 
 ## Verifying the whole install
 
-1. Catalog size: 31 user skills + 11 plugin skills + 3 core skills (`sandbox-mode`, `plannable`, `organizer`) = 45, plus the harness's own bundled skills.
+1. Catalog size: 34 user skills + 11 plugin skills + 3 core skills (`sandbox-mode`, `plannable`, `organizer`) = 48, plus the harness's own bundled skills.
 2. `senior-code-review` must contain the line beginning `> **Stack:**` — that is the bridge to `stack-php-mysql`.
 3. Ask for a code review on a Laravel change. Expected automatic loads: `senior-code-review` + `stack-php-mysql`, plus `senior-app-security` when the change touches auth or input.
 4. Ask the model to state the context-handoff rule without loading anything. Expected answer: `HANDOFF.md` is kept current as the work advances, no context percentage is ever quoted, a resumed session verifies the state before continuing, and a finished job has its handoff content cleared and replaced. That is `deepseek-harness:handoff-policy` reaching the system prompt. If the answer is "I have no such rule", the plugin did not restart.

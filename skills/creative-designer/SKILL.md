@@ -15,7 +15,7 @@ That is why one skill can cover everything: **you do not learn six design discip
 
 1. **Brief.** One sentence: whose problem, what job, what the viewer must notice in three seconds. If the brief has two primary jobs, split it into two artifacts.
 2. **Reference.** One to three real references. Extract *rhythm and hierarchy*, never brand or colour. Write down what specifically you are copying: "12-column grid, 8pt rhythm, 2 type sizes" — not "looks premium".
-3. **System.** Fix type scale, spacing scale, colour roles, radius, elevation, motion timing **before** composing. In print and slides these are points and millimetres; on screen they are rem and px. The ratios are identical.
+3. **System.** Fix type scale, spacing scale, colour roles, radius, elevation, motion timing **before** composing. In print and slides these are points and millimetres; on screen they are rem and px. The ratios are identical. **Decide the surface language in the same step** — how a container is separated from its background: a tint step, an elevation, a hairline on a tint, structure with no container at all, or an editorial split. Choose one and write it down. The default an unassisted model ships — a white card with a 1px neutral border and a 16px radius, repeated for every object — is not a language, it is the absence of the decision, and it is the single most common reason a finished build reads as a prototype. Then name **one signature decision** specific to this product (a type pairing, an accent role, a grid break, an icon family, a surface only the primary action lives on). One, not five.
 4. **Compose.** Place by hierarchy order: size → weight → colour → space. One primary focal point per frame. Everything else supports it.
 5. **Craft.** Icons, imagery, alignment, optical corrections, empty states, edge cases.
 6. **Brand.** One accent. Consistent logo clear-space. The same voice. A second accent colour is a finding, not a choice.
@@ -96,7 +96,7 @@ Every medium-specific rule above is a consequence of those four. A video title c
 
 ## Craft details that separate "fine" from "professional"
 
-- **Iconography:** one family, one stroke weight, one optical size. Emoji as icons is a finding.
+- **Iconography:** one family, one stroke weight, one optical size. Emoji as icons is a finding. For a set of its own, `icon-design` owns the grid, the four treatments and the per-icon motion.
 - **Imagery:** consistent treatment (same crop style, same colour temperature). Mixed stock and illustration needs a stated reason.
 - **Alignment:** optical, not mathematical. Text is aligned to the letter's edge, not the box's.
 - **Density:** if a block has fewer than three pieces of information, it is not a card — it is a line of text. Never nest containers.
@@ -112,6 +112,8 @@ Run this against the artifact itself — a render, a screenshot, a print proof, 
 **Show the artifact inline in the reply, not just its path.** A preview the user has to go find is not a preview: attach the render, the exported page, or the slide image in the answer, and keep the path only as a caption. The critique is the work; the image is the evidence the user can check.
 
 - [ ] One focal point; hierarchy readable at a squint and at `30%` scale
+- [ ] A surface language is named and applied to every container; the outline-card default is absent
+- [ ] One signature decision specific to this product — cover the logo and the artifact is still identifiable
 - [ ] Every size/space/colour value resolves to the system (§ universal)
 - [ ] ≤4 type sizes per screen/slide, ≤5 per print spread
 - [ ] One accent colour; neutrals tinted, not pure grey

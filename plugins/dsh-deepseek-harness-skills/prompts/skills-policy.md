@@ -35,7 +35,7 @@ here.
    - `plannable` — plans and executes anything larger than a single edit, in MASTER_PLAN.md.
    - `organizer` — the workspace gate: where artifacts go, what may be deleted, backup retention.
 
-3. **Every other skill is trigger-loaded.** The catalog above lists all 45 with their descriptions -
+3. **Every other skill is trigger-loaded.** The catalog above lists all 48 with their descriptions -
    that list is the index and it is always present. Load a skill only when the task matches a row:
 
    | Task in front of you | Load |
@@ -70,6 +70,9 @@ here.
    | The context filling up, a compaction, a new chat session, "handoff" or "padayon" | `context-handoff` |
    | A big job spanning files or subsystems, with a teammate available | `lead-delegation` |
    | Non-ASCII text, a BOM, a parse failure that looks like a wiring bug | `encoding-hygiene` |
+   | Icons, an icon set, emoji standing in for icons, an icon that should animate | `icon-design` |
+   | A transition, a video, a GIF, a screen recording, which tool to use for motion | `motion-and-video` |
+   | Choosing a library or tool, citing a version or flag, comparing two tools | `source-verification` |
    | A client-supplied repository | `client-code-intake` |
 
    **Do not load a skill to check whether it applies** - read its catalog description instead.

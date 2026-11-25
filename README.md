@@ -87,6 +87,9 @@ The engineering skills are stack-neutral, which is how they end up citing Postgr
 |---|---|
 | `context-handoff` | The rolling checkpoint: `HANDOFF.md` refreshed as the work advances, the eleven sections a new session needs, the resume protocol that continues from the file instead of re-planning, and the rule that a finished job gets its content **replaced**, not updated. No context percentage anywhere — the trigger is an event, so a 128k window and a 1M window follow the same rule. |
 | `lead-delegation` | The Lead commands, the agents implement: what the Lead keeps and what it hands over, the six-field brief a worker needs (it shares none of your conversation), disjoint write scopes, an audit run by someone who did not write the code, and a return path that keeps dumps out of the Lead's context. |
+| `icon-design` | An icon set that reads as one family: the 24px grid, six primitives, named layers so a part can move, four treatments from one drawing (outline, solid, duotone, glass), motion authored per icon, and the model-independent path for a model that cannot draw curves. |
+| `motion-and-video` | Motion and video with a tool that exists here: transform/opacity only, the 120/200/320 timings, reduced motion, and the ffmpeg recipes for cut, crossfade, caption, GIF and screen capture - with the list of tools this machine does not have. |
+| `source-verification` | A tool is good when it ran here: the six-rung source ladder, registry metadata and hash match before an install, the smallest real run plus a boundary case, a measure instead of an adjective, and a dated record of what each source proves. |
 | `encoding-hygiene` | Mojibake as silent corruption: the three ways text rots (cp1252 round trip, UTF-16 where UTF-8 was expected, a BOM that hides frontmatter), writing UTF-8 without a BOM on every surface, detecting by bytes because an ANSI console shows a correct em dash and a corrupted one identically, targeted repair instead of a destructive round trip, and a gate that fails the build. |
 
 Four always-on policy sections ship with the plugin, and the newest is `deepseek-harness:handoff-policy` — the checkpoint rules that hold even when the skill body has not been loaded. The split is deliberate: `organizer` decides **where** the file lives, `plannable` owns the parts and the evidence, `project-quality-chain` owns the completion claim, the scale policy decides **when** a job escalates to a team while `lead-delegation` decides **how** the Lead runs it, and `context-handoff` owns **only** the transfer document.
@@ -113,9 +116,9 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 
 - `sandbox-mode`, `plannable`, `organizer` — with their policy sections and `references/`
 - the eleven `senior-*` audits — with the senior policy section
-- the thirty-one folder skills under `skills/` — including `context-handoff`, `lead-delegation` and `encoding-hygiene`
+- the thirty-four folder skills under `skills/`
 
-45 skills in one install. The harness plugin injects four policy sections (`skills-policy` at 150, `handoff-policy` at 165, `organizer-policy` at 170, `scale-policy` before the Agent Teams section) and the senior plugin injects its own senior-engineering policy at 160 — five sections in total across the two plugins. No sub-package paths, no second install.
+48 skills in one install. The harness plugin injects four policy sections (`skills-policy` at 150, `handoff-policy` at 165, `organizer-policy` at 170, `scale-policy` before the Agent Teams section) and the senior plugin injects its own senior-engineering policy at 160 — five sections in total across the two plugins. No sub-package paths, no second install.
 
 > **Fixed in 1.1.0.** Earlier commits failed with *"This package declares no bundle, so it cannot be managed as a plugin"* — the root had no `package.json`, so the installer had nothing to mount.
 
@@ -123,7 +126,7 @@ The repository root is itself a bundle (`package.json` → `dsh.bundle.patch` �
 
 Copy `skills\*` into `~/.dsh/skills/`. The filesystem provider picks them up on the next turn, with no restart. Use this when you want the design and stack skills without the plugin machinery.
 
-That installs the thirty-one folder skills only. Their cross-references to the eleven `senior-*` audits and the three core skills resolve **only when the plugin bundle is also installed** - the folder path is the design and stack half of the pack, not the whole of it. The always-on handoff policy is injected by the plugin, so the folder-only install gets the `context-handoff` skill body without it.
+That installs the thirty-four folder skills only. Their cross-references to the eleven `senior-*` audits and the three core skills resolve **only when the plugin bundle is also installed** - the folder path is the design and stack half of the pack, not the whole of it. The always-on handoff policy is injected by the plugin, so the folder-only install gets the `context-handoff` skill body without it.
 
 Full per-tool instructions, including Claude Code and the other agents, are in [INSTALL.md](INSTALL.md).
 > **Do not install both this bundle and another pack that ships the same `senior-*` names into one DSH profile.** The 11 senior audits would register twice. This bundle already includes them. Short version: copy `skills/*` into `~/.dsh/skills/` (picked up on the next turn, no restart), and install the two plugin packages under a DSH profile with `pnpm`.

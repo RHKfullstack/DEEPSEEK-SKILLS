@@ -24,6 +24,59 @@ The single highest-leverage change is step 1. Skipping it is why the same agent 
 4. **Get one reference.** Ask the user for a screenshot of a screen whose quality bar they want matched, or pick one concrete reference (a public product in the same category). Match its *spacing and type rhythm*, not its brand.
 5. **Count the surfaces.** List the screens/states you will build. If the user asked for "a dashboard", the deliverable includes empty, loading, and error dashboards — not just the happy path with fake data.
 
+## 1b. The direction decision — the outline card is not a design
+
+**The default this pack keeps producing: a white card, a 1px neutral border, a 16px radius, repeated for every object on the screen.** It is the default because it needs no decision — any model can emit `border: 1px solid #e5e7eb; border-radius: 16px`. It is also why a finished build reads as a prototype: when every surface is outlined the same way, nothing on the page carries more weight than anything else.
+
+So the surface language is **decided once, written down, and applied to every container**:
+
+| Direction | The container is | What it needs | Fails when |
+|---|---|---|---|
+| **Tinted surfaces** | a surface colour step, no border, no shadow | a 3-step tinted neutral ramp | the ramp is too subtle to see |
+| **Elevation** | a shadow only, no border | tinted shadows, 2 levels maximum | the shadow sits on a bordered card |
+| **Hairline on tint** | a 1px border in a *tinted* neutral, on a tinted background | a border token that is not `#e5e7eb` | it is the same border on white |
+| **Borderless structure** | no container at all — spacing and type do the grouping | real hierarchy and generous rhythm | the grouping becomes unreadable |
+| **Editorial split** | an asymmetric background change, or one accent panel per view | layout confidence | it becomes decoration without meaning |
+
+- **Exactly one direction per project.** Two surface languages on one screen is the "outlined *and* shadowed" mess that reads as assembled rather than designed.
+- **The direction is written down before the first component** — one line in the plan or the file header: `surface language: tinted, --surface-1/2/3, no border on content containers`.
+- **If a container needs a border to be understood, the hierarchy has failed**, not the container.
+
+### The signature decision
+
+Tokens make a page *correct*. One deliberate decision makes it *designed*, and it has to be specific to this product rather than inherited from a library:
+
+- a type pairing — a display face used in exactly one place, body at one size;
+- an accent hue derived from the brand, used in one role only;
+- a grid break — a full-bleed band, an off-grid image, an asymmetric column;
+- an icon family with one stroke weight and one corner treatment (`icon-design`);
+- a surface the product owns — a dark panel that only the primary action lives in, a paper texture, a hard edge instead of a radius.
+
+**One, not five.** Three signature moves cancel each other and read as noise.
+
+### The cover test
+
+Cover the logo. **Could this screen be any product?** If yes, there is no direction — go back to the table. A screen that survives the cover test has at least one thing a competitor would not accidentally copy.
+
+**EVIDENCE: the one-line surface language and the one signature decision, both written before the first component.**
+
+### A reference read, so the bar is concrete
+
+This is a read of a real page that clears the bar — `https://jiggicons.com` at `1440×900`. Study the *decisions*, not the brand:
+
+| What it does | Why it clears the bar |
+|---|---|
+| One ~600px measure inside a 1440 viewport, huge empty margins | the page has one thing to say per line; nothing competes for width |
+| **No cards at all.** Content sits on the page | the outline-card default is absent, so hierarchy has to come from type and space |
+| Surface language: flat white page + one black bar + one warm-grey band + one soft pill | five surface steps, no borders, and each band means something |
+| Exactly **one heavy element** — the black CTA with the price inside it | one primary action, and a product-specific move (price in the button) rather than a generic "Get started" |
+| The product is the **first** visual: an icon strip, before any prose | show the thing before describing it |
+| One type family, ~3 sizes; hierarchy from weight and space, not size | a squint still separates lead, body and meta |
+| The only borders are structural (row rules inside the sampler grid) | a border that carries information, not decoration |
+| Social proof as one live line with a green dot, not a wall of quotes | confidence without a component |
+
+Run the same read on any reference before copying anything: list what it does that a default build would not. If the list is empty, the reference is not a reference.
+
 ## 2. Tokens — the actual values
 
 Use these unless the project already defines its own. Adapt, do not invent a fourth scale.
@@ -38,7 +91,7 @@ Use these unless the project already defines its own. Adapt, do not invent a fou
 
 **Radius:** `sm 6`, `md 10`, `lg 16`, `full 999`. One family: pick md for controls, lg for cards. **Never mix unrelated radii** (`4px` inputs with `12px` cards is the tell).
 
-**Elevation (3 levels max):** `sm 0 1px 2px rgb(0 0 0 / .06)`, `md 0 4px 12px rgb(0 0 0 / .08)`, `lg 0 12px 32px rgb(0 0 0 / .12)`. Shadows are tinted by the background hue, never pure black. Flat surfaces get no shadow — use a border instead.
+**Elevation (3 levels max):** `sm 0 1px 2px rgb(0 0 0 / .06)`, `md 0 4px 12px rgb(0 0 0 / .08)`, `lg 0 12px 32px rgb(0 0 0 / .12)`. Shadows are tinted by the background hue, never pure black. A flat surface gets **neither a shadow nor a border by default** — §1b decides which one this project uses, and it is one, applied everywhere.
 
 **Color roles (not hex names):** `--bg`, `--surface`, `--surface-2`, `--border`, `--text`, `--text-muted`, `--accent`, `--accent-contrast`, `--success`, `--warning`, `--danger`. One accent. Neutrals are *tinted* (a hint of the accent hue) — pure `#000`/`#fff` and pure grays look cheap.
 
@@ -106,6 +159,8 @@ A browser control is not a design — it is the absence of one, and it is the fa
 - Uniform visual weight: no clear h1/h2/body/caption distinction.
 - Cramped: no 24px+ breathing room between sections, or `gap: 4px` everywhere.
 - `border: 1px solid #e5e7eb` applied indiscriminately to every container.
+- **The outline-card default**: every object is a white card with a 1px neutral border and the same radius (§1b). One outlined card is a decision; twelve of them is the absence of one.
+- **No named direction** — no surface language, no signature decision, nothing a competitor would not accidentally copy (§1b cover test).
 - Multiple competing CTA styles in one viewport.
 - Icon-only buttons with no `aria-label` and no tooltip.
 - Fake data that pretends to be real (`Lorem ipsum`, `John Doe`, `$1,234.56`) in a demo that is meant to look finished — use plausible, category-correct content.
@@ -129,6 +184,8 @@ A screenshot is not a preview. Serve the page on `127.0.0.1`, give the owner the
 ## 7. Acceptance rubric
 
 - [ ] Every spacing/size/color value resolves to a token (§0, §2)
+- [ ] One surface language, named and applied to every container — no outline-card repetition (§1b)
+- [ ] One signature decision, specific to this product; the page survives the cover test (§1b)
 - [ ] ≤4 type sizes on the screen; hierarchy readable at a squint
 - [ ] Contrast ≥ `4.5:1` body, ≥ `3:1` large text and UI borders
 - [ ] All 8 states present on interactive elements (§4)
@@ -144,7 +201,8 @@ A screenshot is not a preview. Serve the page on `127.0.0.1`, give the owner the
 In order of impact per line changed:
 
 1. Set a consistent spacing scale and apply it — most "cheap" is inconsistent rhythm.
-2. Reduce the number of font sizes from ~7 to 4, and raise body to 16px.
+2. **Kill the outline card.** Pick one surface language from §1b and apply it everywhere; the single fastest visual upgrade is deleting twelve 1px borders and letting surface tone or elevation do the work.
+3. Reduce the number of font sizes from ~7 to 4, and raise body to 16px.
 3. Replace 5 grays with 3 semantic roles, and tint the neutrals.
 4. Remove all shadows from bordered cards; keep one elevation level for overlays only.
 5. Increase section padding to 24–32 and line-height to 1.5.
